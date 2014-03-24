@@ -13,7 +13,7 @@
 
 package principal;
 /*
- * Prueba desde eclipse (aunque de fallo) de modificacion de LIN
+ * Prueba desde eclipse (ya configurado con el tutorial)
  */
 import presentacion.ventanas.VentanaPrincipal;
 
