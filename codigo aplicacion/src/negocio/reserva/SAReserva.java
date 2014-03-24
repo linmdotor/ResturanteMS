@@ -12,14 +12,14 @@ import java.util.ArrayList;
 
 public interface SAReserva {
 
-	public ArrayList<TReserva> obtenerReservas();
+	public ArrayList<TReserva> obtenerReservas() throws Exception;
 
-	public TReserva obtenerReserva(int ID);
+	public TReserva obtenerReserva(int ID) throws Exception;
 
-	public boolean anadirReserva(TReserva tReserva);
+	public boolean anadirReserva(TReserva tReserva) throws Exception;
 
-	public boolean eliminarReserva(int ID);
+	public boolean eliminarReserva(int ID) throws Exception;
 
-	public boolean modificarReserva(TReserva tReserva);
+	public boolean modificarReserva(TReserva tReserva) throws Exception;
 
 }

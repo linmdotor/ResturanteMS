@@ -22,16 +22,21 @@ public class CMDAltaPlato implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		RespuestaCMD respuestaComando;
+		RespuestaCMD respuestaComando = null;
 
 		SAPlato serviciosPlato = FactoriaNegocio.obtenerInstancia().generaSAPlato();
 
 		if (new ValidarTPlato().transferCorrecto((TPlato) objeto))
 		{
-			if (serviciosPlato.anadirPlato((TPlato) objeto))
-				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_PLATO, "Se ha a�adido el Plato.");
-			else
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar plato. Error al insertar los datos.");
+			try {
+				if (serviciosPlato.anadirPlato((TPlato) objeto))
+					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_PLATO, "Se ha a�adido el Plato.");
+				else
+					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar plato. Error al insertar los datos.");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else
 			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar plato. Los datos no son v�lidos.");

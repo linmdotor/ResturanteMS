@@ -5,6 +5,7 @@ package integracion.transaccion.imp;
 
 import integracion.transaccion.Transaction;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TransactionMySQL implements Transaction {
@@ -41,46 +42,48 @@ public class TransactionMySQL implements Transaction {
 	}
 
 	
-	public Boolean start() {
+	public void start() throws Exception {
 		try {
 			connection.setAutoCommit(false);
 		
-			return true;
+			PreparedStatement starttransaction = connection
+					.prepareStatement("INICIO TRANSACCION");
+		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException("Error al conectar");
+			
 		}
-		return false;
 		// end-user-code
 	}
 
-
-	public Boolean commit() {
+	public void commit() throws Exception {
 
 		try {
-			connection.commit();
-			return true;
+			PreparedStatement commit = connection
+					.prepareStatement("COMMIT");
+			commit.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			rollback();
+			throw new Exception("Error al realizar commit");
+
 			
 		}
 		
-		return false;
+		
 
 	}
 
 
-	public Boolean rollback() {
+	public void rollback() throws Exception {
 
 		try {
-			connection.rollback();
-			return true;
+			PreparedStatement rollback = connection.prepareStatement("ROLLBACK");
+			rollback.execute();
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			throw new Exception("Error al hacer rollback");
 			
 		}
-		return false;
 
 	}
 
@@ -90,8 +93,7 @@ public class TransactionMySQL implements Transaction {
 	}
 
 
-	public Boolean lock() {
-		//connection.
-		return null;
+	public void lock() {
+		
 	}
 }

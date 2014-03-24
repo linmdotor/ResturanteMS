@@ -24,7 +24,7 @@ public class SAPlatoImp implements SAPlato {
 
 	// Metodos
 
-	public ArrayList<TPlato> obtenerPlatos() {
+	public ArrayList<TPlato> obtenerPlatos() throws Exception {
 		
 		DAOPlato daoPlato= FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
 
@@ -48,7 +48,7 @@ public class SAPlatoImp implements SAPlato {
 
 	}
 
-	public TPlato obtenerPlato(int ID) {
+	public TPlato obtenerPlato(int ID) throws Exception {
 
 		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
 
@@ -71,7 +71,7 @@ public class SAPlatoImp implements SAPlato {
 
 	}
 
-	public boolean anadirPlato(TPlato tPlato) 
+	public boolean anadirPlato(TPlato tPlato) throws Exception
 	{
 		
 		TransactionManager.getInstance().nuevaTransaccion();
@@ -96,7 +96,7 @@ public class SAPlatoImp implements SAPlato {
 		}
 	}
 
-	public boolean eliminarPlato(int ID) {
+	public boolean eliminarPlato(int ID) throws Exception{
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
@@ -121,7 +121,7 @@ public class SAPlatoImp implements SAPlato {
 
 	}
 
-	public boolean modificarPlato(TPlato tPlato) {
+	public boolean modificarPlato(TPlato tPlato)throws Exception {
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
@@ -147,7 +147,7 @@ public class SAPlatoImp implements SAPlato {
 	}
 	
 	@Override
-	public ArrayList<TPlato> obtenerPlatosOrdenadosPorPrecio() {
+	public ArrayList<TPlato> obtenerPlatosOrdenadosPorPrecio() throws Exception{
 
 		
 		TransactionManager.getInstance().nuevaTransaccion();
@@ -170,7 +170,7 @@ public class SAPlatoImp implements SAPlato {
 	}
 
 	@Override
-	public ArrayList<TPlato> obtenerPlatosOrdenadosPorStock() {
+	public ArrayList<TPlato> obtenerPlatosOrdenadosPorStock() throws Exception{
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();

@@ -22,16 +22,21 @@ public class CMDAltaReserva implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		RespuestaCMD respuestaComando;
+		RespuestaCMD respuestaComando = null;
 
 		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia().generaSAReserva();
 
 		if (new ValidarTReserva().transferCorrecto((TReserva) objeto))
 		{
-			if (serviciosReserva.anadirReserva((TReserva) objeto))
-				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_RESERVA, "Se ha a�adido la Reserva.");
-			else
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar la reserva. Error al insertar los datos.");
+			try {
+				if (serviciosReserva.anadirReserva((TReserva) objeto))
+					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_RESERVA, "Se ha a�adido la Reserva.");
+				else
+					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar la reserva. Error al insertar los datos.");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else
 			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar la reserva. Los datos no son v�lidos.");

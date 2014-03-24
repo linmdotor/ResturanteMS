@@ -2,7 +2,7 @@
  * 
  * Comando Eliminar Plato
  * 
- * @author Marco González, Juan Carlos * @author Martínez Dotor, Jesús * @author Picado Álvarez, María * @author Rojas Morán, Amy Alejandra * @author Serrano Álvarez, José * @author Vargas Paredes, Jhonny
+ * @author Marco Gonzï¿½lez, Juan Carlos * @author Martï¿½nez Dotor, Jesï¿½s * @author Picado ï¿½lvarez, Marï¿½a * @author Rojas Morï¿½n, Amy Alejandra * @author Serrano ï¿½lvarez, Josï¿½ * @author Vargas Paredes, Jhonny
  *  
  */
 
@@ -20,7 +20,7 @@ public class CMDBajaPlato implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		RespuestaCMD respuestaComando;
+		RespuestaCMD respuestaComando = null;
 
 		SAPlato serviciosProductosCarta = FactoriaNegocio.obtenerInstancia().generaSAPlato();
 
@@ -29,13 +29,19 @@ public class CMDBajaPlato implements CMD {
 		if ((Integer) objeto != -1) 
 		{
 
-			ID = serviciosProductosCarta.obtenerPlatos().get((Integer) objeto).getID();
+			try {
+				ID = serviciosProductosCarta.obtenerPlatos().get((Integer) objeto).getID();
+				if (serviciosProductosCarta.eliminarPlato(ID))
+					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_PLATO, "Exito eliminando Plato.");
+				else
+					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al eliminar plato. No se puede eliminar un plato que estï¿½ en un pedido.");
+		
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-			if (serviciosProductosCarta.eliminarPlato(ID))
-				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_PLATO, "Exito eliminando Plato.");
-			else
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al eliminar plato. No se puede eliminar un plato que esté en un pedido.");
-		}
+			}
 		else
 			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al eliminar plato. Debe seleccionar un Plato.");
 

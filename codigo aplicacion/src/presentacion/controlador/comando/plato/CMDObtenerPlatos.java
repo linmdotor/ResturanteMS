@@ -23,8 +23,14 @@ public class CMDObtenerPlatos implements CMD {
 		SAPlato serviciosProductosCarta = FactoriaNegocio.obtenerInstancia()
 				.generaSAPlato();
 
-		RespuestaCMD respuestaComando = new RespuestaCMD(EnumComandos.OBTENERPLATOS,
-				serviciosProductosCarta.obtenerPlatos());
+		RespuestaCMD respuestaComando = null;
+		try {
+			respuestaComando = new RespuestaCMD(EnumComandos.OBTENERPLATOS,
+					serviciosProductosCarta.obtenerPlatos());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return respuestaComando;
 

@@ -2,7 +2,7 @@
  * 
  * Comando Eliminar Plato
  * 
- * @author Marco González, Juan Carlos * @author Martínez Dotor, Jesús * @author Picado Álvarez, María * @author Rojas Morán, Amy Alejandra * @author Serrano Álvarez, José * @author Vargas Paredes, Jhonny
+ * @author Marco Gonzï¿½lez, Juan Carlos * @author Martï¿½nez Dotor, Jesï¿½s * @author Picado ï¿½lvarez, Marï¿½a * @author Rojas Morï¿½n, Amy Alejandra * @author Serrano ï¿½lvarez, Josï¿½ * @author Vargas Paredes, Jhonny
  *  
  */
 
@@ -20,7 +20,7 @@ public class CMDBajaReserva implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		RespuestaCMD respuestaComando;
+		RespuestaCMD respuestaComando = null;
 
 		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia().generaSAReserva();
 
@@ -29,13 +29,19 @@ public class CMDBajaReserva implements CMD {
 		if ((Integer) objeto != -1)
 		{
 
-			ID = serviciosReserva.obtenerReservas().get((Integer) objeto).getID();
+			try {
+				ID = serviciosReserva.obtenerReservas().get((Integer) objeto).getID();
+				if (serviciosReserva.eliminarReserva(ID))
+					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_RESERVA, "Exito eliminando Reserva.");
+				else
+					respuestaComando = new RespuestaCMD(EnumComandos.ERROR,	"Error al eliminar reserva. Error al eliminar los datos.");
+		
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-			if (serviciosReserva.eliminarReserva(ID))
-				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_RESERVA, "Exito eliminando Reserva.");
-			else
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR,	"Error al eliminar reserva. Error al eliminar los datos.");
-		}
+				}
 		else
 			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al eliminar reserva. Debe seleccionar una Reserva.");
 

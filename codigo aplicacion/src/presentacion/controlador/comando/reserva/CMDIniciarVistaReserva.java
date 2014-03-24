@@ -22,9 +22,14 @@ public class CMDIniciarVistaReserva implements CMD {
 
 		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia()
 				.generaSAReserva();
-		
-		return new RespuestaCMD(EnumComandos.INICIAR_VISTA_RESERVA, serviciosReserva.obtenerReservas());
-
+		RespuestaCMD respuesta = null;
+		try {
+			respuesta=  new RespuestaCMD(EnumComandos.INICIAR_VISTA_RESERVA, serviciosReserva.obtenerReservas());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return respuesta;
 	}
 
 }

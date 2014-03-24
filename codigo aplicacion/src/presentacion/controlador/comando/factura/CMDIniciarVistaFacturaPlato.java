@@ -16,17 +16,23 @@ public class CMDIniciarVistaFacturaPlato implements CMD {
 		SAPlato serviciosPlato = FactoriaNegocio.obtenerInstancia().generaSAPlato();
 		
 		TFactura t = (TFactura)objeto;
-		
+		RespuestaCMD respuesta = null;
 		SAFactura serviciosfactura = FactoriaNegocio.obtenerInstancia().generaSAFactura();		
-		if (!serviciosfactura.existeFacturaPlato(t.getID_Factura()))
-		{
-			if(t.getID_Factura() != -1)
-				return new RespuestaCMD(EnumComandos.INICIAR_VISTA_FACTURAPLATO, serviciosPlato.obtenerPlatos());
+		try {
+			if (!serviciosfactura.existeFacturaPlato(t.getID_Factura()))
+			{
+				if(t.getID_Factura() != -1)
+					respuesta = new RespuestaCMD(EnumComandos.INICIAR_VISTA_FACTURAPLATO, serviciosPlato.obtenerPlatos());
+				else
+					respuesta = new RespuestaCMD(EnumComandos.ERROR, "Debe seleccionar una factura para poder anadir platos");
+			}
 			else
-				return new RespuestaCMD(EnumComandos.ERROR, "Debe seleccionar una factura para poder anadir platos");
+				respuesta =  new RespuestaCMD(EnumComandos.ERROR, "No puede volver a insertar platos en una factura finalizada");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else
-			return new RespuestaCMD(EnumComandos.ERROR, "No puede volver a insertar platos en una factura finalizada");
+		return respuesta;
 	}
 
 }

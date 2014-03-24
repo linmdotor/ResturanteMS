@@ -14,7 +14,13 @@ public class CMDObtenerFacturas implements CMD {
 
 			SAFactura serviciosFactura = FactoriaNegocio.obtenerInstancia().generaSAFactura();
 
-			RespuestaCMD respuestaComando = new RespuestaCMD(EnumComandos.OBTENERFACTURAS, serviciosFactura.obtenerFacturas());
+			RespuestaCMD respuestaComando = null;
+			try {
+				respuestaComando = new RespuestaCMD(EnumComandos.OBTENERFACTURAS, serviciosFactura.obtenerFacturas());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			return respuestaComando;
 

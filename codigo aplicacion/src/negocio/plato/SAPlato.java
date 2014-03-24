@@ -12,18 +12,18 @@ import java.util.ArrayList;
 
 public interface SAPlato {
 
-	public ArrayList<TPlato> obtenerPlatos();
+	public ArrayList<TPlato> obtenerPlatos() throws Exception;
 
-	public TPlato obtenerPlato(int ID);
+	public TPlato obtenerPlato(int ID) throws Exception;
 
-	public boolean anadirPlato(TPlato tPlato);
+	public boolean anadirPlato(TPlato tPlato) throws Exception;
 
-	public boolean eliminarPlato(int ID);
+	public boolean eliminarPlato(int ID) throws Exception;
 
-	public boolean modificarPlato(TPlato tPlato);
+	public boolean modificarPlato(TPlato tPlato) throws Exception;
 	
-	public ArrayList<TPlato> obtenerPlatosOrdenadosPorPrecio();
+	public ArrayList<TPlato> obtenerPlatosOrdenadosPorPrecio() throws Exception;
 	
-	public ArrayList<TPlato> obtenerPlatosOrdenadosPorStock();
+	public ArrayList<TPlato> obtenerPlatosOrdenadosPorStock() throws Exception;
 
 }

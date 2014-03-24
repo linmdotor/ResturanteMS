@@ -14,7 +14,7 @@ public class CMDAltaFacturaPlato implements CMD {
 	@Override
 	public RespuestaCMD ejecuta(Object objeto) {
 	
-		RespuestaCMD respuestaComando;
+		RespuestaCMD respuestaComando = null;
 		
 		ArrayList<TFacturaPlato> lista = (ArrayList<TFacturaPlato>) objeto;
 	
@@ -22,12 +22,17 @@ public class CMDAltaFacturaPlato implements CMD {
 		{
 			SAFactura serviciosFactura = FactoriaNegocio.obtenerInstancia().generaSAFactura();
 	
-			if (serviciosFactura.anadirPlatosAFactura((ArrayList<TFacturaPlato>) objeto))
-			{
-				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_FACTURAPLATO, "Se han a�adido los platos a la factura.");
+			try {
+				if (serviciosFactura.anadirPlatosAFactura((ArrayList<TFacturaPlato>) objeto))
+				{
+					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_FACTURAPLATO, "Se han a�adido los platos a la factura.");
+				}
+				else
+					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. Asegurese de que no esos platos no est�n ya insertados.");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			else
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. Asegurese de que no esos platos no est�n ya insertados.");
 
 		}
 		else

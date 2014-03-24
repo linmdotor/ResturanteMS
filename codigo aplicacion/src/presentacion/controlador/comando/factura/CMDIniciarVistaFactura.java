@@ -12,8 +12,15 @@ public class CMDIniciarVistaFactura implements CMD {
 	public RespuestaCMD ejecuta(Object objeto) {
 		
 		SAFactura serviciosFactura = FactoriaNegocio.obtenerInstancia().generaSAFactura();
+		RespuestaCMD respuesta = null;
 		
-		return new RespuestaCMD(EnumComandos.INICIAR_VISTA_FACTURA, serviciosFactura.obtenerFacturas());
+		try {
+			respuesta =  new RespuestaCMD(EnumComandos.INICIAR_VISTA_FACTURA, serviciosFactura.obtenerFacturas());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return respuesta;
 
 	}
 

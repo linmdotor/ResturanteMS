@@ -22,7 +22,13 @@ public class CMDObtenerReservas implements CMD {
 
 		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia().generaSAReserva();
 
-		RespuestaCMD respuestaComando = new RespuestaCMD(EnumComandos.OBTENERRESERVAS,	serviciosReserva.obtenerReservas());
+		RespuestaCMD respuestaComando = null;
+		try {
+			respuestaComando = new RespuestaCMD(EnumComandos.OBTENERRESERVAS,	serviciosReserva.obtenerReservas());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return respuestaComando;
 

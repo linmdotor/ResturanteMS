@@ -22,7 +22,7 @@ public class SAReservaImp implements SAReserva {
 
 	// Metodos
 
-	public ArrayList<TReserva> obtenerReservas() {
+	public ArrayList<TReserva> obtenerReservas() throws Exception{
 
 		DAOReserva daoReserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();
 
@@ -46,7 +46,7 @@ public class SAReservaImp implements SAReserva {
 
 	}
 
-	public TReserva obtenerReserva(int ID) {
+	public TReserva obtenerReserva(int ID) throws Exception{
 
 		DAOReserva daoReserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();
 
@@ -69,7 +69,7 @@ public class SAReservaImp implements SAReserva {
 
 	}
 
-	public boolean anadirReserva(TReserva tReserva) 
+	public boolean anadirReserva(TReserva tReserva) throws Exception
 	{
 		
 		TransactionManager.getInstance().nuevaTransaccion();
@@ -93,7 +93,7 @@ public class SAReservaImp implements SAReserva {
 		}
 	}
 
-	public boolean eliminarReserva(int ID) {
+	public boolean eliminarReserva(int ID) throws Exception{
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
@@ -118,7 +118,7 @@ public class SAReservaImp implements SAReserva {
 
 	}
 
-	public boolean modificarReserva(TReserva tReserva) {
+	public boolean modificarReserva(TReserva tReserva) throws Exception{
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();

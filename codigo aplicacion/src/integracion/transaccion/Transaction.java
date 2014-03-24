@@ -5,15 +5,16 @@ package integracion.transaccion;
 
 
 
+
 public interface Transaction {
 	
-	public Boolean start();
+	public void start() throws  Exception;
 
-	public Boolean commit();
+	public void commit() throws Exception;
 
-	public Boolean rollback();
+	public void rollback() throws Exception;
 
 	public Object getResource();
 
-	public Boolean lock();
+	public void lock();
 }

@@ -14,7 +14,12 @@ public class CMDModificarFormularioFactura implements CMD {
 		
 		RespuestaCMD respuestaCMD = new RespuestaCMD(EnumComandos.ERROR, "No se ha podido cargar la Factura seleccionada");
 						
-		respuestaCMD = new RespuestaCMD(EnumComandos.MODIFICAR_FORMULARIO_FACTURA, serviciosFactura.obtenerFacturas().get( (Integer) objeto ) );
+		try {
+			respuestaCMD = new RespuestaCMD(EnumComandos.MODIFICAR_FORMULARIO_FACTURA, serviciosFactura.obtenerFacturas().get( (Integer) objeto ) );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return respuestaCMD;
 	}

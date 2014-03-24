@@ -29,36 +29,45 @@ public class CMDImprimirFactura implements CMD{
 		
 		//consigo el Transfer Factura y Platos
 		SAFactura serviciosFactura = FactoriaNegocio.obtenerInstancia().generaSAFactura();		
-		TFactura tfactura = serviciosFactura.obtenerFactura(tfacturaplatos.get(0).getID_Factura());
-		
-		SAPlato serviciosPlato = FactoriaNegocio.obtenerInstancia().generaSAPlato();
-		ArrayList<TPlato> tplatos = new ArrayList<TPlato>();
-		
-		float total = 0;
-		
-		for(TFacturaPlato t : tfacturaplatos)
-		{
-			tplatos.add(serviciosPlato.obtenerPlato(t.getID_Plato()));
-			total = total + (t.getPrecio()*t.getCantidad());
+		TFactura tfactura;
+		RespuestaCMD respuesta = null;
+		try {
+			tfactura = serviciosFactura.obtenerFactura(tfacturaplatos.get(0).getID_Factura());
+			SAPlato serviciosPlato = FactoriaNegocio.obtenerInstancia().generaSAPlato();
+			ArrayList<TPlato> tplatos = new ArrayList<TPlato>();
+			
+			float total = 0;
+			
+			for(TFacturaPlato t : tfacturaplatos)
+			{
+				tplatos.add(serviciosPlato.obtenerPlato(t.getID_Plato()));
+				total = total + (t.getPrecio()*t.getCantidad());
+			}
+			
+			
+			String ruta = "C:\\Users\\juancly\\Desktop\\factura_" + tfactura.getID_Factura() + ".pdf";
+			
+			//imprimo la factura
+			
+			String [][] str = guardarDatosTicket(tplatos, tfacturaplatos);
+			try {
+				
+				generarPDF(str, tfactura, total, ruta);
+				
+			} catch (IOException | DocumentException e) {
+				
+				e.printStackTrace();
+				respuesta= new RespuestaCMD(EnumComandos.ERROR, "Error al generar la factura.");
+			}		
+			
+			respuesta= new RespuestaCMD(EnumComandos.CORRECTO, "Factura generada en: " + ruta);
+
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
-		
-		String ruta = "C:\\Users\\juancly\\Desktop\\factura_" + tfactura.getID_Factura() + ".pdf";
-		
-		//imprimo la factura
-		
-		String [][] str = guardarDatosTicket(tplatos, tfacturaplatos);
-		try {
-			
-			generarPDF(str, tfactura, total, ruta);
-			
-		} catch (IOException | DocumentException e) {
-			
-			e.printStackTrace();
-			return new RespuestaCMD(EnumComandos.ERROR, "Error al generar la factura.");
-		}		
-		
-		return new RespuestaCMD(EnumComandos.CORRECTO, "Factura generada en: " + ruta);
+		return respuesta;
 	}
 	
 	
@@ -79,7 +88,7 @@ public class CMDImprimirFactura implements CMD{
 		documento.add(new Paragraph("DATOS EMPRESA                                                            DATOS CLIENTE"));
 		documento.add(new Paragraph("NIF: " + tfactura.getNIF_Empresa() + "                                                                     NIF: " + tfactura.getNIF_Cliente() ));
 		documento.add(new Paragraph("Nombre: " + tfactura.getNombre_Empresa() + "                                                 Nombre: " + tfactura.getNombre_Cliente()));
-		documento.add(new Paragraph("Dirección: " + tfactura.getDir_Empresa() + "                                                 Direccion: " + tfactura.getDir_Cliente()));
+		documento.add(new Paragraph("Direcciï¿½n: " + tfactura.getDir_Empresa() + "                                                 Direccion: " + tfactura.getDir_Cliente()));
 		
 		
 		

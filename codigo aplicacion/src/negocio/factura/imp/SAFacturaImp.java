@@ -19,7 +19,7 @@ public class SAFacturaImp implements SAFactura {
 
 	// Metodos
 	
-	public ArrayList<TFactura> obtenerFacturas() {
+	public ArrayList<TFactura> obtenerFacturas() throws Exception {
 		
 		DAOFactura daoFactura = FactoriaIntegracion.obtenerInstancia().generaDAOFactura();
 
@@ -42,7 +42,7 @@ public class SAFacturaImp implements SAFactura {
 		return facturas;
 	}
 
-	public TFactura obtenerFactura(int ID) {
+	public TFactura obtenerFactura(int ID) throws Exception {
 
 		DAOFactura daoFactura = FactoriaIntegracion.obtenerInstancia().generaDAOFactura();
 
@@ -64,7 +64,7 @@ public class SAFacturaImp implements SAFactura {
 		return tFactura;
 	}
 
-	public boolean anadirFactura(TFactura tFactura) {
+	public boolean anadirFactura(TFactura tFactura) throws Exception {
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
@@ -87,7 +87,7 @@ public class SAFacturaImp implements SAFactura {
 		}
 	}
 
-	public boolean eliminarFactura(int ID) {
+	public boolean eliminarFactura(int ID) throws Exception {
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
@@ -109,7 +109,7 @@ public class SAFacturaImp implements SAFactura {
 		}
 	}
 
-	public boolean anadirPlatosAFactura(ArrayList<TFacturaPlato> listatFacturaPlatos) {
+	public boolean anadirPlatosAFactura(ArrayList<TFacturaPlato> listatFacturaPlatos) throws Exception {
 		
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
@@ -139,7 +139,7 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	@Override
-	public boolean existeFacturaPlato(int ID) {
+	public boolean existeFacturaPlato(int ID) throws Exception {
 		DAOFactura daoFactura = FactoriaIntegracion.obtenerInstancia().generaDAOFactura();
 
 		TransactionManager.getInstance().nuevaTransaccion();
