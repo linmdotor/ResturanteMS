@@ -12,7 +12,9 @@
  */
 
 package principal;
-
+/*
+ * Prueba de modificacion de LIN
+ */
 import presentacion.ventanas.VentanaPrincipal;
 
 
