@@ -2,7 +2,7 @@
  * 
  * Vista del Almacen de Platos
  * 
- * @author Marco González, Juan Carlos * @author Martínez Dotor, Jesús * @author Picado Álvarez, María * @author Rojas Morán, Amy Alejandra * @author Serrano Álvarez, José * @author Vargas Paredes, Jhonny
+ * @author Marco Gonzï¿½lez, Juan Carlos * @author Martï¿½nez Dotor, Jesï¿½s * @author Picado ï¿½lvarez, Marï¿½a * @author Rojas Morï¿½n, Amy Alejandra * @author Serrano ï¿½lvarez, Josï¿½ * @author Vargas Paredes, Jhonny
  *  
  */
 
@@ -71,7 +71,7 @@ public class VentanaFactura extends JFrame {
 
 	public VentanaFactura(Object objeto) {
 
-		setTitle("Gestión de Facturas");
+		setTitle("Gestiï¿½n de Facturas");
 		setResizable(false);
 		setVisible(false);
 		setSize(1100, 420);
@@ -90,13 +90,13 @@ public class VentanaFactura extends JFrame {
 		btnAadirFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.AÑADIR_FACTURA, obtenerFactura());
+				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ANADIR_FACTURA, obtenerFactura());
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERFACTURAS, obtenerFactura());
 
 			}
 		});
 
-		JButton btnAadirPlatosFactura= new JButton("Añadir Platos a Factura");
+		JButton btnAadirPlatosFactura= new JButton("Anadir Platos a Factura");
 		btnAadirPlatosFactura.setBounds(9, 340, 192, 26);
 		panelFormulario.add(btnAadirPlatosFactura);
 		btnAadirPlatosFactura.addActionListener(new ActionListener() {
@@ -186,7 +186,7 @@ public class VentanaFactura extends JFrame {
 		panelFormulario.add(textFieldDir_Cliente);
 		textFieldDir_Cliente.setColumns(10);
 
-		JLabel lblFecha = new JLabel("Día:");
+		JLabel lblFecha = new JLabel("Dï¿½a:");
 		lblFecha.setBounds(5, 214, 30, 16);
 		panelFormulario.add(lblFecha);
 		
@@ -247,7 +247,7 @@ public class VentanaFactura extends JFrame {
 		btnEliminarFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (mensajeConfirmacionSiNo("¿Realmente desea eliminar la factura?", "Confirmar eliminar Factura"))
+				if (mensajeConfirmacionSiNo("ï¿½Realmente desea eliminar la factura?", "Confirmar eliminar Factura"))
 				{
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ELIMINAR_FACTURA, getTbFacturas().getSelectedRow() );
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERFACTURAS, obtenerFactura());

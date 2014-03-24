@@ -22,16 +22,16 @@ public class CMDAltaFacturaPlato implements CMD {
 		{
 			SAFactura serviciosFactura = FactoriaNegocio.obtenerInstancia().generaSAFactura();
 	
-			if (serviciosFactura.añadirPlatosAFactura((ArrayList<TFacturaPlato>) objeto))
+			if (serviciosFactura.anadirPlatosAFactura((ArrayList<TFacturaPlato>) objeto))
 			{
-				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_FACTURAPLATO, "Se han añadido los platos a la factura.");
+				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_FACTURAPLATO, "Se han aï¿½adido los platos a la factura.");
 			}
 			else
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. Asegurese de que no esos platos no están ya insertados.");
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. Asegurese de que no esos platos no estï¿½n ya insertados.");
 
 		}
 		else
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. No hay ningún plato en la factura.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. No hay ningï¿½n plato en la factura.");
 			
 		return respuestaComando;
 		

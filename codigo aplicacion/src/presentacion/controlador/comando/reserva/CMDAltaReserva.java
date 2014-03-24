@@ -1,8 +1,8 @@
 /**
  * 
- * Comando Añadir Plato
+ * Comando Anadir Plato
  * 
- * @author Marco González, Juan Carlos * @author Martínez Dotor, Jesús * @author Picado Álvarez, María * @author Rojas Morán, Amy Alejandra * @author Serrano Álvarez, José * @author Vargas Paredes, Jhonny
+ * @author Marco Gonzï¿½lez, Juan Carlos * @author Martï¿½nez Dotor, Jesï¿½s * @author Picado ï¿½lvarez, Marï¿½a * @author Rojas Morï¿½n, Amy Alejandra * @author Serrano ï¿½lvarez, Josï¿½ * @author Vargas Paredes, Jhonny
  *  
  */
 
@@ -28,13 +28,13 @@ public class CMDAltaReserva implements CMD {
 
 		if (new ValidarTReserva().transferCorrecto((TReserva) objeto))
 		{
-			if (serviciosReserva.añadirReserva((TReserva) objeto))
-				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_RESERVA, "Se ha añadido la Reserva.");
+			if (serviciosReserva.anadirReserva((TReserva) objeto))
+				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_RESERVA, "Se ha aï¿½adido la Reserva.");
 			else
 				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar la reserva. Error al insertar los datos.");
 		}
 		else
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar la reserva. Los datos no son válidos.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar la reserva. Los datos no son vï¿½lidos.");
 
 		return respuestaComando;
 

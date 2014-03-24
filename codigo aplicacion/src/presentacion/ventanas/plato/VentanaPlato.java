@@ -2,7 +2,7 @@
  * 
  * Vista del Almacen de Platos
  * 
- * @author Marco González, Juan Carlos * @author Martínez Dotor, Jesús * @author Picado Álvarez, María * @author Rojas Morán, Amy Alejandra * @author Serrano Álvarez, José * @author Vargas Paredes, Jhonny
+ * @author Marco Gonzï¿½lez, Juan Carlos * @author Martï¿½nez Dotor, Jesï¿½s * @author Picado ï¿½lvarez, Marï¿½a * @author Rojas Morï¿½n, Amy Alejandra * @author Serrano ï¿½lvarez, Josï¿½ * @author Vargas Paredes, Jhonny
  *  
  */
 
@@ -70,7 +70,7 @@ public class VentanaPlato extends JFrame {
 	public VentanaPlato(Object objeto) {
 
 
-		setTitle("Gestión de Platos");
+		setTitle("Gestiï¿½n de Platos");
 		setResizable(false);
 		setVisible(false);
 		setSize(798, 390);
@@ -89,7 +89,7 @@ public class VentanaPlato extends JFrame {
 		btnAadirProducto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.AÑADIR_PLATO, obtenerPlato());
+				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ANADIR_PLATO, obtenerPlato());
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS, obtenerPlato());
 
 			}
@@ -210,7 +210,7 @@ public class VentanaPlato extends JFrame {
 		btnEliminarProducto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(mensajeConfirmacionSiNo("¿Realmente desea eliminar el plato?", "Confirmar eliminar Plato"))
+				if(mensajeConfirmacionSiNo("ï¿½Realmente desea eliminar el plato?", "Confirmar eliminar Plato"))
 				{
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ELIMINAR_PLATO, getTbAlmacen().getSelectedRow() );
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS, obtenerPlato());
@@ -321,7 +321,7 @@ public class VentanaPlato extends JFrame {
 		}
 
 		
-		//Crea un tipo de transfer u otro en función del tipo que sea el comboBox, pero lo encapsula en TPlato
+		//Crea un tipo de transfer u otro en funciï¿½n del tipo que sea el comboBox, pero lo encapsula en TPlato
 		TPlato t;
 		
 		if(comboBoxTipo.getSelectedItem().toString().compareTo(TipoPlato.EnumTipoPlato.Comida.toString()) == 0)

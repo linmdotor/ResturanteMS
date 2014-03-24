@@ -2,7 +2,7 @@
  * 
  * Factoria de Comandos
  * 
- * @author Marco González, Juan Carlos * @author Martínez Dotor, Jesús * @author Picado Álvarez, María * @author Rojas Morán, Amy Alejandra * @author Serrano Álvarez, José * @author Vargas Paredes, Jhonny
+ * @author Marco Gonzï¿½lez, Juan Carlos * @author Martï¿½nez Dotor, Jesï¿½s * @author Picado ï¿½lvarez, Marï¿½a * @author Rojas Morï¿½n, Amy Alejandra * @author Serrano ï¿½lvarez, Josï¿½ * @author Vargas Paredes, Jhonny
  *  
  */
 
@@ -16,7 +16,7 @@ import presentacion.controlador.EnumComandos;
 import presentacion.controlador.FactoriaCMD;
 import presentacion.controlador.comando.factura.CMDAltaFactura;
 import presentacion.controlador.comando.factura.CMDAltaFacturaPlato;
-import presentacion.controlador.comando.factura.CMDAñadirPlatoAFactura;
+import presentacion.controlador.comando.factura.CMDAnadirPlatoAFactura;
 import presentacion.controlador.comando.factura.CMDBajaFactura;
 import presentacion.controlador.comando.factura.CMDImprimirFactura;
 import presentacion.controlador.comando.factura.CMDIniciarVistaFactura;
@@ -48,7 +48,7 @@ public class FactoriaCMDImp extends FactoriaCMD {
 
 		// COMANDOS PLATO
 		
-		map_cmd.put(EnumComandos.AÑADIR_PLATO, new CMDAltaPlato());
+		map_cmd.put(EnumComandos.ANADIR_PLATO, new CMDAltaPlato());
 		map_cmd.put(EnumComandos.ELIMINAR_PLATO, new CMDBajaPlato());
 		map_cmd.put(EnumComandos.MODIFICAR_PLATO, new CMDModificarPlato());
 		map_cmd.put(EnumComandos.OBTENERPLATOS, new CMDObtenerPlatos());
@@ -57,7 +57,7 @@ public class FactoriaCMDImp extends FactoriaCMD {
 		
 		// COMANDOS RESERVA
 		
-		map_cmd.put(EnumComandos.AÑADIR_RESERVA, new CMDAltaReserva());
+		map_cmd.put(EnumComandos.ANADIR_RESERVA, new CMDAltaReserva());
 		map_cmd.put(EnumComandos.ELIMINAR_RESERVA, new CMDBajaReserva());
 		map_cmd.put(EnumComandos.MODIFICAR_RESERVA, new CMDModificarReserva());
 		map_cmd.put(EnumComandos.OBTENERRESERVAS, new CMDObtenerReservas());
@@ -66,16 +66,16 @@ public class FactoriaCMDImp extends FactoriaCMD {
 		
 		// COMANDOS FACTURA
 		
-		map_cmd.put(EnumComandos.AÑADIR_FACTURA, new CMDAltaFactura());
+		map_cmd.put(EnumComandos.ANADIR_FACTURA, new CMDAltaFactura());
 		map_cmd.put(EnumComandos.ELIMINAR_FACTURA, new CMDBajaFactura());
 		map_cmd.put(EnumComandos.OBTENERFACTURAS, new CMDObtenerFacturas());
 		map_cmd.put(EnumComandos.INICIAR_VISTA_FACTURA, new CMDIniciarVistaFactura());
 		map_cmd.put(EnumComandos.MODIFICAR_FORMULARIO_FACTURA, new CMDModificarFormularioFactura());
 		
-		map_cmd.put(EnumComandos.AÑADIR_FACTURA_PLATO, new CMDAltaFacturaPlato());
+		map_cmd.put(EnumComandos.ANADIR_FACTURA_PLATO, new CMDAltaFacturaPlato());
 		map_cmd.put(EnumComandos.INICIAR_VISTA_FACTURAPLATO, new CMDIniciarVistaFacturaPlato());
 		map_cmd.put(EnumComandos.OBTENERFACTURAPLATOS, new CMDObtenerFacturaPlatos());
-		map_cmd.put(EnumComandos.AÑADIR_PLATO_A_FACTURA, new CMDAñadirPlatoAFactura());
+		map_cmd.put(EnumComandos.ANADIR_PLATO_A_FACTURA, new CMDAnadirPlatoAFactura());
 		map_cmd.put(EnumComandos.QUITAR_PLATO_DE_FACTURA, new CMDQuitarPlatoDeFactura());	
 		
 		map_cmd.put(EnumComandos.IMPRIMIR_FACTURA, new CMDImprimirFactura());	

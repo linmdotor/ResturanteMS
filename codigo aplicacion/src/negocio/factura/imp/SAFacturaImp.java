@@ -64,7 +64,7 @@ public class SAFacturaImp implements SAFactura {
 		return tFactura;
 	}
 
-	public boolean añadirFactura(TFactura tFactura) {
+	public boolean anadirFactura(TFactura tFactura) {
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
@@ -109,7 +109,7 @@ public class SAFacturaImp implements SAFactura {
 		}
 	}
 
-	public boolean añadirPlatosAFactura(ArrayList<TFacturaPlato> listatFacturaPlatos) {
+	public boolean anadirPlatosAFactura(ArrayList<TFacturaPlato> listatFacturaPlatos) {
 		
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();

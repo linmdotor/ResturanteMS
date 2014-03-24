@@ -11,11 +11,11 @@ public interface SAFactura {
 
 	public TFactura obtenerFactura(int ID);
 
-	public boolean añadirFactura(TFactura tFactura);
+	public boolean anadirFactura(TFactura tFactura);
 
 	public boolean eliminarFactura(int ID);
 
-	public boolean añadirPlatosAFactura(ArrayList<TFacturaPlato> listatFacturaPlatos);
+	public boolean anadirPlatosAFactura(ArrayList<TFacturaPlato> listatFacturaPlatos);
 
 	public boolean existeFacturaPlato(int ID);
 	

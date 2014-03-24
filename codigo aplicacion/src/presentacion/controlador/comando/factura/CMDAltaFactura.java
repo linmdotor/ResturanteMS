@@ -19,13 +19,13 @@ public class CMDAltaFactura implements CMD {
 
 		if (new ValidarTFactura().transferCorrecto((TFactura) objeto))
 		{
-			if (serviciosFactura.añadirFactura((TFactura) objeto))
-				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_FACTURA, "Se ha añadido la Factura.");
+			if (serviciosFactura.anadirFactura((TFactura) objeto))
+				respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_FACTURA, "Se ha aï¿½adido la Factura.");
 			else
 				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar factura. Error al insertar los datos.");
 		}
 		else
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar factura. Los datos no son válidos.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar factura. Los datos no son vï¿½lidos.");
 
 		return respuestaComando;
 		

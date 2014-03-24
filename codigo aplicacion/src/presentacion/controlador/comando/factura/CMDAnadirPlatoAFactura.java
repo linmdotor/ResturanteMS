@@ -4,11 +4,11 @@ import presentacion.controlador.CMD;
 import presentacion.controlador.EnumComandos;
 import presentacion.controlador.RespuestaCMD;
 
-public class CMDAñadirPlatoAFactura implements CMD {
+public class CMDAnadirPlatoAFactura implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 			
-		return new RespuestaCMD(EnumComandos.AÑADIR_PLATO_A_FACTURA, objeto);
+		return new RespuestaCMD(EnumComandos.ANADIR_PLATO_A_FACTURA, objeto);
 
 	}
 

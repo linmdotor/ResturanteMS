@@ -23,7 +23,7 @@ public class CMDIniciarVistaFacturaPlato implements CMD {
 			if(t.getID_Factura() != -1)
 				return new RespuestaCMD(EnumComandos.INICIAR_VISTA_FACTURAPLATO, serviciosPlato.obtenerPlatos());
 			else
-				return new RespuestaCMD(EnumComandos.ERROR, "Debe seleccionar una factura para poder añadir platos");
+				return new RespuestaCMD(EnumComandos.ERROR, "Debe seleccionar una factura para poder anadir platos");
 		}
 		else
 			return new RespuestaCMD(EnumComandos.ERROR, "No puede volver a insertar platos en una factura finalizada");

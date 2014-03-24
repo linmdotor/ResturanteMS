@@ -2,7 +2,7 @@
  * 
  * Vista del Almacen de Platos
  * 
- * @author Marco González, Juan Carlos * @author Martínez Dotor, Jesús * @author Picado Álvarez, María * @author Rojas Morán, Amy Alejandra * @author Serrano Álvarez, José * @author Vargas Paredes, Jhonny
+ * @author Marco Gonzï¿½lez, Juan Carlos * @author Martï¿½nez Dotor, Jesï¿½s * @author Picado ï¿½lvarez, Marï¿½a * @author Rojas Morï¿½n, Amy Alejandra * @author Serrano ï¿½lvarez, Josï¿½ * @author Vargas Paredes, Jhonny
  *  
  */
 
@@ -63,7 +63,7 @@ public class VentanaReserva extends JFrame {
 	// Constructor
 	public VentanaReserva(Object objeto) {
 
-		setTitle("Gestión de Reservas");
+		setTitle("Gestiï¿½n de Reservas");
 		setResizable(false);
 		setVisible(false);
 		setSize(798, 390);
@@ -82,7 +82,7 @@ public class VentanaReserva extends JFrame {
 		btnAadirReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.AÑADIR_RESERVA, obtenerReserva());
+				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ANADIR_RESERVA, obtenerReserva());
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERRESERVAS, obtenerReserva());
 
 			}
@@ -134,7 +134,7 @@ public class VentanaReserva extends JFrame {
 		panelFormulario.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 
-		JLabel lblFecha = new JLabel("Día:");
+		JLabel lblFecha = new JLabel("Dï¿½a:");
 		lblFecha.setBounds(5, 144, 30, 16);
 		panelFormulario.add(lblFecha);
 		
@@ -161,7 +161,7 @@ public class VentanaReserva extends JFrame {
 		panelFormulario.add(textFieldTelefono);
 		textFieldTelefono.setColumns(10);
 		
-		JLabel lblComensales = new JLabel("Nº Comens.:");
+		JLabel lblComensales = new JLabel("Nï¿½ Comens.:");
 		lblComensales.setBounds(10, 200, 70, 16);
 		panelFormulario.add(lblComensales);
 
@@ -193,7 +193,7 @@ public class VentanaReserva extends JFrame {
 		btnEliminarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(mensajeConfirmacionSiNo("¿Realmente desea eliminar la reserva?", "Confirmar eliminar Reserva"))
+				if(mensajeConfirmacionSiNo("ï¿½Realmente desea eliminar la reserva?", "Confirmar eliminar Reserva"))
 				{
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ELIMINAR_RESERVA, getTbReservas().getSelectedRow() );
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERRESERVAS, obtenerReserva());
@@ -245,7 +245,7 @@ public class VentanaReserva extends JFrame {
 		modelo.addColumn("FECHA");
 		modelo.addColumn("HORA");
 		modelo.addColumn("TELEFONO");
-		modelo.addColumn("Nº COMENSALES");
+		modelo.addColumn("Nï¿½ COMENSALES");
 
 		for (int i = 0; i < lista.size(); i++) {
 
