@@ -1,0 +1,324 @@
+/**
+ * 
+ * Implementacion del DAO de Plato
+ * 
+ * @author Marco González, Juan Carlos * @author Martínez Dotor, Jesús * @author Picado Álvarez, María * @author Rojas Morán, Amy Alejandra * @author Serrano Álvarez, José * @author Vargas Paredes, Jhonny
+ *  
+ */
+
+package integracion.plato;
+
+import integracion.transaccion.Transaction;
+import integracion.transaccion.TransactionManager;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import negocio.factura.TFacturaPlato;
+import negocio.plato.TPlato;
+import negocio.plato.TPlatoBebida;
+import negocio.plato.TPlatoComida;
+
+public class DAOPlatoImp implements DAOPlato {
+
+
+	@Override
+	public ArrayList<TPlato> obtenerPlatos() 
+	{
+		
+		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		
+		ArrayList<TPlato> listaPlatos = new ArrayList<TPlato>();
+		
+			try {
+				
+				ResultSet rs =  c.createStatement().executeQuery("SELECT p.*,c.Tipo "
+																+ "FROM Plato p, Plato_Comida c  "
+																+ "WHERE p.ID_Plato = c.ID_Plato_Comida "
+																+ "ORDER BY c.Tipo, p.Nombre");
+				
+				while(rs.next()) {
+					
+					TPlatoComida tPlatoAux = new TPlatoComida();
+					
+					tPlatoAux.setID(rs.getInt("ID_Plato"));
+					tPlatoAux.setNombre(rs.getString("Nombre"));
+					tPlatoAux.setPrecio(rs.getFloat("Precio"));
+					tPlatoAux.setStock(rs.getInt("Stock"));
+					tPlatoAux.setTipo(rs.getString("Tipo"));
+					
+					listaPlatos.add(tPlatoAux);
+
+				}
+				rs =  c.createStatement().executeQuery("SELECT p.*,b.Alcoholica "
+														+ "FROM Plato p, Plato_Bebida b  "
+														+ "WHERE p.ID_Plato = b.ID_Plato_Bebida "
+														+ "ORDER BY b.Alcoholica, p.Nombre");
+				
+				while(rs.next()) {
+					
+					TPlatoBebida tPlatoAux = new TPlatoBebida();
+					
+					tPlatoAux.setID(rs.getInt("ID_Plato"));
+					tPlatoAux.setNombre(rs.getString("Nombre"));
+					tPlatoAux.setPrecio(rs.getFloat("Precio"));
+					tPlatoAux.setStock(rs.getInt("Stock"));
+					int alcoholica = rs.getInt("Alcoholica");
+					if(alcoholica == 0)
+					{
+						tPlatoAux.setAlcoholica(false);
+					}
+					else
+					{
+						tPlatoAux.setAlcoholica(true);
+					}
+					
+					
+					listaPlatos.add(tPlatoAux);
+
+				}
+			
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			
+			}
+ 
+	        return  listaPlatos;	
+	}
+	
+	public TPlato read(String ID_Plato) 
+	{ 
+		
+		TransactionManager tManager = TransactionManager.getInstance();
+		
+		Transaction transaction = tManager.getTransaction();
+		java.sql.Connection c = transaction.getResource();
+		TPlatoComida tPlatoComida = new TPlatoComida();
+		TPlatoBebida tPlatoBebida = new TPlatoBebida();
+			
+		try {
+			
+			ResultSet rs =  c.createStatement().executeQuery("SELECT p.*,c.Tipo "
+															+ "FROM Plato p, Plato_Comida c "
+															+ "WHERE p.ID_Plato = c.ID_plato_Comida AND p.ID_Plato = " + ID_Plato);
+			
+			if (rs.next()) {
+				
+				tPlatoComida.setID(rs.getInt("ID_Plato"));
+				tPlatoComida.setNombre(rs.getString("Nombre"));
+				tPlatoComida.setPrecio(rs.getFloat("Precio"));
+				tPlatoComida.setStock(rs.getInt("Stock"));
+				tPlatoComida.setTipo(rs.getString("Tipo"));
+				return tPlatoComida;
+			}
+			else
+			{
+				rs =  c.createStatement().executeQuery("SELECT p.*,b.Alcoholica "
+														+ "FROM Plato p, Plato_Bebida b "
+														+ "WHERE p.ID_Plato = b.ID_plato_Bebida AND p.ID_Plato = " + ID_Plato);
+				
+				if (rs.next()) {
+					
+					tPlatoBebida.setID(rs.getInt("ID_Plato"));
+					tPlatoBebida.setNombre(rs.getString("Nombre"));
+					tPlatoBebida.setPrecio(rs.getFloat("Precio"));
+					tPlatoBebida.setStock(rs.getInt("Stock"));
+					int alcoholica = rs.getInt("Alcoholica");
+					if(alcoholica == 0)
+					{
+						tPlatoBebida.setAlcoholica(false);
+					}
+					else
+					{
+						tPlatoBebida.setAlcoholica(true);
+					}
+					return tPlatoBebida;
+				}
+			}
+		
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+
+		return null;
+		
+	}
+
+
+	@Override
+	public boolean create(TPlato tPlato) 
+	{
+		
+		TransactionManager tManager = TransactionManager.getInstance();
+		
+		Transaction transaction = tManager.getTransaction();
+		java.sql.Connection c = transaction.getResource();
+			
+		try {
+			c.createStatement().executeUpdate("INSERT INTO Plato (Nombre, Precio, Stock) VALUES ('" + tPlato.getNombre() + "', "  + tPlato.getPrecio()  + ", "  + tPlato.getStock() + ")");
+			
+			ResultSet rs = c.createStatement().executeQuery("SELECT ID_Plato "
+															+ "FROM Plato "
+															+ "WHERE  Nombre = '" +  tPlato.getNombre() +"'");
+			
+			int id = 0;
+			if(rs.next())
+			{
+				id = rs.getInt(1);
+			}
+			if(tPlato instanceof TPlatoComida) 
+			{
+				TPlatoComida p = (TPlatoComida) tPlato;
+				c.createStatement().executeUpdate("INSERT INTO Plato_Comida (ID_Plato_Comida, Tipo) VALUES (" + id + ", '"  + p.getTipo() +"')");
+			
+				return true;
+				
+			}
+			
+			if(tPlato instanceof TPlatoBebida) 
+			{
+				TPlatoBebida p = (TPlatoBebida) tPlato;
+				int esAlcoholica = 0;
+				if(p.isAlcoholica())
+				{
+					esAlcoholica = 1;
+				}
+				c.createStatement().executeUpdate("INSERT INTO Plato_Bebida (ID_Plato_Bebida, Alcoholica) VALUES (" + id + ", "  + esAlcoholica +")");
+				
+				return true;
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		} 
+		
+		
+		
+		return false;
+	
+
+	   
+	}
+
+	@Override
+	public boolean delete(int ID_Plato) 
+	{
+		
+		TransactionManager tManager = TransactionManager.getInstance();
+		
+		Transaction transaction = tManager.getTransaction();
+		java.sql.Connection c = transaction.getResource();
+		
+		int rdo = 0;
+			
+		try {
+			//la base de datos deberia hacer un on delete cascade
+			rdo = c.createStatement().executeUpdate("DELETE FROM Plato WHERE ID_Plato =" + ID_Plato);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+		
+		if(rdo == 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	
+		
+	}
+
+	@Override
+	public boolean update(TPlato tPlato) 
+	{
+		TransactionManager tManager = TransactionManager.getInstance();
+		
+		Transaction transaction = tManager.getTransaction();
+		java.sql.Connection c = transaction.getResource();
+			
+		try {
+			c.createStatement().executeUpdate("UPDATE Plato SET Nombre = '" + tPlato.getNombre() +"',  Precio = " + tPlato.getPrecio() + " , Stock = " + tPlato.getStock() + " "
+											+ "WHERE ID_Plato = " + tPlato.getID() );
+			
+			if(tPlato instanceof TPlatoComida) 
+			{
+				TPlatoComida p = (TPlatoComida) tPlato;
+				c.createStatement().executeUpdate("UPDATE Plato_Comida SET Tipo = '" + p.getTipo() + "' "
+												+ "WHERE ID_Plato_Comida = " + tPlato.getID() );
+				
+				return true;
+				
+			}
+			
+			if(tPlato instanceof TPlatoBebida) 
+			{
+				TPlatoBebida p = (TPlatoBebida) tPlato;
+				int esAlcoholica = 0;
+				if(p.isAlcoholica())
+				{
+					esAlcoholica = 1;
+				}
+				
+				c.createStatement().executeUpdate("UPDATE Plato_Bebida SET Alcoholica = " + esAlcoholica + " "
+												+ "WHERE ID_Plato_Bebida = " + tPlato.getID() );
+				
+				return true;
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		} 
+		
+		
+		
+		return false;
+	
+		
+		
+	}
+
+	@Override
+	public boolean actualizarStock(TFacturaPlato tFacturaPlato) {
+		
+		TransactionManager tManager = TransactionManager.getInstance();
+		
+		Transaction transaction = tManager.getTransaction();
+		java.sql.Connection c = transaction.getResource();		
+			
+		try {
+			
+			ResultSet rs =  c.createStatement().executeQuery("SELECT * from Plato WHERE ID_Plato = " + tFacturaPlato.getID_Plato());		
+			if(rs.next())
+			{
+				int stock = rs.getInt("Stock") - tFacturaPlato.getCantidad();
+				c.createStatement().executeUpdate("UPDATE Plato SET Stock = " + stock + " WHERE ID_Plato = " + tFacturaPlato.getID_Plato() );
+				
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		} 		
+		
+		return false;
+	}
+
+}
