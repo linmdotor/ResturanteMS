@@ -2,7 +2,7 @@
  * 
  * Implementacion del DAO de Plato
  * 
- * @author Marco González, Juan Carlos * @author Martínez Dotor, Jesús * @author Picado Álvarez, María * @author Rojas Morán, Amy Alejandra * @author Serrano Álvarez, José * @author Vargas Paredes, Jhonny
+ * @author Marco Gonzï¿½lez, Juan Carlos * @author Martï¿½nez Dotor, Jesï¿½s * @author Picado ï¿½lvarez, Marï¿½a * @author Rojas Morï¿½n, Amy Alejandra * @author Serrano ï¿½lvarez, Josï¿½ * @author Vargas Paredes, Jhonny
  *  
  */
 
@@ -28,7 +28,7 @@ public class DAOPlatoImp implements DAOPlato {
 	public ArrayList<TPlato> obtenerPlatos() 
 	{
 		
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
 		ArrayList<TPlato> listaPlatos = new ArrayList<TPlato>();
 		
@@ -95,7 +95,7 @@ public class DAOPlatoImp implements DAOPlato {
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction = tManager.getTransaction();
-		java.sql.Connection c = transaction.getResource();
+		java.sql.Connection c = (Connection)transaction.getResource();
 		TPlatoComida tPlatoComida = new TPlatoComida();
 		TPlatoBebida tPlatoBebida = new TPlatoBebida();
 			
@@ -157,7 +157,7 @@ public class DAOPlatoImp implements DAOPlato {
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction = tManager.getTransaction();
-		java.sql.Connection c = transaction.getResource();
+		java.sql.Connection c = (Connection)transaction.getResource();
 			
 		try {
 			c.createStatement().executeUpdate("INSERT INTO Plato (Nombre, Precio, Stock) VALUES ('" + tPlato.getNombre() + "', "  + tPlato.getPrecio()  + ", "  + tPlato.getStock() + ")");
@@ -215,7 +215,7 @@ public class DAOPlatoImp implements DAOPlato {
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction = tManager.getTransaction();
-		java.sql.Connection c = transaction.getResource();
+		java.sql.Connection c = (Connection)transaction.getResource();
 		
 		int rdo = 0;
 			
@@ -247,7 +247,7 @@ public class DAOPlatoImp implements DAOPlato {
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction = tManager.getTransaction();
-		java.sql.Connection c = transaction.getResource();
+		java.sql.Connection c = (Connection)transaction.getResource();
 			
 		try {
 			c.createStatement().executeUpdate("UPDATE Plato SET Nombre = '" + tPlato.getNombre() +"',  Precio = " + tPlato.getPrecio() + " , Stock = " + tPlato.getStock() + " "
@@ -299,7 +299,7 @@ public class DAOPlatoImp implements DAOPlato {
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction = tManager.getTransaction();
-		java.sql.Connection c = transaction.getResource();		
+		java.sql.Connection c = (Connection)transaction.getResource();		
 			
 		try {
 			

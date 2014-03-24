@@ -18,7 +18,7 @@ public class DAOReservaImp implements DAOReserva {
 	public ArrayList<TReserva> obtenerReservas() {
 		// TODO Auto-generated method stub
 		
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
 		ArrayList<TReserva> listaReservas = new ArrayList<TReserva>();
 			
@@ -54,7 +54,7 @@ public class DAOReservaImp implements DAOReserva {
 	@Override
 	public TReserva read(String ID_Reserva) {
 		
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
 		TReserva tReserva = new TReserva();
 			
@@ -88,7 +88,7 @@ public class DAOReservaImp implements DAOReserva {
 	@Override
 	public boolean create(TReserva tReserva) {
 	
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection)  TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
 		int rdo = 0;		
 			
@@ -110,7 +110,7 @@ public class DAOReservaImp implements DAOReserva {
 	@Override
 	public boolean delete(int ID_Reserva) {
 		
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD	
+		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD	
 			
 		try {
 				
@@ -129,7 +129,7 @@ public class DAOReservaImp implements DAOReserva {
 	@Override
 	public boolean update(TReserva tReserva) {
 	
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 
 		try {
 				

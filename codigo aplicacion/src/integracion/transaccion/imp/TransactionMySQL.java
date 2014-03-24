@@ -85,7 +85,7 @@ public class TransactionMySQL implements Transaction {
 	}
 
 
-	public java.sql.Connection getResource() {
+	public Object getResource() {
 		return connection;
 	}
 

@@ -13,7 +13,7 @@ public interface Transaction {
 
 	public Boolean rollback();
 
-	public java.sql.Connection getResource();
+	public Object getResource();
 
 	public Boolean lock();
 }

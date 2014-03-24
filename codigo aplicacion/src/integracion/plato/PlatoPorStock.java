@@ -7,6 +7,7 @@ import integracion.query.Query;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class PlatoPorStock implements Query {
 		TransactionManager tManager = TransactionManager.getInstance();
 
 		Transaction transaction = tManager.getTransaction();
-		java.sql.Connection c = transaction.getResource();
+		java.sql.Connection c = (Connection)transaction.getResource();
 
 		//esto lo hago para probar que realiza consultas
 		//realizar consulta

@@ -18,7 +18,7 @@ public class DAOFacturaImp implements DAOFactura {
 	@Override
 	public ArrayList<TFactura> obtenerFacturas() {
 	
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
 		ArrayList<TFactura> listaFacturas = new ArrayList<TFactura>();
 				
@@ -60,7 +60,7 @@ public class DAOFacturaImp implements DAOFactura {
 	@Override
 	public TFactura read(String ID_Factura) {
 	
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
 		TFactura tFactura = new TFactura();
 			
@@ -100,7 +100,7 @@ public class DAOFacturaImp implements DAOFactura {
 	@Override
 	public boolean create(TFactura tFactura) {
 	
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 			
 		try {
 			if(tFactura.getID_Reserva() != 0)
@@ -123,7 +123,7 @@ public class DAOFacturaImp implements DAOFactura {
 	@Override
 	public boolean delete(int ID_Factura) {	
 		
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD		
+		Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD		
 
 		try {
 
@@ -142,7 +142,7 @@ public class DAOFacturaImp implements DAOFactura {
 	@Override
 	public boolean update(TFactura tFactura) {
 	
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD			
+		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD			
 
 		try {
 
@@ -162,7 +162,7 @@ public class DAOFacturaImp implements DAOFactura {
 	@Override
 	public boolean addPlatoAFactura(TFacturaPlato t) {
 		
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
 		try {
 			
@@ -179,7 +179,7 @@ public class DAOFacturaImp implements DAOFactura {
 
 	@Override
 	public TFactura getPlatosDeFactura(String ID_Factura) {
-		Connection c = TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+		Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
 		TFactura tFactura = null;
 			
