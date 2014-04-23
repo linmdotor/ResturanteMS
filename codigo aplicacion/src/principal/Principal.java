@@ -13,7 +13,7 @@
 
 package principal;
 /*
- * Prueba desde eclipse (ya configurado con el tutorial)
+ *
  */
 import presentacion.ventanas.VentanaPrincipal;
 
