@@ -32,10 +32,13 @@ import negocio.reserva.TReserva;
 import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
 import presentacion.ventanas.MiModeloTabla;
+import presentacion.ventanas.factura.VentanaFacturaPlato;
+import presentacion.ventanas.plato.VentanaPlato;
 
 public class VentanaReserva extends JFrame {
 
-
+	private static VentanaReserva ventana; //instancia singleton
+	
 	private JTextField textFieldID;
 	private JTextField textFieldDNI;
 	private JTextField textFieldNombre;
@@ -60,8 +63,17 @@ public class VentanaReserva extends JFrame {
 		this.tbReservas = tbReservas;
 	}
 
+	//GetInstance
+	public static VentanaReserva obtenerInstancia() {
+
+		if (ventana == null)
+			ventana = new VentanaReserva();
+
+		return ventana;
+	}
+	
 	// Constructor
-	public VentanaReserva(Object objeto) {
+	public VentanaReserva() {
 
 		setTitle("Gesti�n de Reservas");
 		setResizable(false);
@@ -218,8 +230,6 @@ public class VentanaReserva extends JFrame {
 					}
 				});
 
-		actualizar(objeto);
-
 	}
 
 	// Metodos
@@ -231,6 +241,7 @@ public class VentanaReserva extends JFrame {
 		else			
 			rellenarTabla((ArrayList<TReserva>) object);
 
+		setVisible(true);
 		repaint();
 
 	}

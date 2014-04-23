@@ -21,9 +21,21 @@ import javax.swing.JFrame;
 
 import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
+import presentacion.ventanas.reserva.VentanaReserva;
 
 public class VentanaPrincipal extends JFrame {
 
+	private static VentanaPrincipal ventana; //instancia singleton
+	
+	//GetInstance
+	public static VentanaPrincipal obtenerInstancia() {
+
+		if (ventana == null)
+			ventana = new VentanaPrincipal();
+
+		return ventana;
+	}
+	
 	// Constructor
 	public VentanaPrincipal() {
 		
@@ -31,7 +43,7 @@ public class VentanaPrincipal extends JFrame {
 		this.setLocationByPlatform(true);
 		setTitle("Restaurante");
 		setResizable(false);
-		setVisible(true);
+		setVisible(false);
 		setSize(256, 200);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

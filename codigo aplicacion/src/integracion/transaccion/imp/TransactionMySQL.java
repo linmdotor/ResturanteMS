@@ -23,10 +23,12 @@ public class TransactionMySQL implements Transaction {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+server+"/"+bbdd, user,pass);
 			System.out.println("conexion exitosa");
+			System.out.println("----------------");
 		}
 		catch(SQLException e)
 		{
 			System.out.println("Error de MYSQL");
+			System.out.println("--------------");
 			//return false;
 		}
 		catch(ClassNotFoundException e)

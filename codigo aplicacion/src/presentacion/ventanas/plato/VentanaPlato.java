@@ -38,9 +38,12 @@ import negocio.plato.TipoPlato;
 import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
 import presentacion.ventanas.MiModeloTabla;
+import presentacion.ventanas.factura.VentanaFacturaPlato;
 
 public class VentanaPlato extends JFrame {
 
+	private static VentanaPlato ventana; //instancia singleton
+	
 	private JTextField textFieldID;
 	private JTextField textFieldNombre;
 	private JTextField textFieldPrecio;
@@ -65,9 +68,17 @@ public class VentanaPlato extends JFrame {
 		this.tbAlmacen = tbAlmacen;
 	}
 
-	// Constructor
+	//GetInstance
+	public static VentanaPlato obtenerInstancia() {
 
-	public VentanaPlato(Object objeto) {
+		if (ventana == null)
+			ventana = new VentanaPlato();
+
+		return ventana;
+	}
+		
+	// Constructor
+	public VentanaPlato() {
 
 
 		setTitle("Gesti�n de Platos");
@@ -236,8 +247,6 @@ public class VentanaPlato extends JFrame {
 					}
 				});
 
-		actualizar(objeto);
-
 	}
 
 	// Metodos
@@ -249,6 +258,7 @@ public class VentanaPlato extends JFrame {
 		else			
 			rellenarTabla((ArrayList<TPlato>) object);
 
+		setVisible(true);
 		repaint();
 
 	}

@@ -8,6 +8,9 @@
 
 package presentacion.ventanas.factura;
 
+import integracion.query.FactoriaQuery;
+import integracion.query.FactoriaQueryImp;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +41,8 @@ import presentacion.ventanas.MiModeloTabla;
 
 public class VentanaFactura extends JFrame {
 
+	private static VentanaFactura ventana; //instancia singleton
+	
 	private JTextField textFieldID;	
 	private JTextField textFieldID_Reserva;	
 	private JTextField textFieldNIF_Empresa;
@@ -67,9 +72,17 @@ public class VentanaFactura extends JFrame {
 		this.tbFacturas = tbFacturas;
 	}
 
-	// Constructor
+	//GetInstance
+	public static VentanaFactura obtenerInstancia() {
 
-	public VentanaFactura(Object objeto) {
+		if (ventana == null)
+			ventana = new VentanaFactura();
+
+		return ventana;
+	}
+	
+	// Constructor
+	public VentanaFactura() {
 
 		setTitle("Gesti�n de Facturas");
 		setResizable(false);
@@ -272,8 +285,6 @@ public class VentanaFactura extends JFrame {
 					}
 				});
 
-		actualizar(objeto);
-
 	}
 
 	// Metodos
@@ -285,6 +296,7 @@ public class VentanaFactura extends JFrame {
 		else			
 			rellenarTabla((ArrayList<TFactura>) object);
 
+		setVisible(true);
 		repaint();
 
 	}

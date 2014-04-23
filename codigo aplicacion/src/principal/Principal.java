@@ -12,6 +12,8 @@
  */
 
 package principal;
+import presentacion.controlador.ApplicationController;
+import presentacion.controlador.EnumComandos;
 /*
  *
  */
@@ -35,7 +37,7 @@ public class Principal {
 
 	public void ejecuta() {
 
-		VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+		ApplicationController.obtenerInstancia().handleRequest(EnumComandos.INICIAR_VISTA_PRINCIPAL, null);
 		
 	}
 

@@ -3,8 +3,9 @@ package presentacion.controlador;
 
 public enum EnumComandos {
 
-	// PLATO
+	INICIAR_VISTA_PRINCIPAL,
 	
+	// PLATO	
 	ANADIR_PLATO,
 	ELIMINAR_PLATO,
 	MODIFICAR_PLATO,

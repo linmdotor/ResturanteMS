@@ -14,6 +14,7 @@ import java.util.Map;
 import presentacion.controlador.CMD;
 import presentacion.controlador.EnumComandos;
 import presentacion.controlador.FactoriaCMD;
+import presentacion.controlador.comando.CMDIniciarVistaPrincipal;
 import presentacion.controlador.comando.factura.CMDAltaFactura;
 import presentacion.controlador.comando.factura.CMDAltaFacturaPlato;
 import presentacion.controlador.comando.factura.CMDAnadirPlatoAFactura;
@@ -46,6 +47,10 @@ public class FactoriaCMDImp extends FactoriaCMD {
 
 		map_cmd = new HashMap<EnumComandos, CMD>();
 
+		// COMANDO REDIRECCION A VISTA PRINCIPAL
+		
+		map_cmd.put(EnumComandos.INICIAR_VISTA_PRINCIPAL, new CMDIniciarVistaPrincipal());
+		
 		// COMANDOS PLATO
 		
 		map_cmd.put(EnumComandos.ANADIR_PLATO, new CMDAltaPlato());

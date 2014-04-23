@@ -27,6 +27,8 @@ import presentacion.ventanas.MiModeloTabla;
 
 public class VentanaFacturaPlato extends JFrame{
 
+	private static VentanaFacturaPlato ventana; //instancia singleton
+	
 	private JTextField textFieldID_Factura;
 	private JTextField textFieldTotal;
 
@@ -56,9 +58,17 @@ public class VentanaFacturaPlato extends JFrame{
 		this.tbFactura = tbFactura;
 	}
 
-	// Constructor
+	//GetInstance
+	public static VentanaFacturaPlato obtenerInstancia() {
 
-	public VentanaFacturaPlato(final Object objeto) {
+		if (ventana == null)
+			ventana = new VentanaFacturaPlato();
+
+		return ventana;
+	}
+		
+	// Constructor
+	public VentanaFacturaPlato() {
 
 		setTitle("Nueva Factura");
 		setResizable(false);
@@ -110,7 +120,7 @@ public class VentanaFacturaPlato extends JFrame{
 		btnBorrarFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				limpiarFormulario();
+				limpiarFormulario(true);
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERFACTURAPLATOS, null);
 
 			}
@@ -169,8 +179,6 @@ public class VentanaFacturaPlato extends JFrame{
 
 		inicializarTablafactura();
 		
-		actualizar(objeto);
-		
 	}
 
 	// Metodos
@@ -212,6 +220,7 @@ public class VentanaFacturaPlato extends JFrame{
 		else			
 			rellenarTabla((ArrayList<TPlato>) object);
 
+		setVisible(true);
 		repaint();
 
 	}
@@ -344,11 +353,12 @@ public class VentanaFacturaPlato extends JFrame{
 		return t;
 	}
 	
-	public void limpiarFormulario()
+	public void limpiarFormulario(boolean mostrarVentana)
 	{
 		inicializarTablafactura();
 		textFieldTotal.setText("0");
 		
+		setVisible(mostrarVentana);
 	}
 	
 	private boolean mensajeConfirmacionSiNo(String msj, String cabecera) {	
