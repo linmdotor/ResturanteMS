@@ -2,6 +2,7 @@ package presentacion.ventanas;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class VentanaCorrecto extends JFrame {
 
 	public VentanaCorrecto(String mensaje) {

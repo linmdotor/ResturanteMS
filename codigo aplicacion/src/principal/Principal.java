@@ -14,10 +14,6 @@
 package principal;
 import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
-/*
- *
- */
-import presentacion.ventanas.VentanaPrincipal;
 
 
 public class Principal {
@@ -29,9 +25,7 @@ public class Principal {
 	 */
 	public static void main(String[] args) {
 
-		Principal principal = new Principal();
-
-		principal.ejecuta();
+		new Principal().ejecuta();
 
 	}
 

@@ -32,9 +32,8 @@ import negocio.reserva.TReserva;
 import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
 import presentacion.ventanas.MiModeloTabla;
-import presentacion.ventanas.factura.VentanaFacturaPlato;
-import presentacion.ventanas.plato.VentanaPlato;
 
+@SuppressWarnings("serial")
 public class VentanaReserva extends JFrame {
 
 	private static VentanaReserva ventana; //instancia singleton
@@ -50,8 +49,6 @@ public class VentanaReserva extends JFrame {
 	private Vector fila;
 	private MiModeloTabla modelo;
 	private JTable tbReservas;	
-
-	private JScrollPane scrollPanel;
 
 	// Mutadores y Accedentes
 
@@ -256,7 +253,7 @@ public class VentanaReserva extends JFrame {
 		modelo.addColumn("FECHA");
 		modelo.addColumn("HORA");
 		modelo.addColumn("TELEFONO");
-		modelo.addColumn("Nï¿½ COMENSALES");
+		modelo.addColumn("Nº COMENSALES");
 
 		for (int i = 0; i < lista.size(); i++) {
 

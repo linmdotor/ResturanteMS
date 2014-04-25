@@ -21,8 +21,8 @@ import javax.swing.JFrame;
 
 import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
-import presentacion.ventanas.reserva.VentanaReserva;
 
+@SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
 
 	private static VentanaPrincipal ventana; //instancia singleton

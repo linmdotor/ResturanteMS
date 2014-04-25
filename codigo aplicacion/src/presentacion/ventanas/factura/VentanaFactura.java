@@ -8,9 +8,6 @@
 
 package presentacion.ventanas.factura;
 
-import integracion.query.FactoriaQuery;
-import integracion.query.FactoriaQueryImp;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +36,7 @@ import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
 import presentacion.ventanas.MiModeloTabla;
 
+@SuppressWarnings("serial")
 public class VentanaFactura extends JFrame {
 
 	private static VentanaFactura ventana; //instancia singleton
@@ -59,8 +57,6 @@ public class VentanaFactura extends JFrame {
 	private MiModeloTabla modelo;
 	private JTable tbFacturas;
 	private Vector fila;
-
-	private JScrollPane scrollPanel;
 
 	// Mutadores y Accedentes
 

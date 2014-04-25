@@ -2,6 +2,7 @@ package presentacion.ventanas;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class VentanaError extends JFrame {
 
 	public VentanaError(String mensajeError) {

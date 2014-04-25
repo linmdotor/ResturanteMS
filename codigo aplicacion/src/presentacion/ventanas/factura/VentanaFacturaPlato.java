@@ -25,6 +25,7 @@ import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
 import presentacion.ventanas.MiModeloTabla;
 
+@SuppressWarnings("serial")
 public class VentanaFacturaPlato extends JFrame{
 
 	private static VentanaFacturaPlato ventana; //instancia singleton
@@ -37,8 +38,6 @@ public class VentanaFacturaPlato extends JFrame{
 	private JTable tbPlatos;
 	private JTable tbFactura;
 	private Vector fila;
-
-	private JScrollPane scrollPanel;
 
 	// Mutadores y Accedentes
 

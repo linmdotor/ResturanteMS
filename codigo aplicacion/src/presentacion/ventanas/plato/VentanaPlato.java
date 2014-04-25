@@ -38,8 +38,8 @@ import negocio.plato.TipoPlato;
 import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
 import presentacion.ventanas.MiModeloTabla;
-import presentacion.ventanas.factura.VentanaFacturaPlato;
 
+@SuppressWarnings("serial")
 public class VentanaPlato extends JFrame {
 
 	private static VentanaPlato ventana; //instancia singleton
@@ -48,15 +48,12 @@ public class VentanaPlato extends JFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldPrecio;
 	private JTextField textFieldStock;
-	private JComboBox comboBoxTipo;
-	private JComboBox comboBoxSubTipo;
-	private JComboBox comboBoxDisponible;
+	private JComboBox<String> comboBoxTipo;
+	private JComboBox<String> comboBoxSubTipo;
 
 	private MiModeloTabla modelo;
 	private JTable tbAlmacen;
 	private Vector fila;
-
-	private JScrollPane scrollPanel;
 
 	// Mutadores y Accedentes
 
@@ -156,7 +153,7 @@ public class VentanaPlato extends JFrame {
 		lblTipo.setBounds(51, 107, 27, 16);
 		panelFormulario.add(lblTipo);
 		
-		comboBoxTipo = new JComboBox();
+		comboBoxTipo = new JComboBox<String>();
 		comboBoxTipo.setBounds(83, 103, 118, 25);
 		panelFormulario.add(comboBoxTipo);
 		comboBoxTipo.setModel(new DefaultComboBoxModel(TipoPlato.EnumTipoPlato.values()));
