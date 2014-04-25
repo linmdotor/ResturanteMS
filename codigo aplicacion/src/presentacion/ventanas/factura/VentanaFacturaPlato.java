@@ -92,10 +92,10 @@ public class VentanaFacturaPlato extends JFrame{
 		panelFormulario.add(textFieldID_Factura);
 		textFieldID_Factura.setColumns(10);
 		
-		JButton btnAadirPlato= new JButton("Anadir Plato");
-		btnAadirPlato.setBounds(9, 110, 192, 26);
-		panelFormulario.add(btnAadirPlato);
-		btnAadirPlato.addActionListener(new ActionListener() {
+		JButton btnAnadirPlato= new JButton("Añadir Plato");
+		btnAnadirPlato.setBounds(9, 110, 192, 26);
+		panelFormulario.add(btnAnadirPlato);
+		btnAnadirPlato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				if (getTbPlatos().getSelectedRow() != -1 )
@@ -129,13 +129,13 @@ public class VentanaFacturaPlato extends JFrame{
 		btnBorrarFormulario.setBounds(83, 231, 118, 22);
 		panelFormulario.add(btnBorrarFormulario);
 		
-		JButton btnAadirFactura= new JButton("Finalizar Factura");
-		btnAadirFactura.setBounds(9, 276, 192, 26);
-		panelFormulario.add(btnAadirFactura);
-		btnAadirFactura.addActionListener(new ActionListener() {
+		JButton btnAnadirFactura= new JButton("Finalizar Factura");
+		btnAnadirFactura.setBounds(9, 276, 192, 26);
+		panelFormulario.add(btnAnadirFactura);
+		btnAnadirFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(mensajeConfirmacionSiNo("ï¿½Realmente desea finalizar esta factura?", "Confirmar finalizar Factura"))
+				if(mensajeConfirmacionSiNo("¿Realmente desea finalizar esta factura?", "Confirmar finalizar Factura"))
 				{
 					ArrayList<TFacturaPlato> lista = obtenerListaFacturaPlato();
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ANADIR_FACTURA_PLATO, lista);

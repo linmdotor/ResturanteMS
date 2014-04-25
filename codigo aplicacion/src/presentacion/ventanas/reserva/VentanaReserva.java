@@ -72,7 +72,7 @@ public class VentanaReserva extends JFrame {
 	// Constructor
 	public VentanaReserva() {
 
-		setTitle("Gestiï¿½n de Reservas");
+		setTitle("Gestión de Reservas");
 		setResizable(false);
 		setVisible(false);
 		setSize(798, 390);
@@ -85,14 +85,14 @@ public class VentanaReserva extends JFrame {
 		getContentPane().add(panelFormulario);
 		panelFormulario.setLayout(null);
 
-		JButton btnAadirReserva = new JButton("A\u00F1adir Reserva");
-		btnAadirReserva.setBounds(9, 276, 192, 26);
-		panelFormulario.add(btnAadirReserva);
-		btnAadirReserva.addActionListener(new ActionListener() {
+		JButton btnAnadirReserva = new JButton("Añadir Reserva");
+		btnAnadirReserva.setBounds(9, 276, 192, 26);
+		panelFormulario.add(btnAnadirReserva);
+		btnAnadirReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ANADIR_RESERVA, obtenerReserva());
-				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERRESERVAS, obtenerReserva());
+				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERRESERVAS, null);
 
 			}
 		});
@@ -104,16 +104,16 @@ public class VentanaReserva extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.MODIFICAR_RESERVA, obtenerReserva());
-				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERRESERVAS, obtenerReserva());
+				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERRESERVAS, null);
 
 			}
 		});
 
-		JLabel lblAadirNuevaReserva = new JLabel("A\u00F1adir o Modificar Reserva:");
-		lblAadirNuevaReserva.setFont(new Font("Dialog", Font.BOLD, 13));
-		lblAadirNuevaReserva.setBounds(12, 12, 192, 16);
-		panelFormulario.add(lblAadirNuevaReserva);
-		lblAadirNuevaReserva.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblAnadirNuevaReserva = new JLabel("Añadir o Modificar Reserva:");
+		lblAnadirNuevaReserva.setFont(new Font("Dialog", Font.BOLD, 13));
+		lblAnadirNuevaReserva.setBounds(12, 12, 192, 16);
+		panelFormulario.add(lblAnadirNuevaReserva);
+		lblAnadirNuevaReserva.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JLabel lblId = new JLabel("ID:");
 		lblId.setBounds(64, 46, 14, 16);
@@ -143,7 +143,7 @@ public class VentanaReserva extends JFrame {
 		panelFormulario.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 
-		JLabel lblFecha = new JLabel("Dï¿½a:");
+		JLabel lblFecha = new JLabel("Día:");
 		lblFecha.setBounds(5, 144, 30, 16);
 		panelFormulario.add(lblFecha);
 		
@@ -161,7 +161,7 @@ public class VentanaReserva extends JFrame {
 		panelFormulario.add(textFieldHora);
 		textFieldHora.setColumns(10);
 		
-		JLabel lblTelefono = new JLabel("Telefono:");
+		JLabel lblTelefono = new JLabel("Teléfono:");
 		lblTelefono.setBounds(25, 172, 70, 16);
 		panelFormulario.add(lblTelefono);
 		
@@ -170,7 +170,7 @@ public class VentanaReserva extends JFrame {
 		panelFormulario.add(textFieldTelefono);
 		textFieldTelefono.setColumns(10);
 		
-		JLabel lblComensales = new JLabel("Nï¿½ Comens.:");
+		JLabel lblComensales = new JLabel("Nº Comens.:");
 		lblComensales.setBounds(10, 200, 70, 16);
 		panelFormulario.add(lblComensales);
 
@@ -196,16 +196,16 @@ public class VentanaReserva extends JFrame {
 		getContentPane().add(panelLista);
 		panelLista.setLayout(null);
 
-		JButton btnEliminarReserva = new JButton("Eliminar Reserva Seleccionado");
+		JButton btnEliminarReserva = new JButton("Eliminar Reserva Seleccionada");
 		btnEliminarReserva.setBounds(0, 310, 564, 26);
 		panelLista.add(btnEliminarReserva);
 		btnEliminarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(mensajeConfirmacionSiNo("ï¿½Realmente desea eliminar la reserva?", "Confirmar eliminar Reserva"))
+				if(mensajeConfirmacionSiNo("¿Realmente desea eliminar la reserva?", "Confirmar eliminar Reserva"))
 				{
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ELIMINAR_RESERVA, getTbReservas().getSelectedRow() );
-					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERRESERVAS, obtenerReserva());
+					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERRESERVAS, null);
 				}
 			}
 		});
@@ -217,20 +217,18 @@ public class VentanaReserva extends JFrame {
 		tbReservas = new JTable();
 		scrollPane.setViewportView(tbReservas);
 		tbReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tbReservas.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent arg0) {
+		tbReservas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
 
-						if (getTbReservas().getSelectedRow() != -1)
-							ApplicationController.obtenerInstancia().handleRequest(EnumComandos.MODIFICAR_FORMULARIO_RESERVA, getTbReservas().getSelectedRow() );	
-						
-					}
-				});
+				if (getTbReservas().getSelectedRow() != -1) //si hay alguna fila seleccionada
+					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.MODIFICAR_FORMULARIO_RESERVA, getTbReservas().getSelectedRow() );	
+				
+			}
+		});
 
 	}
 
 	// Metodos
-
 	public void actualizar(Object object) {
 
 		if (object == null)
@@ -273,7 +271,10 @@ public class VentanaReserva extends JFrame {
 		tbReservas.setModel(modelo);
 		
 	}
-
+	
+	/*
+	 * Tranforma en Transfer la reserva que está en el formulario
+	 */
 	public TReserva obtenerReserva() {
 
 		int ID = -1;

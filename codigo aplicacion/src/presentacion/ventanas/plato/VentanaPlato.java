@@ -78,7 +78,7 @@ public class VentanaPlato extends JFrame {
 	public VentanaPlato() {
 
 
-		setTitle("Gestiï¿½n de Platos");
+		setTitle("Gestión de Platos");
 		setResizable(false);
 		setVisible(false);
 		setSize(798, 390);
@@ -91,35 +91,35 @@ public class VentanaPlato extends JFrame {
 		getContentPane().add(panelFormulario);
 		panelFormulario.setLayout(null);
 
-		JButton btnAadirProducto = new JButton("A\u00F1adir Plato");
-		btnAadirProducto.setBounds(9, 276, 192, 26);
-		panelFormulario.add(btnAadirProducto);
-		btnAadirProducto.addActionListener(new ActionListener() {
+		JButton btnAnadirPlato = new JButton("Añadir Plato");
+		btnAnadirPlato.setBounds(9, 276, 192, 26);
+		panelFormulario.add(btnAnadirPlato);
+		btnAnadirPlato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ANADIR_PLATO, obtenerPlato());
-				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS, obtenerPlato());
+				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS, null);
 
 			}
 		});
 
-		JButton btnModificarProducto = new JButton("Modificar Plato");
-		btnModificarProducto.setBounds(9, 310, 192, 26);
-		panelFormulario.add(btnModificarProducto);
-		btnModificarProducto.addActionListener(new ActionListener() {
+		JButton btnModificarPlato = new JButton("Modificar Plato");
+		btnModificarPlato.setBounds(9, 310, 192, 26);
+		panelFormulario.add(btnModificarPlato);
+		btnModificarPlato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.MODIFICAR_PLATO, obtenerPlato());
-				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS, obtenerPlato());
+				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS, null);
 
 			}
 		});
 
-		JLabel lblAadirNuevoProducto = new JLabel("A\u00F1adir o Modificar Plato:");
-		lblAadirNuevoProducto.setFont(new Font("Dialog", Font.BOLD, 13));
-		lblAadirNuevoProducto.setBounds(12, 12, 192, 16);
-		panelFormulario.add(lblAadirNuevoProducto);
-		lblAadirNuevoProducto.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblAnadirNuevoPlato = new JLabel("Añadir o Modificar Plato:");
+		lblAnadirNuevoPlato.setFont(new Font("Dialog", Font.BOLD, 13));
+		lblAnadirNuevoPlato.setBounds(12, 12, 192, 16);
+		panelFormulario.add(lblAnadirNuevoPlato);
+		lblAnadirNuevoPlato.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JLabel lblId = new JLabel("ID:");
 		lblId.setBounds(64, 46, 14, 16);
@@ -153,7 +153,7 @@ public class VentanaPlato extends JFrame {
 		lblTipo.setBounds(51, 107, 27, 16);
 		panelFormulario.add(lblTipo);
 		
-		comboBoxTipo = new JComboBox<String>();
+		comboBoxTipo = new JComboBox();
 		comboBoxTipo.setBounds(83, 103, 118, 25);
 		panelFormulario.add(comboBoxTipo);
 		comboBoxTipo.setModel(new DefaultComboBoxModel(TipoPlato.EnumTipoPlato.values()));
@@ -168,7 +168,7 @@ public class VentanaPlato extends JFrame {
 		comboBoxSubTipo.setModel(new DefaultComboBoxModel(TipoPlato.EnumTipoComida.values()));
 		
 		comboBoxTipo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) { //carga los subitpos en función del tipo elegido
 				if(comboBoxTipo.getSelectedItem().toString().compareTo(TipoPlato.EnumTipoPlato.Comida.toString()) == 0)
 				{
 					comboBoxSubTipo.setModel(new DefaultComboBoxModel(TipoPlato.EnumTipoComida.values()));
@@ -212,16 +212,16 @@ public class VentanaPlato extends JFrame {
 		getContentPane().add(panelLista);
 		panelLista.setLayout(null);
 
-		JButton btnEliminarProducto = new JButton("Eliminar Plato Seleccionado");
-		btnEliminarProducto.setBounds(0, 310, 564, 26);
-		panelLista.add(btnEliminarProducto);
-		btnEliminarProducto.addActionListener(new ActionListener() {
+		JButton btnEliminarPlato = new JButton("Eliminar Plato Seleccionado");
+		btnEliminarPlato.setBounds(0, 310, 564, 26);
+		panelLista.add(btnEliminarPlato);
+		btnEliminarPlato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(mensajeConfirmacionSiNo("ï¿½Realmente desea eliminar el plato?", "Confirmar eliminar Plato"))
+				if(mensajeConfirmacionSiNo("¿Realmente desea eliminar el plato?", "Confirmar eliminar Plato"))
 				{
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ELIMINAR_PLATO, getTbAlmacen().getSelectedRow() );
-					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS, obtenerPlato());
+					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS, null);
 
 				}
 			}
@@ -234,15 +234,14 @@ public class VentanaPlato extends JFrame {
 		tbAlmacen = new JTable();
 		scrollPane.setViewportView(tbAlmacen);
 		tbAlmacen.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tbAlmacen.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent arg0) {
-
-						if (getTbAlmacen().getSelectedRow() != -1)
-							ApplicationController.obtenerInstancia().handleRequest(EnumComandos.MODIFICAR_FORMULARIO_PLATO, getTbAlmacen().getSelectedRow() );	
-						
-					}
-				});
+		tbAlmacen.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+	
+				if (getTbAlmacen().getSelectedRow() != -1) //hay alguna fila seleccionada
+					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.MODIFICAR_FORMULARIO_PLATO, getTbAlmacen().getSelectedRow() );	
+				
+			}
+		});
 
 	}
 
@@ -328,7 +327,7 @@ public class VentanaPlato extends JFrame {
 		}
 
 		
-		//Crea un tipo de transfer u otro en funciï¿½n del tipo que sea el comboBox, pero lo encapsula en TPlato
+		//Crea un tipo de transfer u otro en función del tipo que sea el comboBox, pero lo encapsula en TPlato
 		TPlato t;
 		
 		if(comboBoxTipo.getSelectedItem().toString().compareTo(TipoPlato.EnumTipoPlato.Comida.toString()) == 0)

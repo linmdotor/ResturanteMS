@@ -80,7 +80,7 @@ public class VentanaFactura extends JFrame {
 	// Constructor
 	public VentanaFactura() {
 
-		setTitle("Gestiï¿½n de Facturas");
+		setTitle("Gestión de Facturas");
 		setResizable(false);
 		setVisible(false);
 		setSize(1100, 420);
@@ -93,22 +93,22 @@ public class VentanaFactura extends JFrame {
 		getContentPane().add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
-		JButton btnAadirFactura= new JButton("Nueva Factura");
-		btnAadirFactura.setBounds(9, 310, 192, 26);
-		panelFormulario.add(btnAadirFactura);
-		btnAadirFactura.addActionListener(new ActionListener() {
+		JButton btnAnadirFactura= new JButton("Nueva Factura");
+		btnAnadirFactura.setBounds(9, 310, 192, 26);
+		panelFormulario.add(btnAnadirFactura);
+		btnAnadirFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ANADIR_FACTURA, obtenerFactura());
-				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERFACTURAS, obtenerFactura());
+				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERFACTURAS, null);
 
 			}
 		});
 
-		JButton btnAadirPlatosFactura= new JButton("Anadir Platos a Factura");
-		btnAadirPlatosFactura.setBounds(9, 340, 192, 26);
-		panelFormulario.add(btnAadirPlatosFactura);
-		btnAadirPlatosFactura.addActionListener(new ActionListener() {
+		JButton btnAnadirPlatosFactura= new JButton("Añadir Platos a la Factura");
+		btnAnadirPlatosFactura.setBounds(9, 340, 192, 26);
+		panelFormulario.add(btnAnadirPlatosFactura);
+		btnAnadirPlatosFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ApplicationController.obtenerInstancia().handleRequest(EnumComandos.INICIAR_VISTA_FACTURAPLATO, obtenerFactura());
@@ -116,7 +116,7 @@ public class VentanaFactura extends JFrame {
 			}
 		});
 
-		JLabel lblAadirNuevaFactura = new JLabel("A\u00F1adir Factura:");
+		JLabel lblAadirNuevaFactura = new JLabel("Añadir Factura:");
 		lblAadirNuevaFactura.setFont(new Font("Dialog", Font.BOLD, 13));
 		lblAadirNuevaFactura.setBounds(12, 12, 192, 16);
 		panelFormulario.add(lblAadirNuevaFactura);
@@ -195,7 +195,7 @@ public class VentanaFactura extends JFrame {
 		panelFormulario.add(textFieldDir_Cliente);
 		textFieldDir_Cliente.setColumns(10);
 
-		JLabel lblFecha = new JLabel("Dï¿½a:");
+		JLabel lblFecha = new JLabel("Día:");
 		lblFecha.setBounds(5, 214, 30, 16);
 		panelFormulario.add(lblFecha);
 		
@@ -219,7 +219,7 @@ public class VentanaFactura extends JFrame {
 		lblIVA.setBounds(5, 242, 30, 16);
 		panelFormulario.add(lblIVA);
 		
-		textFieldIVA = new JTextField();
+		textFieldIVA = new JTextField("21");
 		textFieldIVA.setBounds(30, 240, 30, 20);
 		panelFormulario.add(textFieldIVA);
 		textFieldIVA.setColumns(10);
@@ -228,7 +228,7 @@ public class VentanaFactura extends JFrame {
 		lblComensales.setBounds(65, 242, 70, 16);
 		panelFormulario.add(lblComensales);
 
-		textFieldTipo_Servicio = new JTextField();
+		textFieldTipo_Servicio = new JTextField("Restauración");
 		textFieldTipo_Servicio.setBounds(115, 240, 85, 20);;
 		panelFormulario.add(textFieldTipo_Servicio);
 		textFieldTipo_Servicio.setColumns(10);
@@ -256,10 +256,10 @@ public class VentanaFactura extends JFrame {
 		btnEliminarFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (mensajeConfirmacionSiNo("ï¿½Realmente desea eliminar la factura?", "Confirmar eliminar Factura"))
+				if (mensajeConfirmacionSiNo("¿Realmente desea eliminar la factura?", "Confirmar eliminar Factura"))
 				{
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.ELIMINAR_FACTURA, getTbFacturas().getSelectedRow() );
-					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERFACTURAS, obtenerFactura());
+					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERFACTURAS, null);
 				}
 			}
 		});
@@ -271,15 +271,14 @@ public class VentanaFactura extends JFrame {
 		tbFacturas = new JTable();
 		scrollPane.setViewportView(tbFacturas);
 		tbFacturas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tbFacturas.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent arg0) {
+		tbFacturas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
 
-						if (getTbFacturas().getSelectedRow() != -1)
-							ApplicationController.obtenerInstancia().handleRequest(EnumComandos.MODIFICAR_FORMULARIO_FACTURA, getTbFacturas().getSelectedRow() );	
-						
-					}
-				});
+				if (getTbFacturas().getSelectedRow() != -1) //hay alguna fila seleccionada
+					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.MODIFICAR_FORMULARIO_FACTURA, getTbFacturas().getSelectedRow() );	
+				
+			}
+		});
 
 	}
 
@@ -352,7 +351,7 @@ public class VentanaFactura extends JFrame {
 		
 		if (comprobadorEntero.isNumeric(textFieldID_Reserva.getText())) {
 			ID_Reserva = Integer.parseInt(textFieldID_Reserva.getText());
-		}  //AQUI FALTA COMPROBAR QUE EXISTE EN LA BBDD LA RESERVA con ese ID
+		}
 		
 		if (comprobadorEntero.isNumeric(textFieldIVA.getText())) {
 			IVA = Integer.parseInt(textFieldIVA.getText());
@@ -414,8 +413,8 @@ public class VentanaFactura extends JFrame {
 		textFieldDir_Cliente.setText("");
 		textFieldFecha.setText("");
 		textFieldHora.setText("");
-		textFieldIVA.setText("");
-		textFieldTipo_Servicio.setText("");
+		textFieldIVA.setText("21");
+		textFieldTipo_Servicio.setText("Restauración");
 	}
 	
 	private boolean mensajeConfirmacionSiNo(String msj, String cabecera) {	
