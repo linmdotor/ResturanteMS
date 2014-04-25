@@ -14,7 +14,7 @@ public abstract class Dispatcher {
 
 	// Atributos
 
-	private static Dispatcher dispatcher;
+	private static Dispatcher dispatcher; //instancia singleton
 
 	// Metodos
 

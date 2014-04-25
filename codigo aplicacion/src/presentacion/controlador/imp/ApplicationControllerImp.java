@@ -17,12 +17,9 @@ import presentacion.controlador.FactoriaCMD;
 public class ApplicationControllerImp extends ApplicationController {
 
 	// Metodos
-
 	public void handleRequest(EnumComandos nombreComando, Object objeto) {
 
-		FactoriaCMD factoriaComandos = FactoriaCMD.obtenerInstancia();
-
-		CMD comando = factoriaComandos.generaComando(nombreComando);
+		CMD comando = FactoriaCMD.obtenerInstancia().generaComando(nombreComando);
 
 		Dispatcher.obtenerInstancia().despachaRespuesta(comando.ejecuta(objeto));
 

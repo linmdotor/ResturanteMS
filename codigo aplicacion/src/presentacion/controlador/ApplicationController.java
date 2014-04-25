@@ -15,7 +15,7 @@ public abstract class ApplicationController {
 
 	// Atributos
 
-	private static ApplicationController controladorAplicacion;
+	private static ApplicationController controladorAplicacion; //instancia singleton
 
 	// Metodos
 

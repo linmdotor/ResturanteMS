@@ -15,7 +15,7 @@ public abstract class FactoriaCMD {
 
 	// Atributos
 
-	private static FactoriaCMD factoria;
+	private static FactoriaCMD factoria; //instancia singleton
 
 	// Metodos
 

@@ -111,7 +111,7 @@ public class DispatcherImp extends Dispatcher {
 				break;
 				
 			default:
-				new VentanaError("Lo sentimos, hay un error . Vuelva a comprobar la validez de los datos.");
+				new VentanaError("Lo sentimos, hay un error. Vuelva a comprobar la validez de los datos.");
 				break;
 		}
 

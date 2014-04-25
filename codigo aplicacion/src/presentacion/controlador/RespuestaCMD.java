@@ -1,6 +1,10 @@
 package presentacion.controlador;
 
-
+/*
+ * Clase para devolver la respuesta de un comando.
+ * Contiene un evento, del EnumComandos, y un objeto cualquiera 
+ * (que se podrá parsear al objeto que corresponda en cada momento).
+ */
 public class RespuestaCMD {
 
 	private EnumComandos evento;
