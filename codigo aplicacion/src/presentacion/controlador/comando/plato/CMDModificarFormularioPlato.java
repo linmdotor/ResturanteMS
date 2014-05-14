@@ -10,18 +10,17 @@ public class CMDModificarFormularioPlato implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 		
-		SAPlato serviciosPlato = FactoriaNegocio.obtenerInstancia().generaSAPlato();
-		
-		RespuestaCMD respuestaCMD = new RespuestaCMD(EnumComandos.ERROR, "No se ha podido cargar el Plato seleccionado");
+		SAPlato serviciosPlato = FactoriaNegocio.obtenerInstancia().generaSAPlato();		
+		RespuestaCMD respuesta = null;
 						
 		try {
-			respuestaCMD = new RespuestaCMD(EnumComandos.MODIFICAR_FORMULARIO_PLATO, serviciosPlato.obtenerPlatos().get( (Integer) objeto ) );
+			respuesta = new RespuestaCMD(EnumComandos.MODIFICAR_FORMULARIO_PLATO, serviciosPlato.obtenerPlatos().get( (Integer) objeto ) );
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			respuesta = new RespuestaCMD(EnumComandos.ERROR, "No se ha podido cargar el Plato seleccionado");
 			e.printStackTrace();
 		}
 		
-		return respuestaCMD;		
+		return respuesta;		
 	}
 	
 }

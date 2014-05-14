@@ -13,11 +13,10 @@ public class CMDAltaFacturaPlato implements CMD {
 
 	@Override
 	public RespuestaCMD ejecuta(Object objeto) {
-	
+
+		ArrayList<TFacturaPlato> lista = (ArrayList<TFacturaPlato>) objeto;
 		RespuestaCMD respuestaComando = null;
 		
-		ArrayList<TFacturaPlato> lista = (ArrayList<TFacturaPlato>) objeto;
-	
 		if(lista.size() > 0)
 		{
 			SAFactura serviciosFactura = FactoriaNegocio.obtenerInstancia().generaSAFactura();
@@ -25,18 +24,18 @@ public class CMDAltaFacturaPlato implements CMD {
 			try {
 				if (serviciosFactura.anadirPlatosAFactura((ArrayList<TFacturaPlato>) objeto))
 				{
-					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_FACTURAPLATO, "Se han aï¿½adido los platos a la factura.");
+					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_FACTURAPLATO, "Se han añadido los platos a la factura.");
 				}
 				else
-					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. Asegurese de que no esos platos no estï¿½n ya insertados.");
+					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. Asegurese de que no esos platos no están ya insertados.");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al insertar los platos.");
 				e.printStackTrace();
 			}
 
 		}
 		else
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. No hay ningï¿½n plato en la factura.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. No hay ningún plato en la factura.");
 			
 		return respuestaComando;
 		

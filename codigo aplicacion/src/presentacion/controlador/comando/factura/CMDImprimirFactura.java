@@ -31,6 +31,7 @@ public class CMDImprimirFactura implements CMD{
 		SAFactura serviciosFactura = FactoriaNegocio.obtenerInstancia().generaSAFactura();		
 		TFactura tfactura;
 		RespuestaCMD respuesta = null;
+		
 		try {
 			tfactura = serviciosFactura.obtenerFactura(tfacturaplatos.get(0).getID_Factura());
 			SAPlato serviciosPlato = FactoriaNegocio.obtenerInstancia().generaSAPlato();
@@ -63,7 +64,7 @@ public class CMDImprimirFactura implements CMD{
 			respuesta= new RespuestaCMD(EnumComandos.CORRECTO, "Factura generada en: " + ruta);
 
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			respuesta= new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al generar la factura.");
 			e1.printStackTrace();
 		}
 		

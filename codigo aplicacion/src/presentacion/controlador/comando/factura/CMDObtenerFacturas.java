@@ -18,7 +18,7 @@ public class CMDObtenerFacturas implements CMD {
 			try {
 				respuestaComando = new RespuestaCMD(EnumComandos.OBTENERFACTURAS, serviciosFactura.obtenerFacturas());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR,	"Error inesperado al obtener las facturas.");
 				e.printStackTrace();
 			}
 

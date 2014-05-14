@@ -17,7 +17,6 @@ import presentacion.controlador.RespuestaCMD;
 public class CMDObtenerReservas implements CMD {
 
 	// Metodos
-
 	public RespuestaCMD ejecuta(Object objeto) {
 
 		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia().generaSAReserva();
@@ -26,7 +25,7 @@ public class CMDObtenerReservas implements CMD {
 		try {
 			respuestaComando = new RespuestaCMD(EnumComandos.OBTENERRESERVAS,	serviciosReserva.obtenerReservas());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR,	"Error inesperado al Obtener las Reservas");
 			e.printStackTrace();
 		}
 

@@ -17,16 +17,14 @@ import presentacion.controlador.RespuestaCMD;
 public class CMDIniciarVistaReserva implements CMD {
 
 	// Metodos
-
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia()
-				.generaSAReserva();
+		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia().generaSAReserva();
 		RespuestaCMD respuesta = null;
 		try {
-			respuesta=  new RespuestaCMD(EnumComandos.INICIAR_VISTA_RESERVA, serviciosReserva.obtenerReservas());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			respuesta =  new RespuestaCMD(EnumComandos.INICIAR_VISTA_RESERVA, serviciosReserva.obtenerReservas());
+		} catch (Exception e) {			
+			respuesta =  new RespuestaCMD(EnumComandos.ERROR, "Error al iniciar la vista de Reservas.");
 			e.printStackTrace();
 		}
 		return respuesta;

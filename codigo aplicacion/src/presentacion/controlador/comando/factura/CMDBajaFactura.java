@@ -10,16 +10,14 @@ public class CMDBajaFactura implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 		
-		RespuestaCMD respuestaComando = null;
-
 		SAFactura serviciosFactura = FactoriaNegocio.obtenerInstancia().generaSAFactura();
-
+		RespuestaCMD respuestaComando = null;
+		
 		int ID = -1;
 
 		if ((Integer) objeto != -1) 
 		{
 
-			
 			try {
 				ID = serviciosFactura.obtenerFacturas().get((Integer) objeto).getID_Factura();
 
@@ -28,7 +26,7 @@ public class CMDBajaFactura implements CMD {
 				else
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "No se ha podido eliminar factura. Error al eliminar los datos.");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al eliminar factura.");
 				e.printStackTrace();
 			}
 		}

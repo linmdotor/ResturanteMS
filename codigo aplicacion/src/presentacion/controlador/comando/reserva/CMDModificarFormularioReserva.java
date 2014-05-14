@@ -10,18 +10,17 @@ public class CMDModificarFormularioReserva implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 		
-		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia().generaSAReserva();
-		
-		RespuestaCMD respuestaCMD = new RespuestaCMD(EnumComandos.ERROR, "No se ha podido cargar la Reserva seleccionada");
+		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia().generaSAReserva();		
+		RespuestaCMD respuesta = null; 
 						
 		try {
-			respuestaCMD = new RespuestaCMD(EnumComandos.MODIFICAR_FORMULARIO_RESERVA, serviciosReserva.obtenerReservas().get( (Integer) objeto ) );
+			respuesta = new RespuestaCMD(EnumComandos.MODIFICAR_FORMULARIO_RESERVA, serviciosReserva.obtenerReservas().get( (Integer) objeto ) );
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			respuesta = new RespuestaCMD(EnumComandos.ERROR, "Error Inesperado. No se ha podido cargar la Reserva seleccionada");
 			e.printStackTrace();
 		}
 		
-		return respuestaCMD;		
+		return respuesta;		
 	}
 	
 }

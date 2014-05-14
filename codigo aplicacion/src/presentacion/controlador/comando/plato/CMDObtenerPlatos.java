@@ -17,18 +17,15 @@ import presentacion.controlador.RespuestaCMD;
 public class CMDObtenerPlatos implements CMD {
 
 	// Metodos
-
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		SAPlato serviciosProductosCarta = FactoriaNegocio.obtenerInstancia()
-				.generaSAPlato();
-
+		SAPlato serviciosProductosCarta = FactoriaNegocio.obtenerInstancia().generaSAPlato();
 		RespuestaCMD respuestaComando = null;
+		
 		try {
-			respuestaComando = new RespuestaCMD(EnumComandos.OBTENERPLATOS,
-					serviciosProductosCarta.obtenerPlatos());
+			respuestaComando = new RespuestaCMD(EnumComandos.OBTENERPLATOS, serviciosProductosCarta.obtenerPlatos());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al Obtener los Platos.");
 			e.printStackTrace();
 		}
 

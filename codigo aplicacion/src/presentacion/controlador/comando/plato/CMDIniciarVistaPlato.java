@@ -17,16 +17,15 @@ import presentacion.controlador.RespuestaCMD;
 public class CMDIniciarVistaPlato implements CMD {
 
 	// Metodos
-
 	public RespuestaCMD ejecuta(Object objeto) {
 
 		SAPlato serviciosPlato = FactoriaNegocio.obtenerInstancia().generaSAPlato();
-
 		RespuestaCMD respuestaComando = null;
+		
 		try {
 			respuestaComando = new RespuestaCMD(EnumComandos.INICIAR_VISTA_PLATO, serviciosPlato.obtenerPlatos());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Eror incesperado al Iniciar la Vista de Platos.");
 			e.printStackTrace();
 		}
 

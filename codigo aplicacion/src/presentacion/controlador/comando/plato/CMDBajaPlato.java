@@ -20,10 +20,9 @@ public class CMDBajaPlato implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		RespuestaCMD respuestaComando = null;
-
 		SAPlato serviciosProductosCarta = FactoriaNegocio.obtenerInstancia().generaSAPlato();
-
+		RespuestaCMD respuestaComando = null;
+		
 		int ID = -1;
 
 		if ((Integer) objeto != -1) 
@@ -34,10 +33,10 @@ public class CMDBajaPlato implements CMD {
 				if (serviciosProductosCarta.eliminarPlato(ID))
 					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_PLATO, "Exito eliminando Plato.");
 				else
-					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al eliminar plato. No se puede eliminar un plato que estï¿½ en un pedido.");
+					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al eliminar plato. No se puede eliminar un plato que está en un pedido.");
 		
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al eliminar plato.");
 				e.printStackTrace();
 			}
 

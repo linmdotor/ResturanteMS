@@ -29,7 +29,7 @@ public class CMDIniciarVistaFacturaPlato implements CMD {
 			else
 				respuesta =  new RespuestaCMD(EnumComandos.ERROR, "No puede volver a insertar platos en una factura finalizada");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			respuesta =  new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al Iniciar la vista de la factura..");
 			e.printStackTrace();
 		}
 		return respuesta;

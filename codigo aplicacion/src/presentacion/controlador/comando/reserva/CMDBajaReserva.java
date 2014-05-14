@@ -17,13 +17,10 @@ import presentacion.controlador.RespuestaCMD;
 public class CMDBajaReserva implements CMD {
 
 	// Metodos
-
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		RespuestaCMD respuestaComando = null;
-
 		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia().generaSAReserva();
-
+		RespuestaCMD respuestaComando = null;
 		int ID = -1;
 
 		if ((Integer) objeto != -1)
@@ -37,11 +34,11 @@ public class CMDBajaReserva implements CMD {
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR,	"Error al eliminar reserva. Error al eliminar los datos.");
 		
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al eliminar reserva.");
 				e.printStackTrace();
 			}
 
-				}
+		}
 		else
 			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al eliminar reserva. Debe seleccionar una Reserva.");
 

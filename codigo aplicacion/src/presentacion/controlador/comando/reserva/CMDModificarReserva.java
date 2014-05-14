@@ -19,13 +19,11 @@ import presentacion.controlador.RespuestaCMD;
 public class CMDModificarReserva implements CMD {
 
 	// Metodos
-
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		RespuestaCMD respuestaComando = null;
-
 		SAReserva serviciosReservas = FactoriaNegocio.obtenerInstancia().generaSAReserva();
-
+		RespuestaCMD respuestaComando = null;
+		
 		if (new ValidarTReserva().transferCorrecto((TReserva) objeto))
 		{
 			try {
@@ -34,12 +32,12 @@ public class CMDModificarReserva implements CMD {
 				else
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al modificar Reserva. Error al insertar los datos.");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al modificar Reserva.");
 				e.printStackTrace();
 			}
 		}
 		else
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al modificar Reserva. Los datos no son vï¿½lidos.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al modificar Reserva. Los datos no son válidos.");
 
 		return respuestaComando;
 

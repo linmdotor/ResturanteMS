@@ -22,10 +22,9 @@ public class CMDModificarPlato implements CMD {
 
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		RespuestaCMD respuestaComando = null;
-
 		SAPlato serviciosProductosCarta = FactoriaNegocio.obtenerInstancia().generaSAPlato();
-
+		RespuestaCMD respuestaComando = null;
+		
 		if (new ValidarTPlato().transferCorrecto((TPlato) objeto))
 		{
 			try {
@@ -34,12 +33,12 @@ public class CMDModificarPlato implements CMD {
 				else
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al modificar Plato. Error al insertar los datos.");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al modificar Plato.");
 				e.printStackTrace();
 			}
 		}
 		else
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al modificar plato. Los datos no son vï¿½lidos.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al modificar plato. Los datos no son válidos.");
 			
 		return respuestaComando;
 

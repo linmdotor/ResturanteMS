@@ -19,27 +19,25 @@ import presentacion.controlador.RespuestaCMD;
 public class CMDAltaReserva implements CMD {
 
 	// Metodos
-
 	public RespuestaCMD ejecuta(Object objeto) {
 
-		RespuestaCMD respuestaComando = null;
-
 		SAReserva serviciosReserva = FactoriaNegocio.obtenerInstancia().generaSAReserva();
-
+		RespuestaCMD respuestaComando = null;
+		
 		if (new ValidarTReserva().transferCorrecto((TReserva) objeto))
 		{
 			try {
 				if (serviciosReserva.anadirReserva((TReserva) objeto))
-					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_RESERVA, "Se ha aï¿½adido la Reserva.");
+					respuestaComando = new RespuestaCMD(EnumComandos.CORRECTO_RESERVA, "Se ha añadido la Reserva.");
 				else
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar la reserva. Error al insertar los datos.");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al insertar la reserva.");
 				e.printStackTrace();
 			}
 		}
 		else
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar la reserva. Los datos no son vï¿½lidos.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar la reserva. Los datos no son válidos.");
 
 		return respuestaComando;
 
