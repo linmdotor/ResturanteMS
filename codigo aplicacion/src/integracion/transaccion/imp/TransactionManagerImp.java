@@ -17,14 +17,16 @@ public class TransactionManagerImp extends TransactionManager {
 		concurrentHashMap = new ConcurrentHashMap<Thread,Transaction>();
 
 	}
+	
 	@Override
-	public void nuevaTransaccion() {
+	public void nuevaTransaccion() throws Exception {
 		
 		TransactionMySQL t;
 		
-		if(concurrentHashMap.containsKey(Thread.currentThread())) {
+		//hay una transacción en curso, no debe crear una nueva.
+		if(concurrentHashMap.containsKey(Thread.currentThread())) { 
 			
-			t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
+			throw new Exception("Ya existe una transacción en curso. No se puede crear una nueva hasta que finalice la anterior.");
 			
 		} else {
 			
@@ -36,8 +38,9 @@ public class TransactionManagerImp extends TransactionManager {
 	}
 
 	@Override
-	public void eliminarTransaccion() {
+	public void eliminarTransaccion() throws Exception {
 		
+		//hay una transacción en marcha
 		if(concurrentHashMap.containsKey(Thread.currentThread())) {
 			
 			TransactionMySQL t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
@@ -48,24 +51,35 @@ public class TransactionManagerImp extends TransactionManager {
 			
 			} catch (Exception e) {
 					
-				e.printStackTrace();
-			
+				throw new Exception("No se ha podido realizar el commit al cerrar la transacción.");					
 			}
 			
 			concurrentHashMap.remove(Thread.currentThread());
+			
+		}
+		else //no existe  transacción actual
+		{
+			throw new Exception("No existe una transacción en curso. No se puede eliminar la transación.");
 			
 		}
 		
 	}
 
 	@Override
-	public Transaction getTransaction() {
+	
+	public Transaction getTransaction() throws Exception {
 		
 		TransactionMySQL t = null ;
 		
+		//Hay transaccion en marcha
 		if(concurrentHashMap.containsKey(Thread.currentThread())) {
 			
 			t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
+			
+		}
+		else //No existe transacción en curso.
+		{
+			throw new Exception("No existe una transacción en curso. No se puede devolver la transación.");
 			
 		}
 		

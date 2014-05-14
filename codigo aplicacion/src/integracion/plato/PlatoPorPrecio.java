@@ -24,7 +24,14 @@ public class PlatoPorPrecio implements Query {
 		
 		TransactionManager tManager = TransactionManager.getInstance();
 
-		Transaction transaction = tManager.getTransaction();
+		Transaction transaction;
+		try {
+			transaction = tManager.getTransaction();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 		java.sql.Connection c = (Connection) transaction.getResource();
 		ArrayList<TPlato> lista = new ArrayList<TPlato>();
         try {

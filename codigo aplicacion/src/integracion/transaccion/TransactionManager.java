@@ -20,9 +20,9 @@ public abstract class TransactionManager {
 			return transactionManager;
 		}
 
-		public abstract void nuevaTransaccion();
+		public abstract void nuevaTransaccion() throws Exception;
 		
-		public abstract void eliminarTransaccion();
+		public abstract void eliminarTransaccion() throws Exception;
 
-		public abstract Transaction getTransaction();
+		public abstract Transaction getTransaction() throws Exception;
 }

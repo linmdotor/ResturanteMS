@@ -27,18 +27,18 @@ public class DAOPlatoImp implements DAOPlato {
 	@Override
 	public ArrayList<TPlato> obtenerPlatos() 
 	{
-		
-		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
-		
-		ArrayList<TPlato> listaPlatos = new ArrayList<TPlato>();
+	
+		ArrayList<TPlato> listaPlatos = null;
 		
 			try {
+				Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 				
 				ResultSet rs =  c.createStatement().executeQuery("SELECT p.*,c.Tipo "
 																+ "FROM Plato p, Plato_Comida c  "
 																+ "WHERE p.ID_Plato = c.ID_Plato_Comida "
 																+ "ORDER BY c.Tipo, p.Nombre");
 				
+				listaPlatos = new ArrayList<TPlato>();
 				while(rs.next()) {
 					
 					TPlatoComida tPlatoAux = new TPlatoComida();
@@ -84,6 +84,9 @@ public class DAOPlatoImp implements DAOPlato {
 				
 				e.printStackTrace();
 			
+			} catch (Exception e) {
+				
+				e.printStackTrace();			
 			}
  
 	        return  listaPlatos;	
@@ -94,7 +97,14 @@ public class DAOPlatoImp implements DAOPlato {
 		
 		TransactionManager tManager = TransactionManager.getInstance();
 		
-		Transaction transaction = tManager.getTransaction();
+		Transaction transaction;
+		try {
+			transaction = tManager.getTransaction();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return null;
+		}
+		
 		java.sql.Connection c = (Connection)transaction.getResource();
 		TPlatoComida tPlatoComida = new TPlatoComida();
 		TPlatoBebida tPlatoBebida = new TPlatoBebida();
@@ -156,7 +166,13 @@ public class DAOPlatoImp implements DAOPlato {
 		
 		TransactionManager tManager = TransactionManager.getInstance();
 		
-		Transaction transaction = tManager.getTransaction();
+		Transaction transaction;
+		try {
+			transaction = tManager.getTransaction();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return false;
+		}
 		java.sql.Connection c = (Connection)transaction.getResource();
 			
 		try {
@@ -214,7 +230,13 @@ public class DAOPlatoImp implements DAOPlato {
 		
 		TransactionManager tManager = TransactionManager.getInstance();
 		
-		Transaction transaction = tManager.getTransaction();
+		Transaction transaction;
+		try {
+			transaction = tManager.getTransaction();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return false;
+		}
 		java.sql.Connection c = (Connection)transaction.getResource();
 		
 		int rdo = 0;
@@ -246,7 +268,13 @@ public class DAOPlatoImp implements DAOPlato {
 	{
 		TransactionManager tManager = TransactionManager.getInstance();
 		
-		Transaction transaction = tManager.getTransaction();
+		Transaction transaction;
+		try {
+			transaction = tManager.getTransaction();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return false;
+		}
 		java.sql.Connection c = (Connection)transaction.getResource();
 			
 		try {
@@ -298,7 +326,13 @@ public class DAOPlatoImp implements DAOPlato {
 		
 		TransactionManager tManager = TransactionManager.getInstance();
 		
-		Transaction transaction = tManager.getTransaction();
+		Transaction transaction;
+		try {
+			transaction = tManager.getTransaction();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return false;
+		}
 		java.sql.Connection c = (Connection)transaction.getResource();		
 			
 		try {

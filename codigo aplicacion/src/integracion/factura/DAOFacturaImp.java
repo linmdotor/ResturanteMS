@@ -17,15 +17,16 @@ public class DAOFacturaImp implements DAOFactura {
 
 	@Override
 	public ArrayList<TFactura> obtenerFacturas() {
-	
-		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+			
+		ArrayList<TFactura> listaFacturas = null; 
 		
-		ArrayList<TFactura> listaFacturas = new ArrayList<TFactura>();
-				
 		try {
+			
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 					
 			ResultSet rs =  c.createStatement().executeQuery("SELECT * FROM Factura ORDER BY Fecha, Hora");
 					
+			listaFacturas = new ArrayList<TFactura>();
 			while(rs.next()) {
 						
 				TFactura tFacturaAux = new TFactura();
@@ -49,8 +50,10 @@ public class DAOFacturaImp implements DAOFactura {
 				
 		} catch (SQLException e) {
 					
-			e.printStackTrace();
-				
+			e.printStackTrace();			
+		} catch (Exception e) {
+			
+			e.printStackTrace();			
 		}
 		
         return  listaFacturas;
@@ -59,15 +62,15 @@ public class DAOFacturaImp implements DAOFactura {
 
 	@Override
 	public TFactura read(String ID_Factura) {
-	
-		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
-		TFactura tFactura = new TFactura();
+		TFactura tFactura = null;
 			
 		try {
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 				
 			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Factura WHERE ID_Factura = " + ID_Factura);
-				
+							
+			tFactura = new TFactura();
 			if (rs.next()) {
 					
 				tFactura = new TFactura();
@@ -91,6 +94,9 @@ public class DAOFacturaImp implements DAOFactura {
 				
 			e.printStackTrace();
 			
+		} catch (Exception e) {
+			
+			e.printStackTrace();			
 		}
  
 		return  tFactura; 
@@ -100,9 +106,10 @@ public class DAOFacturaImp implements DAOFactura {
 	@Override
 	public boolean create(TFactura tFactura) {
 	
-		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 			
 		try {
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+			
 			if(tFactura.getID_Reserva() != 0)
 				return c.createStatement().executeUpdate("INSERT INTO Factura (ID_Reserva, Fecha, Hora, NIF_Empresa, Nombre_Empresa, Dir_Empresa, NIF_Cliente, Nombre_Cliente, Dir_Cliente, IVA, Tipo_Servicio) "
 													+ "VALUES (" + tFactura.getID_Reserva() + ", '" + tFactura.getFecha() + "', '" + tFactura.getHora() + "', '" + tFactura.getNIF_Empresa() + "', '" + tFactura.getNombre_Empresa() + "', '" + tFactura.getDir_Empresa() + "', '" + tFactura.getNIF_Cliente() + "', '" + tFactura.getNombre_Cliente() + "', '" + tFactura.getDir_Cliente() + "', " + tFactura.getIVA() + ", '" + tFactura.getTipo_Servicio() + "')") >= 1;
@@ -113,77 +120,87 @@ public class DAOFacturaImp implements DAOFactura {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-
 			return false;
 
-		} 
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return false;
+		}
 
 	}	
 
 	@Override
 	public boolean delete(int ID_Factura) {	
 		
-		Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD		
-
+		
 		try {
+			Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD		
 
 			return c.createStatement().executeUpdate("DELETE FROM Factura WHERE ID_Factura = " + ID_Factura) >= 1;
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 			return false;
 
-		} 
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return false;
+		}
 
 	}
 
 	@Override
 	public boolean update(TFactura tFactura) {
 	
-		Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD			
-
 		try {
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD			
 
 			return c.createStatement().executeUpdate("UPDATE Factura SET ID_Reserva = " + tFactura.getID_Reserva() + " , Fecha = '" + tFactura.getFecha() + "' , Hora = '" + tFactura.getHora() + "' , NIF_Empresa = '" + tFactura.getNIF_Empresa() + "' , Nombre_Empresa = '" + tFactura.getNombre_Empresa() + "' , Dir_Empresa = '" + tFactura.getDir_Empresa() + "' , NIF_Cliente = '" + tFactura.getNIF_Cliente() + "' , Nombre_Cliente = '" + tFactura.getNombre_Cliente() + "' , Dir_Cliente = '" + tFactura.getDir_Cliente() + "' , IVA = " + tFactura.getIVA() + " , Tipo_Servicio = '" + tFactura.getTipo_Servicio() + "' "
 													+ "WHERE ID_Factura = " + tFactura.getID_Factura()) >= 1;
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 			return false;
 
-		} 
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return false;
+		}
 
 	}
 
 	@Override
 	public boolean addPlatoAFactura(TFacturaPlato t) {
-		
-		Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
-		
+				
 		try {
+			Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 			
 			return c.createStatement().executeUpdate("INSERT INTO Factura_Plato (ID_Factura, ID_Plato, Precio, Cantidad) "
 													+ "VALUES (" + t.getID_Factura() + ", " + t.getID_Plato() + ", " + t.getPrecio() + ", " + t.getCantidad() + ")") >= 1;
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-
 			return false;
 
-		} 
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public TFactura getPlatosDeFactura(String ID_Factura) {
-		Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 		
 		TFactura tFactura = null;
 			
 		try {
+			Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 				
 			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Factura_Plato WHERE ID_Factura = " + ID_Factura);
 				
@@ -197,6 +214,9 @@ public class DAOFacturaImp implements DAOFactura {
 				
 			e.printStackTrace();
 			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
 		}
  
 		return  tFactura;
