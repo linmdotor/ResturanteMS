@@ -16,7 +16,7 @@ public class CMDModificarFormularioPlato implements CMD {
 		try {
 			respuesta = new RespuestaCMD(EnumComandos.MODIFICAR_FORMULARIO_PLATO, serviciosPlato.obtenerPlatos().get( (Integer) objeto ) );
 		} catch (Exception e) {
-			respuesta = new RespuestaCMD(EnumComandos.ERROR, "No se ha podido cargar el Plato seleccionado");
+			respuesta = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 			e.printStackTrace();
 		}
 		

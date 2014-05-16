@@ -29,7 +29,7 @@ public class CMDAltaFacturaPlato implements CMD {
 				else
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar los platos. Asegurese de que no esos platos no están ya insertados.");
 			} catch (Exception e) {
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al insertar los platos.");
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 				e.printStackTrace();
 			}
 

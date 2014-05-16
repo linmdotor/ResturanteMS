@@ -32,7 +32,7 @@ public class CMDModificarReserva implements CMD {
 				else
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al modificar Reserva. Error al insertar los datos.");
 			} catch (Exception e) {
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al modificar Reserva.");
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 				e.printStackTrace();
 			}
 		}

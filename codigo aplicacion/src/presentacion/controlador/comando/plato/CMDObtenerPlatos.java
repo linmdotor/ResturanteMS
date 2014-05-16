@@ -25,7 +25,7 @@ public class CMDObtenerPlatos implements CMD {
 		try {
 			respuestaComando = new RespuestaCMD(EnumComandos.OBTENERPLATOS, serviciosProductosCarta.obtenerPlatos());
 		} catch (Exception e) {
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al Obtener los Platos.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 			e.printStackTrace();
 		}
 

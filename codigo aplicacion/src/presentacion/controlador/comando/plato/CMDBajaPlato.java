@@ -36,11 +36,11 @@ public class CMDBajaPlato implements CMD {
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al eliminar plato. No se puede eliminar un plato que está en un pedido.");
 		
 			} catch (Exception e) {
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al eliminar plato.");
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 				e.printStackTrace();
 			}
 
-			}
+		}
 		else
 			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al eliminar plato. Debe seleccionar un Plato.");
 

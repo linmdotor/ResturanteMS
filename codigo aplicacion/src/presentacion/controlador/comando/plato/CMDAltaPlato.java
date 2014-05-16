@@ -33,7 +33,7 @@ public class CMDAltaPlato implements CMD {
 				else
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar plato. Error al insertar los datos.");
 			} catch (Exception e) {
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al insertar plato.");
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 				e.printStackTrace();
 			}
 		}

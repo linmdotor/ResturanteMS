@@ -16,7 +16,7 @@ public class CMDModificarFormularioReserva implements CMD {
 		try {
 			respuesta = new RespuestaCMD(EnumComandos.MODIFICAR_FORMULARIO_RESERVA, serviciosReserva.obtenerReservas().get( (Integer) objeto ) );
 		} catch (Exception e) {
-			respuesta = new RespuestaCMD(EnumComandos.ERROR, "Error Inesperado. No se ha podido cargar la Reserva seleccionada");
+			respuesta = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 			e.printStackTrace();
 		}
 		

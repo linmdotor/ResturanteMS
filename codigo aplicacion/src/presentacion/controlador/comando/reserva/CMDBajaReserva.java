@@ -34,7 +34,7 @@ public class CMDBajaReserva implements CMD {
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR,	"Error al eliminar reserva. Error al eliminar los datos.");
 		
 			} catch (Exception e) {
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al eliminar reserva.");
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 				e.printStackTrace();
 			}
 

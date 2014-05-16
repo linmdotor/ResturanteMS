@@ -25,7 +25,7 @@ public class CMDObtenerReservas implements CMD {
 		try {
 			respuestaComando = new RespuestaCMD(EnumComandos.OBTENERRESERVAS,	serviciosReserva.obtenerReservas());
 		} catch (Exception e) {
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR,	"Error inesperado al Obtener las Reservas");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 			e.printStackTrace();
 		}
 

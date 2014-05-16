@@ -26,7 +26,7 @@ public class CMDBajaFactura implements CMD {
 				else
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "No se ha podido eliminar factura. Error al eliminar los datos.");
 			} catch (Exception e) {
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al eliminar factura.");
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 				e.printStackTrace();
 			}
 		}
