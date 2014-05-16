@@ -24,7 +24,7 @@ public class DAOFacturaImp implements DAOFactura {
 			
 			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 					
-			ResultSet rs =  c.createStatement().executeQuery("SELECT * FROM Factura ORDER BY Fecha, Hora");
+			ResultSet rs =  c.createStatement().executeQuery("SELECT * FROM Factura ORDER BY Fecha, Hora" + " FOR UPDATE");
 					
 			listaFacturas = new ArrayList<TFactura>();
 			while(rs.next()) {
@@ -68,7 +68,7 @@ public class DAOFacturaImp implements DAOFactura {
 		try {
 			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 				
-			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Factura WHERE ID_Factura = " + ID_Factura);
+			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Factura WHERE ID_Factura = " + ID_Factura + " FOR UPDATE");
 							
 			tFactura = new TFactura();
 			if (rs.next()) {
@@ -202,7 +202,7 @@ public class DAOFacturaImp implements DAOFactura {
 		try {
 			Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 				
-			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Factura_Plato WHERE ID_Factura = " + ID_Factura);
+			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Factura_Plato WHERE ID_Factura = " + ID_Factura + " FOR UPDATE");
 				
 			if (rs.next()) {
 					

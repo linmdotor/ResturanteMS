@@ -22,7 +22,7 @@ public class DAOReservaImp implements DAOReserva {
 		try {
 			Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 			
-			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Reserva ORDER BY Fecha, Hora");
+			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Reserva ORDER BY Fecha, Hora" + " FOR UPDATE");
 			
 			listaReservas = new ArrayList<TReserva>();
 			while(rs.next()) {
@@ -62,7 +62,7 @@ public class DAOReservaImp implements DAOReserva {
 		try {
 			Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 			
-			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Reserva WHERE ID_Reserva = " + ID_Reserva);
+			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM Reserva WHERE ID_Reserva = " + ID_Reserva + " FOR UPDATE");
 				
 			tReserva = new TReserva();
 			if (rs.next()) {

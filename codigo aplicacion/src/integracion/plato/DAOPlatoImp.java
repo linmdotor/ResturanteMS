@@ -36,7 +36,8 @@ public class DAOPlatoImp implements DAOPlato {
 				ResultSet rs =  c.createStatement().executeQuery("SELECT p.*,c.Tipo "
 																+ "FROM Plato p, Plato_Comida c  "
 																+ "WHERE p.ID_Plato = c.ID_Plato_Comida "
-																+ "ORDER BY c.Tipo, p.Nombre");
+																+ "ORDER BY c.Tipo, p.Nombre"
+																+ " FOR UPDATE");
 				
 				listaPlatos = new ArrayList<TPlato>();
 				while(rs.next()) {
@@ -55,7 +56,8 @@ public class DAOPlatoImp implements DAOPlato {
 				rs =  c.createStatement().executeQuery("SELECT p.*,b.Alcoholica "
 														+ "FROM Plato p, Plato_Bebida b  "
 														+ "WHERE p.ID_Plato = b.ID_Plato_Bebida "
-														+ "ORDER BY b.Alcoholica, p.Nombre");
+														+ "ORDER BY b.Alcoholica, p.Nombre"
+														+ " FOR UPDATE");
 				
 				while(rs.next()) {
 					
@@ -113,7 +115,8 @@ public class DAOPlatoImp implements DAOPlato {
 			
 			ResultSet rs =  c.createStatement().executeQuery("SELECT p.*,c.Tipo "
 															+ "FROM Plato p, Plato_Comida c "
-															+ "WHERE p.ID_Plato = c.ID_plato_Comida AND p.ID_Plato = " + ID_Plato);
+															+ "WHERE p.ID_Plato = c.ID_plato_Comida AND p.ID_Plato = " + ID_Plato
+															+ " FOR UPDATE");
 			
 			if (rs.next()) {
 				
@@ -128,7 +131,8 @@ public class DAOPlatoImp implements DAOPlato {
 			{
 				rs =  c.createStatement().executeQuery("SELECT p.*,b.Alcoholica "
 														+ "FROM Plato p, Plato_Bebida b "
-														+ "WHERE p.ID_Plato = b.ID_plato_Bebida AND p.ID_Plato = " + ID_Plato);
+														+ "WHERE p.ID_Plato = b.ID_plato_Bebida AND p.ID_Plato = " + ID_Plato
+														+ " FOR UPDATE");
 				
 				if (rs.next()) {
 					
@@ -180,7 +184,8 @@ public class DAOPlatoImp implements DAOPlato {
 			
 			ResultSet rs = c.createStatement().executeQuery("SELECT ID_Plato "
 															+ "FROM Plato "
-															+ "WHERE  Nombre = '" +  tPlato.getNombre() +"'");
+															+ "WHERE  Nombre = '" +  tPlato.getNombre() +"'"
+															+ " FOR UPDATE");
 			
 			int id = 0;
 			if(rs.next())
@@ -337,7 +342,7 @@ public class DAOPlatoImp implements DAOPlato {
 			
 		try {
 			
-			ResultSet rs =  c.createStatement().executeQuery("SELECT * from Plato WHERE ID_Plato = " + tFacturaPlato.getID_Plato());		
+			ResultSet rs =  c.createStatement().executeQuery("SELECT * from Plato WHERE ID_Plato = " + tFacturaPlato.getID_Plato() + " FOR UPDATE");		
 			if(rs.next())
 			{
 				int stock = rs.getInt("Stock") - tFacturaPlato.getCantidad();
