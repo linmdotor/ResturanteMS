@@ -69,14 +69,56 @@ public class SAFacturaImp implements SAFactura {
 
 	public boolean anadirFactura(TFactura tFactura) throws Exception {
 
-		if(tFactura == null)
-		{
-			throw new Exception("Factura nula");
-		}
-		
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
 		transaction.start();
+		
+		if(tFactura == null)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("Factura nula");
+		}
+		if(tFactura.getDir_Cliente().equals("") || tFactura.getNombre_Cliente().equals("") 
+				|| tFactura.getNIF_Cliente().equals(""))
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("Falta informacion relativa al cliente");
+		}
+		if(tFactura.getDir_Empresa().equals("")  || tFactura.getNIF_Empresa().equals("")  
+		|| tFactura.getNombre_Empresa().equals(""))
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("Falta informacion relativa a la empresa");
+		}
+		if(tFactura.getFecha().equals("") || tFactura.getHora().equals(""))
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("Falta informacion relativa a la fecha/hora");
+		}
+		if(tFactura.getIVA() <0)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("Falta informacion relativa al IVA");
+		}
+		if(tFactura.getID_Reserva()<0)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("Falta informacion relativa al numero de la reserva");
+		}
+		if(tFactura.getTipo_Servicio().equals(""))
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("Falta informacion relativa al tipo de servicio");
+		}
+		
+		
 		DAOFactura daoFactura = FactoriaIntegracion.obtenerInstancia().generaDAOFactura();
 
 
@@ -90,8 +132,10 @@ public class SAFacturaImp implements SAFactura {
 		else
 		{
 			transaction.rollback();
+			
 			TransactionManager.getInstance().eliminarTransaccion();
-			return false;
+			throw new Exception("No se pudo crear la factura");
+		
 		}
 	}
 
@@ -101,20 +145,21 @@ public class SAFacturaImp implements SAFactura {
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
 		transaction.start();
 		DAOFactura daoFactura = FactoriaIntegracion.obtenerInstancia().generaDAOFactura();
-
-		boolean b =  daoFactura.delete(ID);
-		if(b)
-		{
-			transaction.commit();
-			TransactionManager.getInstance().eliminarTransaccion();
-			return true;
-		}
-		else
+		if(ID < 0)
 		{
 			transaction.rollback();
 			TransactionManager.getInstance().eliminarTransaccion();
-			return false;
+			throw new Exception("Numero de factura no valido");
 		}
+
+		if(daoFactura.delete(ID))
+		{
+			transaction.commit();
+			TransactionManager.getInstance().eliminarTransaccion();
+			
+		}
+		return true;
+	
 	}
 
 	public boolean anadirPlatosAFactura(ArrayList<TFacturaPlato> listatFacturaPlatos) throws Exception {
