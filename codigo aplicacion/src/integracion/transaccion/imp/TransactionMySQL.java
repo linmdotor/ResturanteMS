@@ -95,7 +95,4 @@ public class TransactionMySQL implements Transaction {
 	}
 
 
-	public void lock() {
-		
-	}
 }

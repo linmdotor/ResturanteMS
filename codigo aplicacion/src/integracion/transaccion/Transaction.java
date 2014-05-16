@@ -15,6 +15,4 @@ public interface Transaction {
 	public void rollback() throws Exception;
 
 	public Object getResource();
-
-	public void lock();
 }
