@@ -22,46 +22,72 @@ public class TransactionManagerImp extends TransactionManager {
 	public void nuevaTransaccion() throws Exception {
 		
 		TransactionMySQL t;
-		
-		//hay una transacción en curso, no debe crear una nueva.
-		if(concurrentHashMap.containsKey(Thread.currentThread())) { 
+
 			
-			throw new Exception("Ya existe una transacción en curso. No se puede crear una nueva hasta que finalice la anterior.");
-			
-		} else {
-			
-			t = TransactionFactory.getInstance().crearTransactionMySQL();
-			concurrentHashMap.put(Thread.currentThread(), t);
-			
-		}
+
+				if(concurrentHashMap.containsKey(Thread.currentThread())) 
+				{
+
+					
+
+					t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
+
+					
+
+				} 
+				else 
+				{
+
+					
+
+					t = TransactionFactory.getInstance().crearTransactionMySQL();
+
+					concurrentHashMap.put(Thread.currentThread(), t);
+
+					
+
+				}
+
 		
 	}
 
 	@Override
 	public void eliminarTransaccion() throws Exception {
 		
-		//hay una transacción en marcha
 		if(concurrentHashMap.containsKey(Thread.currentThread())) {
-			
-			TransactionMySQL t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
-			
-			try {
-				
-				t.commit();
-			
-			} catch (Exception e) {
+
 					
-				throw new Exception("No se ha podido realizar el commit al cerrar la transacción.");					
-			}
-			
-			concurrentHashMap.remove(Thread.currentThread());
-			
-		}
-		else //no existe  transacción actual
-		{
-			throw new Exception("No existe una transacción en curso. No se puede eliminar la transación.");
-			
-		}
+
+						TransactionMySQL t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
+
+						
+
+						try {
+
+							
+
+							t.commit();
+
+						
+
+						} catch (Exception e) {
+
+								
+
+							e.printStackTrace();
+
+						
+
+						}
+
+						
+
+						concurrentHashMap.remove(Thread.currentThread());
+
+						
+
+					}
+
 		
 	}
 
@@ -70,20 +96,23 @@ public class TransactionManagerImp extends TransactionManager {
 	public Transaction getTransaction() throws Exception {
 		
 		TransactionMySQL t = null ;
+
 		
-		//Hay transaccion en marcha
-		if(concurrentHashMap.containsKey(Thread.currentThread())) {
-			
-			t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
-			
-		}
-		else //No existe transacción en curso.
-		{
-			throw new Exception("No existe una transacción en curso. No se puede devolver la transación.");
-			
-		}
-		
-		return t;
+
+				if(concurrentHashMap.containsKey(Thread.currentThread())) {
+
+					
+
+					t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
+
+					
+
+				}
+
+				
+
+				return t;
+
 	}
 	
 }
