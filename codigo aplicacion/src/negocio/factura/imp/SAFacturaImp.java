@@ -30,7 +30,9 @@ public class SAFacturaImp implements SAFactura {
 		ArrayList<TFactura> facturas = daoFactura.obtenerFacturas();
 		if(facturas == null)
 		{
+			
 			t.rollback();	
+			throw new Exception("No existen facturas");
 		}
 		else
 		{
@@ -54,6 +56,7 @@ public class SAFacturaImp implements SAFactura {
 		{
 			t.rollback();
 			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No existe la factura");
 		}
 		else
 		{
@@ -66,6 +69,11 @@ public class SAFacturaImp implements SAFactura {
 
 	public boolean anadirFactura(TFactura tFactura) throws Exception {
 
+		if(tFactura == null)
+		{
+			throw new Exception("Factura nula");
+		}
+		
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
 		transaction.start();

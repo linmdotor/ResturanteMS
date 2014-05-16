@@ -76,8 +76,7 @@ public class TransactionManagerImp extends TransactionManager {
 		}
 		else //No existe transacción en curso.
 		{
-			throw new Exception("No existe una transacción en curso. No se puede devolver la transación.");
-			
+			//se devuelve null
 		}
 		
 		return t;

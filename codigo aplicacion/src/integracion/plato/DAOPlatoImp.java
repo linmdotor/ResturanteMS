@@ -25,7 +25,7 @@ public class DAOPlatoImp implements DAOPlato {
 
 
 	@Override
-	public ArrayList<TPlato> obtenerPlatos() 
+	public ArrayList<TPlato> obtenerPlatos()  throws Exception
 	{
 	
 		ArrayList<TPlato> listaPlatos = null;
@@ -85,10 +85,12 @@ public class DAOPlatoImp implements DAOPlato {
 			} catch (SQLException e) {
 				
 				e.printStackTrace();
+				throw new Exception ("Problema con la BBDD");
 			
 			} catch (Exception e) {
 				
-				e.printStackTrace();			
+				e.printStackTrace();	
+				
 			}
  
 	        return  listaPlatos;	
