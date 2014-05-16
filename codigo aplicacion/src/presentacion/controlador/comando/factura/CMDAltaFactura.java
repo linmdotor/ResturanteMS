@@ -24,12 +24,12 @@ public class CMDAltaFactura implements CMD {
 				else
 					respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar factura. Error al insertar los datos.");
 			} catch (Exception e) {
-				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al insertar factura.");
+				respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 				e.printStackTrace();
 			}
 		}
 		else
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar factura. Los datos no son válidos.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Error al insertar factura. Tiene que rellenar todos los campos.");
 
 		return respuestaComando;
 		
