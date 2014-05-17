@@ -20,10 +20,10 @@ public class TransactionManagerImp extends TransactionManager {
 		
 		TransactionMySQL t;
 		
-		//hay una transacción en curso, no debe crear una nueva.
+		//hay una transacciï¿½n en curso, no debe crear una nueva.
 		if(concurrentHashMap.containsKey(Thread.currentThread())) { 
 			
-			throw new Exception("Ya existe una transacción en curso. No se puede crear una nueva hasta que finalice la anterior.");
+			throw new Exception("Ya existe una transaccion en curso. No se puede crear una nueva hasta que finalice la anterior.");
 			
 		} else {
 			
@@ -37,7 +37,7 @@ public class TransactionManagerImp extends TransactionManager {
 	@Override
 	public void eliminarTransaccion() throws Exception {
 		
-		//hay una transacción en marcha
+		//hay una transaccion en marcha
 		if(concurrentHashMap.containsKey(Thread.currentThread())) {
 			
 			TransactionMySQL t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
@@ -48,15 +48,15 @@ public class TransactionManagerImp extends TransactionManager {
 			
 			} catch (Exception e) {
 					
-				throw new Exception("No se ha podido realizar el commit al cerrar la transacción.");					
+				throw new Exception("No se ha podido realizar el commit al cerrar la transaccion.");					
 			}
 			
 			concurrentHashMap.remove(Thread.currentThread());
 			
 		}
-		else //no existe  transacción actual
+		else //no existe  transaccion actual
 		{
-			throw new Exception("No existe una transacción en curso. No se puede eliminar la transación.");
+			throw new Exception("No existe una transaccion en curso. No se puede eliminar la transacion.");
 			
 		}
 		
@@ -74,7 +74,7 @@ public class TransactionManagerImp extends TransactionManager {
 			t = (TransactionMySQL) concurrentHashMap.get(Thread.currentThread());
 			
 		}
-		else //No existe transacción en curso.
+		else //No existe transacciï¿½n en curso.
 		{
 			//se devuelve null
 		}

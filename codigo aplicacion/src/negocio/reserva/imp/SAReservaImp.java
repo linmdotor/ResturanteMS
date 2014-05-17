@@ -13,7 +13,10 @@ import integracion.reserva.DAOReserva;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import negocio.reserva.SAReserva;
 import negocio.reserva.TReserva;
@@ -34,13 +37,17 @@ public class SAReservaImp implements SAReserva {
 		if(reservas == null)
 		{
 			t.rollback();
+			
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No se pudieron obtener las reservas");
 		}
 		else
 		{
 			t.commit();
+			TransactionManager.getInstance().eliminarTransaccion();
 		}
 		
-		TransactionManager.getInstance().eliminarTransaccion();
+		
 		
 		return reservas;
 
@@ -57,7 +64,9 @@ public class SAReservaImp implements SAReserva {
 		if(tReserva == null)
 		{
 			t.rollback();
+			
 			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No se pudo obtener la reserva porque el numero de reserva no existe");
 		}
 		else
 		{
@@ -78,8 +87,87 @@ public class SAReservaImp implements SAReserva {
 		DAOReserva daoReserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();
 
 
-		boolean b =  daoReserva.create(tReserva);
-		if(b)
+		//validacion dni cliente
+		if(tReserva.getDNI().length() <8 ||  tReserva.getDNI().length() >9)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("El dni no tiene la longitud necesaria");
+			
+		}
+		else
+		{
+			for(int i = 0; i < tReserva.getDNI().length();i++)
+			{
+				if(i==tReserva.getDNI().length()-1)
+				{
+					if(tReserva.getDNI().toUpperCase().charAt(i)<'A' || 
+						tReserva.getDNI().toUpperCase().charAt(i)>'Z')
+					{
+						transaction.rollback();
+						TransactionManager.getInstance().eliminarTransaccion();
+						throw new Exception("el dni no contiene una letra al final");
+					}
+				}
+				else
+				{
+					if(tReserva.getDNI().charAt(i)<'0' ||  tReserva.getDNI().charAt(i)>'9')
+					{
+						transaction.rollback();
+						TransactionManager.getInstance().eliminarTransaccion();
+						throw new Exception("el dni debe contener numeros");
+					}
+				}
+			}
+		}
+		//comprobamos la fecha que sea correcta
+		int ano = Integer.parseInt(tReserva.getFecha().split("-")[0]);
+		int mes = Integer.parseInt(tReserva.getFecha().split("-")[1]);
+		int dia = Integer.parseInt(tReserva.getFecha().split("-")[2]);
+		if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) 
+		{//meses 31
+		
+			if(dia >31)
+			{
+				transaction.rollback();
+				TransactionManager.getInstance().eliminarTransaccion();
+				throw new Exception("El dia no puede ser mayor de 31");
+			}
+		} 
+		else 
+		{//meses 30 o menos
+			if (mes == 4 || mes == 6 || mes == 9 || mes == 11) 
+			{//meses 30
+				if(dia >30)
+				{
+					transaction.rollback();
+					TransactionManager.getInstance().eliminarTransaccion();
+					throw new Exception("El dia no puede ser mayor de 30");
+				}
+			} 
+			else 
+			{//febrero
+				if ((ano%4 == 0 && ano % 100 != 0) || ano % 400 == 0) 
+				{//es bisiesto
+					if(dia >29)
+					{
+						transaction.rollback();
+						TransactionManager.getInstance().eliminarTransaccion();
+						throw new Exception("El dia no puede ser mayor de 29");
+					}
+				}
+				else
+				{//no bisiesto
+					if(dia >28)
+					{
+						transaction.rollback();
+						TransactionManager.getInstance().eliminarTransaccion();
+						throw new Exception("El dia no puede ser mayor de 28");
+					}
+				}
+			}
+		}
+		if(daoReserva.create(tReserva))
 		{
 			transaction.commit();
 			TransactionManager.getInstance().eliminarTransaccion();
@@ -88,8 +176,9 @@ public class SAReservaImp implements SAReserva {
 		else
 		{
 			transaction.rollback();
+			
 			TransactionManager.getInstance().eliminarTransaccion();
-			return false;
+			throw new Exception("No se pudo añadir la reserva");
 		}
 	}
 
@@ -112,8 +201,9 @@ public class SAReservaImp implements SAReserva {
 		else
 		{
 			transaction.rollback();
+			
 			TransactionManager.getInstance().eliminarTransaccion();
-			return false;
+			throw new Exception("No se pudo eliminar la reserva");
 		}
 
 	}
@@ -137,8 +227,9 @@ public class SAReservaImp implements SAReserva {
 		else
 		{
 			transaction.rollback();
+			
 			TransactionManager.getInstance().eliminarTransaccion();
-			return false;
+			throw new Exception("No se pudo modificar la reserva");
 		}
 
 	}

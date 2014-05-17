@@ -36,13 +36,17 @@ public class SAPlatoImp implements SAPlato {
 		if(platos == null)
 		{
 			t.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No se pudieron obtener los platos, intentelo de nuevo");
+			
 		}
 		else
 		{
 			t.commit();
+			TransactionManager.getInstance().eliminarTransaccion();
 		}
 		
-		TransactionManager.getInstance().eliminarTransaccion();
+		
 		
 		return platos;
 
@@ -59,13 +63,16 @@ public class SAPlatoImp implements SAPlato {
 		if(tPlato == null)
 		{
 			t.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No se pudo obtener el plato porque su id no existe");
 		}
 		else
 		{
 			t.commit();
+			TransactionManager.getInstance().eliminarTransaccion();
 		}
 		
-		TransactionManager.getInstance().eliminarTransaccion();
+		
 		
 		return tPlato;
 
@@ -92,7 +99,8 @@ public class SAPlatoImp implements SAPlato {
 		{
 			transaction.rollback();
 			TransactionManager.getInstance().eliminarTransaccion();
-			return false;
+			throw new Exception("No se pudo añadir el plato");
+		
 		}
 	}
 
@@ -116,7 +124,8 @@ public class SAPlatoImp implements SAPlato {
 		{
 			transaction.rollback();
 			TransactionManager.getInstance().eliminarTransaccion();
-			return false;
+			throw new Exception("No se pudo eliminar el plato");
+			
 		}
 
 	}
@@ -141,7 +150,7 @@ public class SAPlatoImp implements SAPlato {
 		{
 			transaction.rollback();
 			TransactionManager.getInstance().eliminarTransaccion();
-			return false;
+			throw new Exception("No se pudo modificar el plato");
 		}
 
 	}
@@ -158,13 +167,16 @@ public class SAPlatoImp implements SAPlato {
 		if(platos == null)
 		{
 			t.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No se pudieron obtener los platos");
 		}
 		else
 		{
 			t.commit();
+			TransactionManager.getInstance().eliminarTransaccion();
 		}
 		
-		TransactionManager.getInstance().eliminarTransaccion();
+		
 		
 		return platos;
 	}
@@ -178,14 +190,17 @@ public class SAPlatoImp implements SAPlato {
 		ArrayList<TPlato> platos = (ArrayList<TPlato>) p.execute(null);
 		if(platos == null)
 		{
-			t.rollback();	
+			t.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No se pudieron obtener los platos");
 		}
 		else
 		{
 			t.commit();
+			TransactionManager.getInstance().eliminarTransaccion();
 		}
 		
-		TransactionManager.getInstance().eliminarTransaccion();
+		
 		
 		return platos;
 	}
