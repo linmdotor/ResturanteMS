@@ -120,6 +120,29 @@ public class SAReservaImp implements SAReserva {
 				}
 			}
 		}
+		
+		int hora = Integer.parseInt(tReserva.getHora().split(":")[0]);
+		int min = Integer.parseInt(tReserva.getHora().split(":")[1]);
+		int seg = Integer.parseInt(tReserva.getHora().split(":")[2]);
+		
+		if(hora < 0 || hora >23)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("la hora no es correcta");
+		}
+		if(min < 0 || min > 59)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("los minutos no son correctos");
+		}
+		if(seg <0 || seg > 59)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("los segundos no son correctos");
+		}
 		//comprobamos la fecha que sea correcta
 		int ano = Integer.parseInt(tReserva.getFecha().split("-")[0]);
 		int mes = Integer.parseInt(tReserva.getFecha().split("-")[1]);

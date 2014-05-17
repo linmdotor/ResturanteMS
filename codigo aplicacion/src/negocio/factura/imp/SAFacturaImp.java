@@ -121,6 +121,10 @@ public class SAFacturaImp implements SAFactura {
 				}
 			}
 		}
+		//comprobamos la hora
+		
+	
+				
 		if(tFactura.getDir_Empresa().equals("")  || tFactura.getNIF_Empresa().equals("")  
 		|| tFactura.getNombre_Empresa().equals(""))
 		{
