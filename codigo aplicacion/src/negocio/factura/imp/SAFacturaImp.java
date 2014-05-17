@@ -9,6 +9,7 @@ import integracion.plato.DAOPlato;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import negocio.factura.SAFactura;
@@ -86,6 +87,40 @@ public class SAFacturaImp implements SAFactura {
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("Falta informacion relativa al cliente");
 		}
+		
+		//validacion dni cliente
+		if(tFactura.getNIF_Cliente().length() <8 ||  tFactura.getNIF_Cliente().length() >9)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("El dni no tiene la longitud necesaria");
+			
+		}
+		else
+		{
+			for(int i = 0; i < tFactura.getNIF_Cliente().length();i++)
+			{
+				if(i==tFactura.getNIF_Cliente().length()-1)
+				{
+					if(tFactura.getNIF_Cliente().toUpperCase().charAt(i)<'A' || 
+						tFactura.getNIF_Cliente().toUpperCase().charAt(i)>'Z')
+					{
+						transaction.rollback();
+						TransactionManager.getInstance().eliminarTransaccion();
+						throw new Exception("el dni no contiene una letra al final");
+					}
+				}
+				else
+				{
+					if(tFactura.getNIF_Cliente().charAt(i)<'0' ||  tFactura.getNIF_Cliente().charAt(i)>'9')
+					{
+						transaction.rollback();
+						TransactionManager.getInstance().eliminarTransaccion();
+						throw new Exception("el dni debe contener numeros");
+					}
+				}
+			}
+		}
 		if(tFactura.getDir_Empresa().equals("")  || tFactura.getNIF_Empresa().equals("")  
 		|| tFactura.getNombre_Empresa().equals(""))
 		{
@@ -93,6 +128,42 @@ public class SAFacturaImp implements SAFactura {
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("Falta informacion relativa a la empresa");
 		}
+		
+		//validacion nif empresa
+		if(tFactura.getNIF_Empresa().length() <8 ||  tFactura.getNIF_Empresa().length() >9)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("El nif de la empresa no tiene la longitud necesaria");
+			
+		}
+		else
+		{
+			for(int i = 0; i < tFactura.getNIF_Empresa().length();i++)
+			{
+				if(i==tFactura.getNIF_Empresa().length()-1)
+				{
+					if(tFactura.getNIF_Empresa().toUpperCase().charAt(i)<'A' || 
+						tFactura.getNIF_Empresa().toUpperCase().charAt(i)>'Z')
+					{
+						transaction.rollback();
+						TransactionManager.getInstance().eliminarTransaccion();
+						throw new Exception("el nif de la empresa no contiene una letra al final");
+					}
+				}
+				else
+				{
+					if(tFactura.getNIF_Empresa().charAt(i)<'0' ||  tFactura.getNIF_Empresa().charAt(i)>'9')
+					{
+						transaction.rollback();
+						TransactionManager.getInstance().eliminarTransaccion();
+						throw new Exception("el nif de la empresa debe contener numeros");
+					}
+				}
+			}
+		}
+		
+	
 		if(tFactura.getFecha().equals("") || tFactura.getHora().equals(""))
 		{
 			transaction.rollback();
