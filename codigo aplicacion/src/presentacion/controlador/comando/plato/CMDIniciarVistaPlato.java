@@ -25,7 +25,7 @@ public class CMDIniciarVistaPlato implements CMD {
 		try {
 			respuestaComando = new RespuestaCMD(EnumComandos.INICIAR_VISTA_PLATO, serviciosPlato.obtenerPlatos());
 		} catch (Exception e) {
-			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, "Eror incesperado al Iniciar la Vista de Platos.");
+			respuestaComando = new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 			e.printStackTrace();
 		}
 

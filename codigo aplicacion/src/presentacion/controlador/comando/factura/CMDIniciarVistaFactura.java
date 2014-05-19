@@ -17,7 +17,7 @@ public class CMDIniciarVistaFactura implements CMD {
 		try {
 			respuesta =  new RespuestaCMD(EnumComandos.INICIAR_VISTA_FACTURA, serviciosFactura.obtenerFacturas());
 		} catch (Exception e) {
-			respuesta= new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al Iniciar la vista de facturas.");
+			respuesta= new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 			e.printStackTrace();
 		}
 		return respuesta;

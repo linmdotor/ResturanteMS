@@ -64,7 +64,7 @@ public class CMDImprimirFactura implements CMD{
 			respuesta= new RespuestaCMD(EnumComandos.CORRECTO, "Factura generada en: " + ruta);
 
 		} catch (Exception e1) {
-			respuesta= new RespuestaCMD(EnumComandos.ERROR, "Error inesperado al generar la factura.");
+			respuesta= new RespuestaCMD(EnumComandos.ERROR, e1.getMessage());
 			e1.printStackTrace();
 		}
 		

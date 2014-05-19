@@ -24,7 +24,7 @@ public class CMDIniciarVistaReserva implements CMD {
 		try {
 			respuesta =  new RespuestaCMD(EnumComandos.INICIAR_VISTA_RESERVA, serviciosReserva.obtenerReservas());
 		} catch (Exception e) {			
-			respuesta =  new RespuestaCMD(EnumComandos.ERROR, "Error al iniciar la vista de Reservas.");
+			respuesta =  new RespuestaCMD(EnumComandos.ERROR, e.getMessage());
 			e.printStackTrace();
 		}
 		return respuesta;
