@@ -26,12 +26,12 @@ public class SAPlatoImp implements SAPlato {
 
 	public ArrayList<TPlato> obtenerPlatos() throws Exception {
 		
-		DAOPlato daoPlato= FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
+	
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();
-		
+		DAOPlato daoPlato= FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
 		ArrayList<TPlato> platos = daoPlato.obtenerPlatos();
 		if(platos == null)
 		{
