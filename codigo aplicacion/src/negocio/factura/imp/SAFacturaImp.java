@@ -31,17 +31,16 @@ public class SAFacturaImp implements SAFactura {
 		
 		ArrayList<TFactura> facturas = daoFactura.obtenerFacturas();
 		if(facturas == null)
-		{
-			
-			t.rollback();	
+		{			
+			t.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("No existen facturas");
 		}
 		else
 		{
-			t.commit();	
-		}
-
-		TransactionManager.getInstance().eliminarTransaccion();
+			t.commit();
+			TransactionManager.getInstance().eliminarTransaccion();
+		}	
 		
 		return facturas;
 	}
@@ -53,6 +52,7 @@ public class SAFacturaImp implements SAFactura {
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();
+		
 		TFactura tFactura = daoFactura.read(String.valueOf(ID));
 		if(tFactura == null)
 		{
@@ -230,9 +230,15 @@ public class SAFacturaImp implements SAFactura {
 		{
 			transaction.commit();
 			TransactionManager.getInstance().eliminarTransaccion();
-			
+			return true;
 		}
-		return true;
+		else
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			return false;
+		}
+		
 	
 	}
 
@@ -260,8 +266,7 @@ public class SAFacturaImp implements SAFactura {
 			transaction.rollback();
 		}
 		
-		TransactionManager.getInstance().eliminarTransaccion();
-		
+		TransactionManager.getInstance().eliminarTransaccion();		
 		return resultado;
 	}
 
