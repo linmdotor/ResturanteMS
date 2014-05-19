@@ -12,6 +12,7 @@ import integracion.factoria.FactoriaIntegracion;
 import integracion.plato.DAOPlato;
 import integracion.plato.PlatoPorPrecio;
 import integracion.plato.PlatoPorStock;
+import integracion.query.FactoriaQuery;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
@@ -54,11 +55,12 @@ public class SAPlatoImp implements SAPlato {
 
 	public TPlato obtenerPlato(int ID) throws Exception {
 
-		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
+		
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();
+		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
 		TPlato tPlato = daoPlato.read(String.valueOf(ID));
 		if(tPlato == null)
 		{
@@ -162,7 +164,8 @@ public class SAPlatoImp implements SAPlato {
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();
-		PlatoPorPrecio p = new PlatoPorPrecio();
+		PlatoPorPrecio p = (PlatoPorPrecio) FactoriaQuery.obtenerInstancia().creaQuery(1);
+		
 		ArrayList<TPlato> platos = (ArrayList<TPlato>) p.execute(null);
 		if(platos == null)
 		{
@@ -186,7 +189,7 @@ public class SAPlatoImp implements SAPlato {
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();
-		PlatoPorStock p = new PlatoPorStock();
+		PlatoPorPrecio p = (PlatoPorPrecio) FactoriaQuery.obtenerInstancia().creaQuery(2);
 		ArrayList<TPlato> platos = (ArrayList<TPlato>) p.execute(null);
 		if(platos == null)
 		{
