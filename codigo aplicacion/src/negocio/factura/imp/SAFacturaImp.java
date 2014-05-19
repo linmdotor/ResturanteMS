@@ -6,6 +6,7 @@ package negocio.factura.imp;
 import integracion.factoria.FactoriaIntegracion;
 import integracion.factura.DAOFactura;
 import integracion.plato.DAOPlato;
+import integracion.reserva.DAOReserva;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
@@ -80,50 +81,43 @@ public class SAFacturaImp implements SAFactura {
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("Factura nula");
 		}
-		if(tFactura.getDir_Cliente().equals("") || tFactura.getNombre_Cliente().equals("") 
-				|| tFactura.getNIF_Cliente().equals(""))
+		if(!tFactura.getNIF_Cliente().equals(""))
 		{
-			transaction.rollback();
-			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("Falta informacion relativa al cliente");
-		}
 		
-		//validacion dni cliente
-		if(tFactura.getNIF_Cliente().length() <8 ||  tFactura.getNIF_Cliente().length() >9)
-		{
-			transaction.rollback();
-			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("El dni no tiene la longitud necesaria");
-			
-		}
-		else
-		{
-			for(int i = 0; i < tFactura.getNIF_Cliente().length();i++)
+			//validacion dni cliente
+			if(tFactura.getNIF_Cliente().length() <8 ||  tFactura.getNIF_Cliente().length() >9)
 			{
-				if(i==tFactura.getNIF_Cliente().length()-1)
+				transaction.rollback();
+				TransactionManager.getInstance().eliminarTransaccion();
+				throw new Exception("El dni del cliente no tiene la longitud necesaria");
+				
+			}
+			else
+			{
+				for(int i = 0; i < tFactura.getNIF_Cliente().length();i++)
 				{
-					if(tFactura.getNIF_Cliente().toUpperCase().charAt(i)<'A' || 
-						tFactura.getNIF_Cliente().toUpperCase().charAt(i)>'Z')
+					if(i==tFactura.getNIF_Cliente().length()-1)
 					{
-						transaction.rollback();
-						TransactionManager.getInstance().eliminarTransaccion();
-						throw new Exception("el dni no contiene una letra al final");
+						if(tFactura.getNIF_Cliente().toUpperCase().charAt(i)<'A' || 
+							tFactura.getNIF_Cliente().toUpperCase().charAt(i)>'Z')
+						{
+							transaction.rollback();
+							TransactionManager.getInstance().eliminarTransaccion();
+							throw new Exception("el dni del cliente no contiene una letra al final");
+						}
 					}
-				}
-				else
-				{
-					if(tFactura.getNIF_Cliente().charAt(i)<'0' ||  tFactura.getNIF_Cliente().charAt(i)>'9')
+					else
 					{
-						transaction.rollback();
-						TransactionManager.getInstance().eliminarTransaccion();
-						throw new Exception("el dni debe contener numeros");
+						if(tFactura.getNIF_Cliente().charAt(i)<'0' ||  tFactura.getNIF_Cliente().charAt(i)>'9')
+						{
+							transaction.rollback();
+							TransactionManager.getInstance().eliminarTransaccion();
+							throw new Exception("el dni del cliente debe contener numeros");
+						}
 					}
 				}
 			}
 		}
-		//comprobamos la hora
-		
-	
 				
 		if(tFactura.getDir_Empresa().equals("")  || tFactura.getNIF_Empresa().equals("")  
 		|| tFactura.getNombre_Empresa().equals(""))
@@ -192,11 +186,17 @@ public class SAFacturaImp implements SAFactura {
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("Falta informacion relativa al tipo de servicio");
 		}
-		
+			
+		DAOReserva daoreserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();		
+		if(!daoreserva.existeReserva(tFactura.getID_Reserva()))
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No existe una reserva con ese ID");		
+		}
 		
 		DAOFactura daoFactura = FactoriaIntegracion.obtenerInstancia().generaDAOFactura();
-
-
+		
 		boolean b =  daoFactura.create(tFactura);
 		if(b)
 		{
@@ -206,12 +206,11 @@ public class SAFacturaImp implements SAFactura {
 		}
 		else
 		{
-			transaction.rollback();
-			
+			transaction.rollback();			
 			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("No se pudo crear la factura");
-		
+			throw new Exception("No se pudo crear la factura");		
 		}
+
 	}
 
 	public boolean eliminarFactura(int ID) throws Exception {
@@ -273,7 +272,8 @@ public class SAFacturaImp implements SAFactura {
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();
-		TFactura tFactura = daoFactura.getPlatosDeFactura(String.valueOf(ID));
+		TFactura tFactura = daoFactura.getPlatosDeFactura(String.valueOf(ID));		
+		TransactionManager.getInstance().eliminarTransaccion();
 		if(tFactura == null)
 		{
 			return false;

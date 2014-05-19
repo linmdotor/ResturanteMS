@@ -23,5 +23,7 @@ public interface DAOReserva {
 	public boolean delete(int ID_Reserva); 
 
 	public boolean update(TReserva tReserva);
+
+	public boolean existeReserva(int ID_Reserva);
 	
 }

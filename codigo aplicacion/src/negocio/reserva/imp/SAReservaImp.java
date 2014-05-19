@@ -18,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import presentacion.controlador.EnumComandos;
+import presentacion.controlador.RespuestaCMD;
 import negocio.reserva.SAReserva;
 import negocio.reserva.TReserva;
 
@@ -121,74 +123,80 @@ public class SAReservaImp implements SAReserva {
 			}
 		}
 		
-		int hora = Integer.parseInt(tReserva.getHora().split(":")[0]);
-		int min = Integer.parseInt(tReserva.getHora().split(":")[1]);
-		int seg = Integer.parseInt(tReserva.getHora().split(":")[2]);
-		
-		if(hora < 0 || hora >23)
+		try //try catch para los casting 
 		{
-			transaction.rollback();
-			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("la hora no es correcta");
-		}
-		if(min < 0 || min > 59)
-		{
-			transaction.rollback();
-			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("los minutos no son correctos");
-		}
-		if(seg <0 || seg > 59)
-		{
-			transaction.rollback();
-			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("los segundos no son correctos");
-		}
-		//comprobamos la fecha que sea correcta
-		int ano = Integer.parseInt(tReserva.getFecha().split("-")[0]);
-		int mes = Integer.parseInt(tReserva.getFecha().split("-")[1]);
-		int dia = Integer.parseInt(tReserva.getFecha().split("-")[2]);
-		if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) 
-		{//meses 31
-		
-			if(dia >31)
+			int hora = Integer.parseInt(tReserva.getHora().split(":")[0]);
+			int min = Integer.parseInt(tReserva.getHora().split(":")[1]);
+			int seg = Integer.parseInt(tReserva.getHora().split(":")[2]);
+			
+			if(hora < 0 || hora >23)
 			{
 				transaction.rollback();
 				TransactionManager.getInstance().eliminarTransaccion();
-				throw new Exception("El dia no puede ser mayor de 31");
+				throw new Exception("la hora no es correcta");
 			}
-		} 
-		else 
-		{//meses 30 o menos
-			if (mes == 4 || mes == 6 || mes == 9 || mes == 11) 
-			{//meses 30
-				if(dia >30)
+			if(min < 0 || min > 59)
+			{
+				transaction.rollback();
+				TransactionManager.getInstance().eliminarTransaccion();
+				throw new Exception("los minutos no son correctos");
+			}
+			if(seg <0 || seg > 59)
+			{
+				transaction.rollback();
+				TransactionManager.getInstance().eliminarTransaccion();
+				throw new Exception("los segundos no son correctos");
+			}
+			//comprobamos la fecha que sea correcta
+			int ano = Integer.parseInt(tReserva.getFecha().split("-")[0]);
+			int mes = Integer.parseInt(tReserva.getFecha().split("-")[1]);
+			int dia = Integer.parseInt(tReserva.getFecha().split("-")[2]);
+			if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) 
+			{//meses 31
+			
+				if(dia >31)
 				{
 					transaction.rollback();
 					TransactionManager.getInstance().eliminarTransaccion();
-					throw new Exception("El dia no puede ser mayor de 30");
+					throw new Exception("El dia no puede ser mayor de 31");
 				}
 			} 
 			else 
-			{//febrero
-				if ((ano%4 == 0 && ano % 100 != 0) || ano % 400 == 0) 
-				{//es bisiesto
-					if(dia >29)
+			{//meses 30 o menos
+				if (mes == 4 || mes == 6 || mes == 9 || mes == 11) 
+				{//meses 30
+					if(dia >30)
 					{
 						transaction.rollback();
 						TransactionManager.getInstance().eliminarTransaccion();
-						throw new Exception("El dia no puede ser mayor de 29");
+						throw new Exception("El dia no puede ser mayor de 30");
 					}
-				}
-				else
-				{//no bisiesto
-					if(dia >28)
-					{
-						transaction.rollback();
-						TransactionManager.getInstance().eliminarTransaccion();
-						throw new Exception("El dia no puede ser mayor de 28");
+				} 
+				else 
+				{//febrero
+					if ((ano%4 == 0 && ano % 100 != 0) || ano % 400 == 0) 
+					{//es bisiesto
+						if(dia >29)
+						{
+							transaction.rollback();
+							TransactionManager.getInstance().eliminarTransaccion();
+							throw new Exception("El dia no puede ser mayor de 29");
+						}
+					}
+					else
+					{//no bisiesto
+						if(dia >28)
+						{
+							transaction.rollback();
+							TransactionManager.getInstance().eliminarTransaccion();
+							throw new Exception("El dia no puede ser mayor de 28");
+						}
 					}
 				}
 			}
+		} catch (Exception e) {
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No se pueden introducir letras en la fecha u hora");
 		}
 		if(daoReserva.create(tReserva))
 		{

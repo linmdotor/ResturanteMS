@@ -15,6 +15,25 @@ import negocio.reserva.TReserva;
 public class DAOReservaImp implements DAOReserva {
 
 	@Override
+	public boolean existeReserva(int ID_Reserva)
+	{
+		boolean resultado = false;
+
+		try {
+
+			Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+			
+			if( c.createStatement().executeQuery("SELECT * FROM Reserva WHERE ID_Reserva = " + ID_Reserva + " FOR UPDATE").next()) //existe una reserva
+				resultado = true;		
+		
+		} catch( Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	@Override
 	public ArrayList<TReserva> obtenerReservas() {
 				
 		ArrayList<TReserva> listaReservas = null;
