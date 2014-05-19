@@ -17,14 +17,14 @@ public interface DAOPlato {
 
 	public ArrayList<TPlato> obtenerPlatos() throws Exception;
 
-	public TPlato read(String ID_Plato); // implementado
+	public TPlato read(String ID_Plato) throws Exception; // implementado
 
-	public boolean create(TPlato tPlato); // implementado
+	public boolean create(TPlato tPlato) throws Exception; // implementado
 
-	public boolean delete(int ID_Plato); // implementado
+	public boolean delete(int ID_Plato) throws Exception; // implementado
 
-	public boolean update(TPlato tPlato); //
+	public boolean update(TPlato tPlato) throws Exception; //
 
-	boolean actualizarStock(TFacturaPlato tFacturaPlato);
+	boolean actualizarStock(TFacturaPlato tFacturaPlato) throws Exception;
 	
 }

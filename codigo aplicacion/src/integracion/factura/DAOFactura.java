@@ -10,9 +10,9 @@ import negocio.factura.TFacturaPlato;
 
 public interface DAOFactura {
 	
-	public ArrayList<TFactura> obtenerFacturas();
+	public ArrayList<TFactura> obtenerFacturas() throws Exception;
 
-	public TFactura read(String ID_Factura); 
+	public TFactura read(String ID_Factura) throws Exception; 
 
 	public boolean create(TFactura tFactura); 
 
@@ -22,5 +22,5 @@ public interface DAOFactura {
 
 	public boolean addPlatoAFactura(TFacturaPlato t);
 
-	public TFactura getPlatosDeFactura(String ID_Factura);	
+	public TFactura getPlatosDeFactura(String ID_Factura) throws Exception;	
 }

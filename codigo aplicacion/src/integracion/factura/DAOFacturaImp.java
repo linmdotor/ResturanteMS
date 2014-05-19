@@ -16,7 +16,7 @@ import negocio.factura.TFacturaPlato;
 public class DAOFacturaImp implements DAOFactura {
 
 	@Override
-	public ArrayList<TFactura> obtenerFacturas() {
+	public ArrayList<TFactura> obtenerFacturas() throws Exception {
 			
 		ArrayList<TFactura> listaFacturas = null; 
 		
@@ -48,12 +48,12 @@ public class DAOFacturaImp implements DAOFactura {
 
 			}
 				
-		} catch (SQLException e) {
-					
-			e.printStackTrace();			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			throw new Exception ("Problema con SQL de la BBDD");
 		} catch (Exception e) {
-			
-			e.printStackTrace();			
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 		
         return  listaFacturas;
@@ -61,7 +61,7 @@ public class DAOFacturaImp implements DAOFactura {
 	}
 
 	@Override
-	public TFactura read(String ID_Factura) {
+	public TFactura read(String ID_Factura) throws Exception {
 		
 		TFactura tFactura = null;
 			
@@ -90,13 +90,12 @@ public class DAOFacturaImp implements DAOFactura {
 				
 			}
 			
-		} catch (SQLException e) {
-				
+		} catch (SQLException e) {		
 			e.printStackTrace();
-			
+			throw new Exception ("Problema con SQL de la BBDD");
 		} catch (Exception e) {
-			
-			e.printStackTrace();			
+			e.printStackTrace();	
+			throw new Exception ("Error inesperado en la BBDD");
 		}
  
 		return  tFactura; 
@@ -195,7 +194,7 @@ public class DAOFacturaImp implements DAOFactura {
 	}
 
 	@Override
-	public TFactura getPlatosDeFactura(String ID_Factura) {
+	public TFactura getPlatosDeFactura(String ID_Factura) throws Exception {
 		
 		TFactura tFactura = null;
 			
@@ -210,13 +209,12 @@ public class DAOFacturaImp implements DAOFactura {
 				
 			}
 			
-		} catch (SQLException e) {
-				
+		} catch (SQLException e) {	
 			e.printStackTrace();
-			
-		} catch (Exception e) {
-			
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {			
 			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
 		}
  
 		return  tFactura;

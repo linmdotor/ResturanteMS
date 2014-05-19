@@ -27,8 +27,6 @@ public class SAPlatoImp implements SAPlato {
 
 	public ArrayList<TPlato> obtenerPlatos() throws Exception {
 		
-	
-
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();
@@ -38,8 +36,7 @@ public class SAPlatoImp implements SAPlato {
 		{
 			t.rollback();
 			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("No se pudieron obtener los platos, intentelo de nuevo");
-			
+			throw new Exception("No se pudieron obtener los platos, intentelo de nuevo");		
 		}
 		else
 		{
@@ -47,15 +44,11 @@ public class SAPlatoImp implements SAPlato {
 			TransactionManager.getInstance().eliminarTransaccion();
 		}
 		
-		
-		
 		return platos;
 
 	}
 
 	public TPlato obtenerPlato(int ID) throws Exception {
-
-		
 
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
@@ -74,8 +67,6 @@ public class SAPlatoImp implements SAPlato {
 			TransactionManager.getInstance().eliminarTransaccion();
 		}
 		
-		
-		
 		return tPlato;
 
 	}
@@ -88,8 +79,6 @@ public class SAPlatoImp implements SAPlato {
 		transaction.start();
 		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
 
-		
-		
 		boolean b =  daoPlato.create(tPlato);
 		if(b)
 		{
@@ -101,7 +90,7 @@ public class SAPlatoImp implements SAPlato {
 		{
 			transaction.rollback();
 			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("No se pudo aÃ±adir el plato");
+			throw new Exception("No se pudo añadir el plato");
 		
 		}
 	}
@@ -113,8 +102,6 @@ public class SAPlatoImp implements SAPlato {
 		transaction.start();
 		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
 
-		
-		
 		boolean b =  daoPlato.delete(ID);
 		if(b)
 		{
@@ -126,7 +113,7 @@ public class SAPlatoImp implements SAPlato {
 		{
 			transaction.rollback();
 			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("No se pudo eliminar el plato");
+			throw new Exception("No se pudo eliminar el plato, está siendo usado en una factura");
 			
 		}
 
@@ -139,8 +126,6 @@ public class SAPlatoImp implements SAPlato {
 		transaction.start();
 		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
 
-		
-		
 		boolean b =  daoPlato.update(tPlato);
 		if(b)
 		{
@@ -179,8 +164,6 @@ public class SAPlatoImp implements SAPlato {
 			TransactionManager.getInstance().eliminarTransaccion();
 		}
 		
-		
-		
 		return platos;
 	}
 
@@ -202,8 +185,6 @@ public class SAPlatoImp implements SAPlato {
 			t.commit();
 			TransactionManager.getInstance().eliminarTransaccion();
 		}
-		
-		
 		
 		return platos;
 	}

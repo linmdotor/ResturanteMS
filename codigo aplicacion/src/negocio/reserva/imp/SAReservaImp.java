@@ -9,6 +9,7 @@
 package negocio.reserva.imp;
 
 import integracion.factoria.FactoriaIntegracion;
+import integracion.factura.DAOFactura;
 import integracion.reserva.DAOReserva;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
@@ -20,6 +21,7 @@ import java.util.Locale;
 
 import presentacion.controlador.EnumComandos;
 import presentacion.controlador.RespuestaCMD;
+import negocio.factura.TFactura;
 import negocio.reserva.SAReserva;
 import negocio.reserva.TReserva;
 
@@ -38,8 +40,7 @@ public class SAReservaImp implements SAReserva {
 		ArrayList<TReserva> reservas = daoReserva.obtenerReservas();
 		if(reservas == null)
 		{
-			t.rollback();
-			
+			t.rollback();			
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("No se pudieron obtener las reservas");
 		}
@@ -47,9 +48,7 @@ public class SAReservaImp implements SAReserva {
 		{
 			t.commit();
 			TransactionManager.getInstance().eliminarTransaccion();
-		}
-		
-		
+		}		
 		
 		return reservas;
 
@@ -65,8 +64,7 @@ public class SAReservaImp implements SAReserva {
 		TReserva tReserva = daoReserva.read(String.valueOf(ID));
 		if(tReserva == null)
 		{
-			t.rollback();
-			
+			t.rollback();			
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("No se pudo obtener la reserva porque el numero de reserva no existe");
 		}
@@ -87,7 +85,6 @@ public class SAReservaImp implements SAReserva {
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
 		transaction.start();
 		DAOReserva daoReserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();
-
 
 		//validacion dni cliente
 		if(tReserva.getDNI().length() <8 ||  tReserva.getDNI().length() >9)
@@ -218,9 +215,8 @@ public class SAReservaImp implements SAReserva {
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
 		transaction.start();
-		DAOReserva daoReserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();
-
 		
+		DAOReserva daoReserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();
 		
 		boolean b =  daoReserva.delete(ID);
 		if(b)
@@ -231,8 +227,7 @@ public class SAReservaImp implements SAReserva {
 		}
 		else
 		{
-			transaction.rollback();
-			
+			transaction.rollback();			
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("No se pudo eliminar la reserva");
 		}
@@ -246,8 +241,6 @@ public class SAReservaImp implements SAReserva {
 		transaction.start();
 		DAOReserva daoReserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();
 
-		
-		
 		boolean b =  daoReserva.update(tReserva);
 		if(b)
 		{
@@ -257,8 +250,7 @@ public class SAReservaImp implements SAReserva {
 		}
 		else
 		{
-			transaction.rollback();
-			
+			transaction.rollback();			
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("No se pudo modificar la reserva");
 		}

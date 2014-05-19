@@ -30,73 +30,71 @@ public class DAOPlatoImp implements DAOPlato {
 	
 		ArrayList<TPlato> listaPlatos = null;
 		
-			try {
-				Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
-				
-				ResultSet rs =  c.createStatement().executeQuery("SELECT p.*,c.Tipo "
-																+ "FROM Plato p, Plato_Comida c  "
-																+ "WHERE p.ID_Plato = c.ID_Plato_Comida "
-																+ "ORDER BY c.Tipo, p.Nombre"
-																+ " FOR UPDATE");
-				
-				listaPlatos = new ArrayList<TPlato>();
-				while(rs.next()) {
-					
-					TPlatoComida tPlatoAux = new TPlatoComida();
-					
-					tPlatoAux.setID(rs.getInt("ID_Plato"));
-					tPlatoAux.setNombre(rs.getString("Nombre"));
-					tPlatoAux.setPrecio(rs.getFloat("Precio"));
-					tPlatoAux.setStock(rs.getInt("Stock"));
-					tPlatoAux.setTipo(rs.getString("Tipo"));
-					
-					listaPlatos.add(tPlatoAux);
-
-				}
-				rs =  c.createStatement().executeQuery("SELECT p.*,b.Alcoholica "
-														+ "FROM Plato p, Plato_Bebida b  "
-														+ "WHERE p.ID_Plato = b.ID_Plato_Bebida "
-														+ "ORDER BY b.Alcoholica, p.Nombre"
-														+ " FOR UPDATE");
-				
-				while(rs.next()) {
-					
-					TPlatoBebida tPlatoAux = new TPlatoBebida();
-					
-					tPlatoAux.setID(rs.getInt("ID_Plato"));
-					tPlatoAux.setNombre(rs.getString("Nombre"));
-					tPlatoAux.setPrecio(rs.getFloat("Precio"));
-					tPlatoAux.setStock(rs.getInt("Stock"));
-					int alcoholica = rs.getInt("Alcoholica");
-					if(alcoholica == 0)
-					{
-						tPlatoAux.setAlcoholica(false);
-					}
-					else
-					{
-						tPlatoAux.setAlcoholica(true);
-					}
-					
-					
-					listaPlatos.add(tPlatoAux);
-
-				}
+		try {
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
 			
-			} catch (SQLException e) {
-				
-				e.printStackTrace();
-				throw new Exception ("Problema con la BBDD");
+			ResultSet rs =  c.createStatement().executeQuery("SELECT p.*,c.Tipo "
+															+ "FROM Plato p, Plato_Comida c  "
+															+ "WHERE p.ID_Plato = c.ID_Plato_Comida "
+															+ "ORDER BY c.Tipo, p.Nombre"
+															+ " FOR UPDATE");
 			
-			} catch (Exception e) {
+			listaPlatos = new ArrayList<TPlato>();
+			while(rs.next()) {
 				
-				e.printStackTrace();	
+				TPlatoComida tPlatoAux = new TPlatoComida();
 				
+				tPlatoAux.setID(rs.getInt("ID_Plato"));
+				tPlatoAux.setNombre(rs.getString("Nombre"));
+				tPlatoAux.setPrecio(rs.getFloat("Precio"));
+				tPlatoAux.setStock(rs.getInt("Stock"));
+				tPlatoAux.setTipo(rs.getString("Tipo"));
+				
+				listaPlatos.add(tPlatoAux);
+
 			}
+			rs =  c.createStatement().executeQuery("SELECT p.*,b.Alcoholica "
+													+ "FROM Plato p, Plato_Bebida b  "
+													+ "WHERE p.ID_Plato = b.ID_Plato_Bebida "
+													+ "ORDER BY b.Alcoholica, p.Nombre"
+													+ " FOR UPDATE");
+			
+			while(rs.next()) {
+				
+				TPlatoBebida tPlatoAux = new TPlatoBebida();
+				
+				tPlatoAux.setID(rs.getInt("ID_Plato"));
+				tPlatoAux.setNombre(rs.getString("Nombre"));
+				tPlatoAux.setPrecio(rs.getFloat("Precio"));
+				tPlatoAux.setStock(rs.getInt("Stock"));
+				int alcoholica = rs.getInt("Alcoholica");
+				if(alcoholica == 0)
+				{
+					tPlatoAux.setAlcoholica(false);
+				}
+				else
+				{
+					tPlatoAux.setAlcoholica(true);
+				}
+				
+				
+				listaPlatos.add(tPlatoAux);
+
+			}
+		
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			throw new Exception ("Problema con SQL de la BBDD");
+			
+		} catch (Exception e) {			
+			e.printStackTrace();	
+			throw new Exception ("Error inesperado en la BBDD");
+		}
  
-	        return  listaPlatos;	
+        return  listaPlatos;	
 	}
 	
-	public TPlato read(String ID_Plato) 
+	public TPlato read(String ID_Plato) throws Exception 
 	{ 
 		
 		TransactionManager tManager = TransactionManager.getInstance();
@@ -156,9 +154,11 @@ public class DAOPlatoImp implements DAOPlato {
 			}
 		
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
-		
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {		
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 
 		return null;
@@ -167,7 +167,7 @@ public class DAOPlatoImp implements DAOPlato {
 
 
 	@Override
-	public boolean create(TPlato tPlato) 
+	public boolean create(TPlato tPlato) throws Exception 
 	{
 		
 		TransactionManager tManager = TransactionManager.getInstance();
@@ -218,21 +218,19 @@ public class DAOPlatoImp implements DAOPlato {
 			}
 			
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
-		
-		} 
-		
-		
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {		
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
+		}
 		
 		return false;
 	
-
-	   
 	}
 
 	@Override
-	public boolean delete(int ID_Plato) 
+	public boolean delete(int ID_Plato) throws Exception 
 	{
 		
 		TransactionManager tManager = TransactionManager.getInstance();
@@ -249,13 +247,15 @@ public class DAOPlatoImp implements DAOPlato {
 		int rdo = 0;
 			
 		try {
-			//la base de datos deberia hacer un on delete cascade
+			//la base de datos no hace un "on delete cascade" porque las facturas son elementos que se deben conservar.
 			rdo = c.createStatement().executeUpdate("DELETE FROM Plato WHERE ID_Plato =" + ID_Plato);
 			
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
-		
+			return false;
+		} catch (Exception e) {		
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 		
 		if(rdo == 0)
@@ -267,11 +267,10 @@ public class DAOPlatoImp implements DAOPlato {
 			return true;
 		}
 	
-		
 	}
 
 	@Override
-	public boolean update(TPlato tPlato) 
+	public boolean update(TPlato tPlato) throws Exception 
 	{
 		TransactionManager tManager = TransactionManager.getInstance();
 		
@@ -315,21 +314,18 @@ public class DAOPlatoImp implements DAOPlato {
 			}
 			
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
-		
-		} 
-		
-		
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {		
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
+		}
 		
 		return false;
-	
-		
-		
 	}
 
 	@Override
-	public boolean actualizarStock(TFacturaPlato tFacturaPlato) {
+	public boolean actualizarStock(TFacturaPlato tFacturaPlato) throws Exception {
 		
 		TransactionManager tManager = TransactionManager.getInstance();
 		
@@ -353,11 +349,13 @@ public class DAOPlatoImp implements DAOPlato {
 				return true;
 			}
 			
-		} catch (SQLException e) {
-			
+		} catch (SQLException e) {	
 			e.printStackTrace();
-		
-		} 		
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {		
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
+		}	
 		
 		return false;
 	}

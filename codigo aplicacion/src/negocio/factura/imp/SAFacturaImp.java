@@ -186,7 +186,7 @@ public class SAFacturaImp implements SAFactura {
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("Falta informacion relativa al tipo de servicio");
 		}
-			
+			//valida que existe la reserva que se referencia
 		DAOReserva daoreserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();		
 		if(!daoreserva.existeReserva(tFactura.getID_Reserva()))
 		{

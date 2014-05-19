@@ -15,7 +15,7 @@ import negocio.reserva.TReserva;
 public class DAOReservaImp implements DAOReserva {
 
 	@Override
-	public boolean existeReserva(int ID_Reserva)
+	public boolean existeReserva(int ID_Reserva) throws Exception
 	{
 		boolean resultado = false;
 
@@ -26,15 +26,19 @@ public class DAOReservaImp implements DAOReserva {
 			if( c.createStatement().executeQuery("SELECT * FROM Reserva WHERE ID_Reserva = " + ID_Reserva + " FOR UPDATE").next()) //existe una reserva
 				resultado = true;		
 		
-		} catch( Exception e) {
+		} catch (SQLException e) {				
 			e.printStackTrace();
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {			
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 		
 		return resultado;
 	}
 	
 	@Override
-	public ArrayList<TReserva> obtenerReservas() {
+	public ArrayList<TReserva> obtenerReservas() throws Exception {
 				
 		ArrayList<TReserva> listaReservas = null;
 			
@@ -58,13 +62,12 @@ public class DAOReservaImp implements DAOReserva {
 				listaReservas.add(tReservaAux);
 			}
 			
-		} catch (SQLException e) {
-				
-		e.printStackTrace();
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();			
+		} catch (SQLException e) {				
+			e.printStackTrace();
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {			
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 		
 		return listaReservas;
@@ -73,9 +76,8 @@ public class DAOReservaImp implements DAOReserva {
 		 	 
 
 	@Override
-	public TReserva read(String ID_Reserva) {
-		
-		
+	public TReserva read(String ID_Reserva) throws Exception {
+			
 		TReserva tReserva = null;
 			
 		try {
@@ -97,21 +99,19 @@ public class DAOReservaImp implements DAOReserva {
 			}
 			
 		} catch (SQLException e) {
-				
 			e.printStackTrace();
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();			
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {		
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
 		}
-		
-			
+				
 		return tReserva;
 			
 	}
 
 	@Override
-	public boolean create(TReserva tReserva) {
+	public boolean create(TReserva tReserva) throws Exception {
 	
 		int rdo = 0;		
 			
@@ -121,13 +121,12 @@ public class DAOReservaImp implements DAOReserva {
 			rdo = c.createStatement().executeUpdate("INSERT INTO Reserva (DNI, Nombre, Fecha, Hora, Telefono, N_Comensales) "
 													+ "VALUES ('" + tReserva.getDNI() + "', '"  + tReserva.getNombre() + "', '"  + tReserva.getFecha() + "', '"  + tReserva.getHora() + "', '"  + tReserva.getTelefono() + "', "  + tReserva.getN_Comensales() + ")");
 				
-		} catch (SQLException e) {
-				
+		} catch (SQLException e) {	
 			e.printStackTrace();
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();			
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {		
+			e.printStackTrace();
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 	
 		return rdo >= 1;
