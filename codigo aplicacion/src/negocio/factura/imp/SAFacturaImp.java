@@ -253,10 +253,24 @@ public class SAFacturaImp implements SAFactura {
 		boolean resultado = true;
 		for(TFacturaPlato t : listatFacturaPlatos)
 		{
-			resultado =  resultado && daoFactura.addPlatoAFactura(t);
-			resultado =  resultado && daoPlato.actualizarStock(t);
+			if(resultado) //si no hay ningún error en el proceso, continúa
+			{
+				
+				if(daoPlato.read(Integer.toString(t.getID_Plato())).getStock() >= t.getCantidad()) //hay cantidad suficiente del plato
+				{
+					resultado =  resultado && daoFactura.addPlatoAFactura(t);
+					resultado =  resultado && daoPlato.actualizarStock(t);
+				}
+				else
+				{
+					transaction.rollback();
+					TransactionManager.getInstance().eliminarTransaccion();
+					throw new Exception("El plato " + t.getID_Plato() + " se quedó sin stock mientras realizaba el pedido.");
+				}
+			}
 		}
 		
+		//hace COMMIT si Todo el proceso fué bien, y si no ROLLBACK
 		if(resultado)
 		{
 			transaction.commit();
