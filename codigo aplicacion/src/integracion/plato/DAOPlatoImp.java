@@ -96,7 +96,7 @@ public class DAOPlatoImp implements DAOPlato {
 	
 	public TPlato read(String ID_Plato) throws Exception 
 	{ 
-		
+		/*
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction;
@@ -110,9 +110,13 @@ public class DAOPlatoImp implements DAOPlato {
 		
 		java.sql.Connection c = (Connection)transaction.getResource();
 		TPlatoComida tPlatoComida = new TPlatoComida();
-		TPlatoBebida tPlatoBebida = new TPlatoBebida();
+		TPlatoBebida tPlatoBebida = new TPlatoBebida();*/
 			
 		try {
+			TPlatoComida tPlatoComida = new TPlatoComida();
+			TPlatoBebida tPlatoBebida = new TPlatoBebida();
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+			
 			
 			ResultSet rs =  c.createStatement().executeQuery("SELECT p.*,c.Tipo "
 															+ "FROM Plato p, Plato_Comida c "
@@ -170,7 +174,7 @@ public class DAOPlatoImp implements DAOPlato {
 	@Override
 	public boolean create(TPlato tPlato) throws Exception 
 	{
-		
+		/*
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction;
@@ -180,9 +184,12 @@ public class DAOPlatoImp implements DAOPlato {
 			e1.printStackTrace();
 			return false;
 		}
-		java.sql.Connection c = (Connection)transaction.getResource();
+		java.sql.Connection c = (Connection)transaction.getResource();*/
 			
 		try {
+		
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+			
 			c.createStatement().executeUpdate("INSERT INTO Plato (Nombre, Precio, Stock) VALUES ('" + tPlato.getNombre() + "', "  + tPlato.getPrecio()  + ", "  + tPlato.getStock() + ")");
 			
 			ResultSet rs = c.createStatement().executeQuery("SELECT ID_Plato "
@@ -233,21 +240,24 @@ public class DAOPlatoImp implements DAOPlato {
 	@Override
 	public boolean delete(int ID_Plato) throws Exception 
 	{
-		
+		/*
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction;
 		try {
+			
 			transaction = tManager.getTransaction();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			return false;
-		}
-		java.sql.Connection c = (Connection)transaction.getResource();
-		
+		}*/
+	
 		int rdo = 0;
 			
 		try {
+		
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+			
 			//la base de datos no hace un "on delete cascade" porque las facturas son elementos que se deben conservar.
 			rdo = c.createStatement().executeUpdate("DELETE FROM Plato WHERE ID_Plato =" + ID_Plato);
 			
@@ -272,7 +282,7 @@ public class DAOPlatoImp implements DAOPlato {
 
 	@Override
 	public boolean update(TPlato tPlato) throws Exception 
-	{
+	{/*
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction;
@@ -283,8 +293,11 @@ public class DAOPlatoImp implements DAOPlato {
 			return false;
 		}
 		java.sql.Connection c = (Connection)transaction.getResource();
-			
+			*/
 		try {
+	
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+			
 			c.createStatement().executeUpdate("UPDATE Plato SET Nombre = '" + tPlato.getNombre() +"',  Precio = " + tPlato.getPrecio() + " , Stock = " + tPlato.getStock() + " "
 											+ "WHERE ID_Plato = " + tPlato.getID() );
 			
@@ -327,7 +340,7 @@ public class DAOPlatoImp implements DAOPlato {
 
 	@Override
 	public boolean actualizarStock(TFacturaPlato tFacturaPlato) throws Exception {
-		
+		/*
 		TransactionManager tManager = TransactionManager.getInstance();
 		
 		Transaction transaction;
@@ -338,8 +351,11 @@ public class DAOPlatoImp implements DAOPlato {
 			return false;
 		}
 		java.sql.Connection c = (Connection)transaction.getResource();		
-			
+			*/
 		try {
+		
+			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
+			
 			
 			ResultSet rs =  c.createStatement().executeQuery("SELECT * from Plato WHERE ID_Plato = " + tFacturaPlato.getID_Plato() + " FOR UPDATE");		
 			if(rs.next())
