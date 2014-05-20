@@ -104,7 +104,8 @@ public class DAOPlatoImp implements DAOPlato {
 			transaction = tManager.getTransaction();
 		} catch (Exception e1) {
 			e1.printStackTrace();
-			return null;
+			throw new Exception ("No se pudo obtener la conexion de la BBDD");
+		
 		}
 		
 		java.sql.Connection c = (Connection)transaction.getResource();
