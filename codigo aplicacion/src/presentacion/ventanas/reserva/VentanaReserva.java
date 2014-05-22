@@ -70,7 +70,7 @@ public class VentanaReserva extends JFrame {
 	}
 	
 	// Constructor
-	public VentanaReserva() {
+	private VentanaReserva() {
 
 		setTitle("Gestión de Reservas");
 		setResizable(false);

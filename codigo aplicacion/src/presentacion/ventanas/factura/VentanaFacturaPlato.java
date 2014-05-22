@@ -67,7 +67,7 @@ public class VentanaFacturaPlato extends JFrame{
 	}
 		
 	// Constructor
-	public VentanaFacturaPlato() {
+	private VentanaFacturaPlato() {
 
 		setTitle("Nueva Factura");
 		setResizable(false);

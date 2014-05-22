@@ -75,7 +75,7 @@ public class VentanaPlato extends JFrame {
 	}
 		
 	// Constructor
-	public VentanaPlato() {
+	private VentanaPlato() {
 
 
 		setTitle("Gestión de Platos");

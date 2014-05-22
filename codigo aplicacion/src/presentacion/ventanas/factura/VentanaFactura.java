@@ -78,7 +78,7 @@ public class VentanaFactura extends JFrame {
 	}
 	
 	// Constructor
-	public VentanaFactura() {
+	private VentanaFactura() {
 
 		setTitle("Gestión de Facturas");
 		setResizable(false);
