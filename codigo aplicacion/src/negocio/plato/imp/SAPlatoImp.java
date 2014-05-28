@@ -78,7 +78,9 @@ public class SAPlatoImp implements SAPlato {
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
 		transaction.start();
 		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
-
+		//validar si el plato ya existe y sus valores son correctos
+		//si todo esto fuese correcto, entonces se haria el resto
+		//sino se haria rollback (si hay dudas mirar secuencia)
 		boolean b =  daoPlato.create(tPlato);
 		if(b)
 		{
