@@ -3,6 +3,7 @@
  */
 package integracion.query;
 
+import integracion.plato.PlatoPorNombre;
 import integracion.plato.PlatoPorPrecio;
 import integracion.plato.PlatoPorStock;
 
@@ -15,11 +16,15 @@ public class FactoriaQueryImp extends FactoriaQuery
 
 		switch(numQuery)
 		{
+		
 			case 1:
-					return new PlatoPorStock();
-					
+					return new PlatoPorNombre();
+		
 			case 2:
 					return new PlatoPorPrecio();
+					
+			case 3:
+					return new PlatoPorStock();
 			
 			
 		}

@@ -10,6 +10,7 @@ package negocio.plato.imp;
 
 import integracion.factoria.FactoriaIntegracion;
 import integracion.plato.DAOPlato;
+import integracion.plato.PlatoPorNombre;
 import integracion.plato.PlatoPorPrecio;
 import integracion.plato.PlatoPorStock;
 import integracion.query.FactoriaQuery;
@@ -17,6 +18,7 @@ import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import negocio.plato.SAPlato;
 import negocio.plato.TPlato;
@@ -78,9 +80,41 @@ public class SAPlatoImp implements SAPlato {
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
 		transaction.start();
 		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
-		//validar si el plato ya existe y sus valores son correctos
-		//si todo esto fuese correcto, entonces se haria el resto
-		//sino se haria rollback (si hay dudas mirar secuencia)
+		
+		ArrayList<TPlato> listaPlatosOrdenadosPorNombre = obtenerPlatosOrdenadosPorNombre();
+		
+		Iterator<TPlato> it = listaPlatosOrdenadosPorNombre.iterator();
+		
+		while(it.hasNext()) {
+			
+			if(it.next().getNombre() == tPlato.getNombre()) {
+				
+				transaction.rollback();
+				TransactionManager.getInstance().eliminarTransaccion();
+				
+				throw new Exception("Ya existe un plato con el mismo nombre");
+				
+			} 
+			
+		}
+		
+		if(tPlato.getPrecio() <= 0) {
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			
+			throw new Exception("El precio de debe de ser mayor que 0");
+			
+		}
+		
+		if(tPlato.getStock() < 0) {
+			
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			
+			throw new Exception("El stock debe ser mayor o igual que 0");
+			
+		}
+
 		boolean b =  daoPlato.create(tPlato);
 		if(b)
 		{
@@ -127,7 +161,41 @@ public class SAPlatoImp implements SAPlato {
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
 		transaction.start();
 		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
-
+		
+		ArrayList<TPlato> listaPlatosOrdenadosPorNombre = obtenerPlatosOrdenadosPorNombre();
+		
+		Iterator<TPlato> it = listaPlatosOrdenadosPorNombre.iterator();
+		
+		while(it.hasNext()) {
+			
+			if(it.next().getNombre() == tPlato.getNombre()) {
+				
+				transaction.rollback();
+				TransactionManager.getInstance().eliminarTransaccion();
+				
+				throw new Exception("Ya existe un plato con el mismo nombre");
+				
+			} 
+			
+		}
+		
+		if(tPlato.getPrecio() <= 0) {
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			
+			throw new Exception("El precio de debe de ser mayor que 0");
+			
+		}
+		
+		if(tPlato.getStock() < 0) {
+			
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			
+			throw new Exception("El stock debe ser mayor o igual que 0");
+			
+		}
+		
 		boolean b =  daoPlato.update(tPlato);
 		if(b)
 		{
@@ -144,6 +212,30 @@ public class SAPlatoImp implements SAPlato {
 
 	}
 	
+	public ArrayList<TPlato> obtenerPlatosOrdenadosPorNombre() throws Exception {
+		
+		TransactionManager.getInstance().nuevaTransaccion();
+		Transaction t = TransactionManager.getInstance().getTransaction();
+		t.start();
+		PlatoPorNombre p = (PlatoPorNombre) FactoriaQuery.obtenerInstancia().creaQuery(1);
+		
+		ArrayList<TPlato> platos = (ArrayList<TPlato>) p.execute(null);
+		if(platos == null)
+		{
+			t.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No se pudieron obtener los platos");
+		}
+		else
+		{
+			t.commit();
+			TransactionManager.getInstance().eliminarTransaccion();
+		}
+		
+		return platos;
+		
+	}
+	
 	@Override
 	public ArrayList<TPlato> obtenerPlatosOrdenadosPorPrecio() throws Exception{
 
@@ -151,7 +243,7 @@ public class SAPlatoImp implements SAPlato {
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();
-		PlatoPorPrecio p = (PlatoPorPrecio) FactoriaQuery.obtenerInstancia().creaQuery(1);
+		PlatoPorPrecio p = (PlatoPorPrecio) FactoriaQuery.obtenerInstancia().creaQuery(2);
 		
 		ArrayList<TPlato> platos = (ArrayList<TPlato>) p.execute(null);
 		if(platos == null)
@@ -174,7 +266,7 @@ public class SAPlatoImp implements SAPlato {
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction t = TransactionManager.getInstance().getTransaction();
 		t.start();
-		PlatoPorPrecio p = (PlatoPorPrecio) FactoriaQuery.obtenerInstancia().creaQuery(2);
+		PlatoPorPrecio p = (PlatoPorPrecio) FactoriaQuery.obtenerInstancia().creaQuery(3);
 		ArrayList<TPlato> platos = (ArrayList<TPlato>) p.execute(null);
 		if(platos == null)
 		{
