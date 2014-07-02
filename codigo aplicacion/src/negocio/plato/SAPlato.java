@@ -13,6 +13,12 @@ import java.util.ArrayList;
 public interface SAPlato {
 
 	public ArrayList<TPlato> obtenerPlatos() throws Exception;
+	
+	public ArrayList<TPlato> obtenerPlatosPorNombre() throws Exception;
+	
+	public ArrayList<TPlato> obtenerPlatosPorPrecio() throws Exception;
+	
+	public ArrayList<TPlato> obtenerPlatosPorStock() throws Exception;
 
 	public TPlato obtenerPlato(int ID) throws Exception;
 

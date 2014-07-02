@@ -8,6 +8,7 @@
 
 package integracion.plato;
 
+import integracion.query.FactoriaQueryImp;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
@@ -36,7 +37,7 @@ public class DAOPlatoImp implements DAOPlato {
 			ResultSet rs =  c.createStatement().executeQuery("SELECT p.*,c.Tipo "
 															+ "FROM Plato p, Plato_Comida c  "
 															+ "WHERE p.ID_Plato = c.ID_Plato_Comida "
-															+ "ORDER BY c.Tipo, p.Nombre"
+															+ "ORDER BY c.ID_Plato_Comida"
 															+ " FOR UPDATE");
 			
 			listaPlatos = new ArrayList<TPlato>();
@@ -56,7 +57,7 @@ public class DAOPlatoImp implements DAOPlato {
 			rs =  c.createStatement().executeQuery("SELECT p.*,b.Alcoholica "
 													+ "FROM Plato p, Plato_Bebida b  "
 													+ "WHERE p.ID_Plato = b.ID_Plato_Bebida "
-													+ "ORDER BY b.Alcoholica, p.Nombre"
+													+ "ORDER BY b.ID_Plato_Bebida"
 													+ " FOR UPDATE");
 			
 			while(rs.next()) {
@@ -92,6 +93,24 @@ public class DAOPlatoImp implements DAOPlato {
 		}
  
         return  listaPlatos;	
+	}
+	
+	@Override
+	public ArrayList<TPlato> obtenerPlatosPorNombre()  throws Exception
+	{
+		return (ArrayList<TPlato>)FactoriaQueryImp.obtenerInstancia().creaQuery(1).execute(null);		
+	}
+	
+	@Override
+	public ArrayList<TPlato> obtenerPlatosPorPrecio()  throws Exception
+	{
+		return (ArrayList<TPlato>)FactoriaQueryImp.obtenerInstancia().creaQuery(2).execute(null);		
+	}
+	
+	@Override
+	public ArrayList<TPlato> obtenerPlatosPorStock()  throws Exception
+	{
+		return (ArrayList<TPlato>)FactoriaQueryImp.obtenerInstancia().creaQuery(3).execute(null);		
 	}
 	
 	public TPlato read(String ID_Plato) throws Exception 

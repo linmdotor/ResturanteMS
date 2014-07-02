@@ -16,6 +16,12 @@ import negocio.plato.TPlato;
 public interface DAOPlato {
 
 	public ArrayList<TPlato> obtenerPlatos() throws Exception;
+	
+	public ArrayList<TPlato> obtenerPlatosPorNombre() throws Exception;
+	
+	public ArrayList<TPlato> obtenerPlatosPorPrecio() throws Exception;
+	
+	public ArrayList<TPlato> obtenerPlatosPorStock() throws Exception;
 
 	public TPlato read(String ID_Plato) throws Exception; // implementado
 

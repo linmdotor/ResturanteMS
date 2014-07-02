@@ -33,7 +33,9 @@ public class PlatoPorPrecio implements Query {
 		}
 		
 		java.sql.Connection c = (Connection) transaction.getResource();
-		ArrayList<TPlato> lista = new ArrayList<TPlato>();
+		ArrayList<TPlato> lista_comida = new ArrayList<TPlato>();
+		ArrayList<TPlato> lista_bebida = new ArrayList<TPlato>();
+		ArrayList<TPlato> lista_final = new ArrayList<TPlato>();
         try {
             // Preparamos la consulta
             ResultSet rs = c.createStatement().executeQuery("select p.*, c.Tipo from Plato p, Plato_Comida c where p.ID_Plato = c.ID_Plato_Comida order by p.Precio" + " FOR UPDATE");
@@ -47,7 +49,7 @@ public class PlatoPorPrecio implements Query {
             	tComida.setPrecio(rs.getFloat("Precio"));
             	tComida.setStock(rs.getInt("Stock"));
             	tComida.setTipo(rs.getString("Tipo"));
-            	lista.add(tComida);
+            	lista_comida.add(tComida);
             
             
             }
@@ -61,8 +63,39 @@ public class PlatoPorPrecio implements Query {
             	tBebida.setPrecio(rs.getFloat("Precio"));
             	tBebida.setStock(rs.getInt("Stock"));
             	tBebida.setAlcoholica(rs.getBoolean("Alcoholica"));
-            	lista.add(tBebida);
+            	lista_bebida.add(tBebida);
             
+            }
+            
+            //ordena los platos para que sigan estando por precio
+            int i=0, j=0; //indices para comida y bebida
+            
+            //va avanzando en las 2 listas hasta que una se queda sin elementos
+            while(( i < lista_comida.size() && lista_comida.get(i) != null) && 
+            		(j < lista_bebida.size() && lista_bebida.get(j) != null))
+            {
+            	if(lista_comida.get(i).getPrecio() < lista_bebida.get(j).getPrecio())
+            	{
+            		lista_final.add(lista_comida.get(i));
+            		i++;
+            	}
+            	else
+            	{
+            		lista_final.add(lista_bebida.get(j));
+            		j++;
+            	}
+            }
+            //luego recoge el resto de elementos de la que reste
+            while( i < lista_comida.size() && lista_comida.get(i) != null)
+            {
+            	lista_final.add(lista_comida.get(i));
+        		i++;
+            }
+            
+            while(j < lista_bebida.size() && lista_bebida.get(j) != null)
+            {
+            	lista_final.add(lista_bebida.get(j));
+        		j++;
             }
             
         } catch (SQLException ex) {
@@ -70,7 +103,7 @@ public class PlatoPorPrecio implements Query {
 			return false;
         }
     	
-		return lista;
+		return lista_final;
 
 	}
 }

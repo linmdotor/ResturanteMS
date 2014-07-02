@@ -11,6 +11,8 @@ package presentacion.ventanas.plato;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -241,6 +243,24 @@ public class VentanaPlato extends JFrame {
 					ApplicationController.obtenerInstancia().handleRequest(EnumComandos.MODIFICAR_FORMULARIO_PLATO, getTbAlmacen().getSelectedRow() );	
 				
 			}
+		});
+		//acciones al pulsar sobre la cabecera, ordenar los platos
+		tbAlmacen.getTableHeader().addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        int col = tbAlmacen.columnAtPoint(e.getPoint());
+		        String name = tbAlmacen.getColumnName(col);
+
+		        if(col == 0)
+		        	ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS, null);
+		        else if(col == 1)
+		        	ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS_NOMBRE, null);
+		        else if(col == 2)
+		        	ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS_PRECIO, null);
+		        else if(col == 3)
+		        	ApplicationController.obtenerInstancia().handleRequest(EnumComandos.OBTENERPLATOS_STOCK, null);
+		        
+		    }
 		});
 
 	}

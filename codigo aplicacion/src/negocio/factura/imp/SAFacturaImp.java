@@ -218,12 +218,21 @@ public class SAFacturaImp implements SAFactura {
 		TransactionManager.getInstance().nuevaTransaccion();
 		Transaction transaction = TransactionManager.getInstance().getTransaction();
 		transaction.start();
+		
 		DAOFactura daoFactura = FactoriaIntegracion.obtenerInstancia().generaDAOFactura();
+		
 		if(ID < 0)
 		{
 			transaction.rollback();
 			TransactionManager.getInstance().eliminarTransaccion();
 			throw new Exception("Numero de factura no valido");
+		}
+		
+		if(daoFactura.read(Integer.toString(ID)) == null)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No existe la factura con ID" + ID);
 		}
 
 		if(daoFactura.delete(ID))

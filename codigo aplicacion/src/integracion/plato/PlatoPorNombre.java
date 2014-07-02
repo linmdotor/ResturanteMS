@@ -33,7 +33,9 @@ public class PlatoPorNombre implements Query {
 		}
 		
 		java.sql.Connection c = (Connection) transaction.getResource();
-		ArrayList<TPlato> lista = new ArrayList<TPlato>();
+		ArrayList<TPlato> lista_comida = new ArrayList<TPlato>();
+		ArrayList<TPlato> lista_bebida = new ArrayList<TPlato>();
+		ArrayList<TPlato> lista_final = new ArrayList<TPlato>();
         try {
             // Preparamos la consulta
             ResultSet rs = c.createStatement().executeQuery("select p.*, c.Tipo from Plato p, Plato_Comida c where p.ID_Plato = c.ID_Plato_Comida order by p.Nombre" + " FOR UPDATE");
@@ -47,7 +49,7 @@ public class PlatoPorNombre implements Query {
             	tComida.setPrecio(rs.getFloat("Precio"));
             	tComida.setStock(rs.getInt("Stock"));
             	tComida.setTipo(rs.getString("Tipo"));
-            	lista.add(tComida);
+            	lista_comida.add(tComida);
             
             
             }
@@ -61,16 +63,47 @@ public class PlatoPorNombre implements Query {
             	tBebida.setPrecio(rs.getFloat("Precio"));
             	tBebida.setStock(rs.getInt("Stock"));
             	tBebida.setAlcoholica(rs.getBoolean("Alcoholica"));
-            	lista.add(tBebida);
+            	lista_bebida.add(tBebida);
             
             }
             
+            //ordena los platos para que sigan estando por nombre
+            int i=0, j=0; //indices para comida y bebida
+            
+            //va avanzando en las 2 listas hasta que una se queda sin elementos
+            while(( i < lista_comida.size() && lista_comida.get(i) != null) && 
+            		(j < lista_bebida.size() && lista_bebida.get(j) != null))
+            {
+            	if(lista_comida.get(i).getNombre().compareTo(lista_bebida.get(j).getNombre()) <= 0) //devuelve < 0 si lista_comida está antes que lista_bebida
+            	{
+            		lista_final.add(lista_comida.get(i));
+            		i++;
+            	}
+            	else
+            	{
+            		lista_final.add(lista_bebida.get(j));
+            		j++;
+            	}
+            }
+            //luego recoge el resto de elementos de la que reste
+            while( i < lista_comida.size() && lista_comida.get(i) != null)
+            {
+            	lista_final.add(lista_comida.get(i));
+        		i++;
+            }
+            
+            while(j < lista_bebida.size() && lista_bebida.get(j) != null)
+            {
+            	lista_final.add(lista_bebida.get(j));
+        		j++;
+            }
+                       
         } catch (SQLException ex) {
             System.out.println("Imposible realizar consulta ... FAIL");
 			return false;
         }
     	
-		return lista;
+		return lista_final;
 
 	}
 }

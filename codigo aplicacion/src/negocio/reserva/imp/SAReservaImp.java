@@ -218,8 +218,21 @@ public class SAReservaImp implements SAReserva {
 		
 		DAOReserva daoReserva = FactoriaIntegracion.obtenerInstancia().generaDAOReserva();
 		
-		boolean b =  daoReserva.delete(ID);
-		if(b)
+		if(ID < 0)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("Numero de reserva no valido");
+		}
+		
+		if(daoReserva.read(Integer.toString(ID)) == null)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No existe la reserva con ID" + ID);
+		}
+		
+		if(daoReserva.delete(ID))
 		{
 			transaction.commit();
 			TransactionManager.getInstance().eliminarTransaccion();
@@ -229,7 +242,7 @@ public class SAReservaImp implements SAReserva {
 		{
 			transaction.rollback();			
 			TransactionManager.getInstance().eliminarTransaccion();
-			throw new Exception("No se pudo eliminar la reserva");
+			return false;
 		}
 
 	}

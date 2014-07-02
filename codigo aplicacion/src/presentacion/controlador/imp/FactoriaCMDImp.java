@@ -32,6 +32,9 @@ import presentacion.controlador.comando.plato.CMDIniciarVistaPlato;
 import presentacion.controlador.comando.plato.CMDModificarFormularioPlato;
 import presentacion.controlador.comando.plato.CMDModificarPlato;
 import presentacion.controlador.comando.plato.CMDObtenerPlatos;
+import presentacion.controlador.comando.plato.CMDObtenerPlatosPorNombre;
+import presentacion.controlador.comando.plato.CMDObtenerPlatosPorPrecio;
+import presentacion.controlador.comando.plato.CMDObtenerPlatosPorStock;
 import presentacion.controlador.comando.reserva.CMDAltaReserva;
 import presentacion.controlador.comando.reserva.CMDBajaReserva;
 import presentacion.controlador.comando.reserva.CMDIniciarVistaReserva;
@@ -57,6 +60,9 @@ public class FactoriaCMDImp extends FactoriaCMD {
 		map_cmd.put(EnumComandos.ELIMINAR_PLATO, new CMDBajaPlato());
 		map_cmd.put(EnumComandos.MODIFICAR_PLATO, new CMDModificarPlato());
 		map_cmd.put(EnumComandos.OBTENERPLATOS, new CMDObtenerPlatos());
+		map_cmd.put(EnumComandos.OBTENERPLATOS_NOMBRE, new CMDObtenerPlatosPorNombre());
+		map_cmd.put(EnumComandos.OBTENERPLATOS_PRECIO, new CMDObtenerPlatosPorPrecio());
+		map_cmd.put(EnumComandos.OBTENERPLATOS_STOCK, new CMDObtenerPlatosPorStock());
 		map_cmd.put(EnumComandos.INICIAR_VISTA_PLATO, new CMDIniciarVistaPlato());
 		map_cmd.put(EnumComandos.MODIFICAR_FORMULARIO_PLATO, new CMDModificarFormularioPlato());
 		
