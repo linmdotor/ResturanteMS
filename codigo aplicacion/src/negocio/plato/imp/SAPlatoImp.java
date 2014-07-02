@@ -150,21 +150,28 @@ public class SAPlatoImp implements SAPlato {
 		transaction.start();
 		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
 		
-		ArrayList<TPlato> listaPlatosOrdenadosPorNombre = obtenerPlatosOrdenadosPorNombre();
-		
-		Iterator<TPlato> it = listaPlatosOrdenadosPorNombre.iterator();
-		
-		while(it.hasNext()) {
-			
-			if(it.next().getNombre() == tPlato.getNombre()) {
+		ArrayList<TPlato> platos = daoPlato.obtenerPlatosPorNombre();
+		if(platos == null)
+		{
+			transaction.rollback();
+			TransactionManager.getInstance().eliminarTransaccion();
+			throw new Exception("No se pudieron obtener los platos para verificar el nombre, intentelo de nuevo");		
+		}
+		else //comprueba si el nombre ya existe, plato a plato
+		{
+			Iterator<TPlato> it = platos.iterator();
+			while(it.hasNext()) {
 				
-				transaction.rollback();
-				TransactionManager.getInstance().eliminarTransaccion();
+				if(it.next().getNombre().compareTo(tPlato.getNombre()) == 0) {
+					
+					transaction.rollback();
+					TransactionManager.getInstance().eliminarTransaccion();
+					
+					throw new Exception("Ya existe un plato con el mismo nombre");
+					
+				} 
 				
-				throw new Exception("Ya existe un plato con el mismo nombre");
-				
-			} 
-			
+			}
 		}
 		
 		if(tPlato.getPrecio() <= 0) {
@@ -244,21 +251,32 @@ public class SAPlatoImp implements SAPlato {
 		transaction.start();
 		DAOPlato daoPlato = FactoriaIntegracion.obtenerInstancia().generaDAOPlato();
 		
-		ArrayList<TPlato> listaPlatosOrdenadosPorNombre = obtenerPlatosOrdenadosPorNombre();
-		
-		Iterator<TPlato> it = listaPlatosOrdenadosPorNombre.iterator();
-		
-		while(it.hasNext()) {
-			
-			if(it.next().getNombre() == tPlato.getNombre()) {
-				
+		//comprueba si le ha cambiado el nombre, y si el nombre nuevo ya existe en la lista
+		if(daoPlato.read(Integer.toString(tPlato.getID())).getNombre().compareTo(tPlato.getNombre()) != 0) //ha cambiado el nombre
+		{
+			ArrayList<TPlato> platos = daoPlato.obtenerPlatosPorNombre();
+			if(platos == null)
+			{
 				transaction.rollback();
 				TransactionManager.getInstance().eliminarTransaccion();
-				
-				throw new Exception("Ya existe un plato con el mismo nombre");
-				
-			} 
-			
+				throw new Exception("No se pudieron obtener los platos para verificar el nombre, intentelo de nuevo");		
+			}
+			else 
+			{
+				Iterator<TPlato> it = platos.iterator();
+				while(it.hasNext()) {
+					//Falla si le quiero cambiar el nombre y está repetido
+					if(it.next().getNombre().compareTo(tPlato.getNombre()) == 0) {
+						
+						transaction.rollback();
+						TransactionManager.getInstance().eliminarTransaccion();
+						
+						throw new Exception("Ya existe un plato con el mismo nombre");
+						
+					} 
+					
+				}
+			}
 		}
 		
 		if(tPlato.getPrecio() <= 0) {
