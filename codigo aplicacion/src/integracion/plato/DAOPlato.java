@@ -23,13 +23,13 @@ public interface DAOPlato {
 	
 	public ArrayList<TPlato> obtenerPlatosPorStock() throws Exception;
 
-	public TPlato read(String ID_Plato) throws Exception; // implementado
+	public TPlato read(String ID_Plato) throws Exception; 
 
-	public boolean create(TPlato tPlato) throws Exception; // implementado
+	public boolean create(TPlato tPlato) throws Exception; 
 
-	public boolean delete(int ID_Plato) throws Exception; // implementado
+	public boolean delete(int ID_Plato) throws Exception; 
 
-	public boolean update(TPlato tPlato) throws Exception; //
+	public boolean update(TPlato tPlato) throws Exception; 
 
 	boolean actualizarStock(TFacturaPlato tFacturaPlato) throws Exception;
 	

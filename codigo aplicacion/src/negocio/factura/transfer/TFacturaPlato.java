@@ -3,8 +3,8 @@
  */
 package negocio.factura.transfer;
 
-/*
- * CREATE TABLE IF NOT EXISTS `Factura_Plato`(
+/* TABLA -------------------------------------------------------------------------
+   CREATE TABLE IF NOT EXISTS `Factura_Plato`(
 	`ID_Factura` INTEGER UNSIGNED NOT NULL REFERENCES `Factura`(`ID_Factura`), 
 	`ID_Plato` INTEGER UNSIGNED NOT NULL REFERENCES `Plato`(`ID_Plato`), 
 	`Precio` FLOAT NOT NULL, 

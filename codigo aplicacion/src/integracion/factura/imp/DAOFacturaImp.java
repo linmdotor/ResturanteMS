@@ -104,7 +104,7 @@ public class DAOFacturaImp implements DAOFactura {
 	}
 
 	@Override
-	public boolean create(TFactura tFactura) {
+	public boolean create(TFactura tFactura) throws Exception {
 	
 			
 		try {
@@ -118,20 +118,17 @@ public class DAOFacturaImp implements DAOFactura {
 					+ "VALUES ('" + tFactura.getFecha() + "', '" + tFactura.getHora() + "', '" + tFactura.getNIF_Empresa() + "', '" + tFactura.getNombre_Empresa() + "', '" + tFactura.getDir_Empresa() + "', '" + tFactura.getNIF_Cliente() + "', '" + tFactura.getNombre_Cliente() + "', '" + tFactura.getDir_Cliente() + "', " + tFactura.getIVA() + ", '" + tFactura.getTipo_Servicio() + "')") >= 1;
 													
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-			return false;
-
-		} catch (Exception e) {
-			
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {	
 			e.printStackTrace();
-			return false;
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 
 	}	
 
 	@Override
-	public boolean delete(int ID_Factura) {	
+	public boolean delete(int ID_Factura) throws Exception {	
 		
 		
 		try {
@@ -140,20 +137,17 @@ public class DAOFacturaImp implements DAOFactura {
 			return c.createStatement().executeUpdate("DELETE FROM Factura WHERE ID_Factura = " + ID_Factura) >= 1;
 
 		} catch (SQLException e) {
-
 			e.printStackTrace();			
-			return false;
-
-		} catch (Exception e) {
-			
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {		
 			e.printStackTrace();
-			return false;
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 
 	}
 
 	@Override
-	public boolean update(TFactura tFactura) {
+	public boolean update(TFactura tFactura) throws Exception {
 	
 		try {
 			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD			
@@ -162,20 +156,17 @@ public class DAOFacturaImp implements DAOFactura {
 													+ "WHERE ID_Factura = " + tFactura.getID_Factura()) >= 1;
 
 		} catch (SQLException e) {
-
 			e.printStackTrace();			
-			return false;
-
-		} catch (Exception e) {
-			
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {	
 			e.printStackTrace();
-			return false;
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 
 	}
 
 	@Override
-	public boolean addPlatoAFactura(TFacturaPlato t) {
+	public boolean addPlatoAFactura(TFacturaPlato t) throws Exception {
 				
 		try {
 			Connection c = (Connection) TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
@@ -183,14 +174,11 @@ public class DAOFacturaImp implements DAOFactura {
 			return c.createStatement().executeUpdate("INSERT INTO Factura_Plato (ID_Factura, ID_Plato, Precio, Cantidad) "
 													+ "VALUES (" + t.getID_Factura() + ", " + t.getID_Plato() + ", " + t.getPrecio() + ", " + t.getCantidad() + ")") >= 1;
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-			return false;
-
-		} catch (Exception e) {
-			
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {		
 			e.printStackTrace();
-			return false;
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 	}
 

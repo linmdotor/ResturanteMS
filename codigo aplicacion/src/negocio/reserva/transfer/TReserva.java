@@ -3,8 +3,8 @@
  */
 package negocio.reserva.transfer;
 
-/*
- * CREATE TABLE IF NOT EXISTS `Reserva`(
+/* TABLA -------------------------------------------------
+   CREATE TABLE IF NOT EXISTS `Reserva`(
 	`ID_Reserva` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, 
 	`DNI` VARCHAR(10), 
 	`Nombre` VARCHAR(25) NOT NULL, 

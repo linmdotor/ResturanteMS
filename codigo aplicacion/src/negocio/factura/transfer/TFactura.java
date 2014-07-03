@@ -3,8 +3,8 @@
  */
 package negocio.factura.transfer;
 
-/*
- * CREATE TABLE IF NOT EXISTS `Factura`(
+/* TABLA --------------------------------------------------------------
+   CREATE TABLE IF NOT EXISTS `Factura`(
 	`ID_Factura` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, 
 	`ID_Reserva` INTEGER UNSIGNED NOT NULL REFERENCES `Reserva`(`ID_Reserva`), 
 	`Fecha` DATETIME NOT NULL, 

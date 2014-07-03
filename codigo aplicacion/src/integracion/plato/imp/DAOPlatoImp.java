@@ -10,7 +10,6 @@ package integracion.plato.imp;
 
 import integracion.plato.DAOPlato;
 import integracion.query.imp.FactoriaQueryImp;
-import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
 import java.sql.Connection;
@@ -116,21 +115,6 @@ public class DAOPlatoImp implements DAOPlato {
 	
 	public TPlato read(String ID_Plato) throws Exception 
 	{ 
-		/*
-		TransactionManager tManager = TransactionManager.getInstance();
-		
-		Transaction transaction;
-		try {
-			transaction = tManager.getTransaction();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			throw new Exception ("No se pudo obtener la conexion de la BBDD");
-		
-		}
-		
-		java.sql.Connection c = (Connection)transaction.getResource();
-		TPlatoComida tPlatoComida = new TPlatoComida();
-		TPlatoBebida tPlatoBebida = new TPlatoBebida();*/
 			
 		try {
 			TPlatoComida tPlatoComida = new TPlatoComida();
@@ -194,17 +178,6 @@ public class DAOPlatoImp implements DAOPlato {
 	@Override
 	public boolean create(TPlato tPlato) throws Exception 
 	{
-		/*
-		TransactionManager tManager = TransactionManager.getInstance();
-		
-		Transaction transaction;
-		try {
-			transaction = tManager.getTransaction();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			return false;
-		}
-		java.sql.Connection c = (Connection)transaction.getResource();*/
 			
 		try {
 		
@@ -260,18 +233,7 @@ public class DAOPlatoImp implements DAOPlato {
 	@Override
 	public boolean delete(int ID_Plato) throws Exception 
 	{
-		/*
-		TransactionManager tManager = TransactionManager.getInstance();
 		
-		Transaction transaction;
-		try {
-			
-			transaction = tManager.getTransaction();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			return false;
-		}*/
-	
 		int rdo = 0;
 			
 		try {
@@ -283,7 +245,7 @@ public class DAOPlatoImp implements DAOPlato {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw new Exception ("Problema con SQL de la BBDD");
 		} catch (Exception e) {		
 			e.printStackTrace();
 			throw new Exception ("Error inesperado en la BBDD");
@@ -302,18 +264,8 @@ public class DAOPlatoImp implements DAOPlato {
 
 	@Override
 	public boolean update(TPlato tPlato) throws Exception 
-	{/*
-		TransactionManager tManager = TransactionManager.getInstance();
+	{
 		
-		Transaction transaction;
-		try {
-			transaction = tManager.getTransaction();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			return false;
-		}
-		java.sql.Connection c = (Connection)transaction.getResource();
-			*/
 		try {
 	
 			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
@@ -360,18 +312,7 @@ public class DAOPlatoImp implements DAOPlato {
 
 	@Override
 	public boolean actualizarStock(TFacturaPlato tFacturaPlato) throws Exception {
-		/*
-		TransactionManager tManager = TransactionManager.getInstance();
 		
-		Transaction transaction;
-		try {
-			transaction = tManager.getTransaction();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			return false;
-		}
-		java.sql.Connection c = (Connection)transaction.getResource();		
-			*/
 		try {
 		
 			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD

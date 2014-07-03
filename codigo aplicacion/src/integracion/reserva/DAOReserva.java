@@ -20,9 +20,9 @@ public interface DAOReserva {
 
 	public boolean create(TReserva tReserva) throws Exception;
 
-	public boolean delete(int ID_Reserva); 
+	public boolean delete(int ID_Reserva) throws Exception; 
 
-	public boolean update(TReserva tReserva);
+	public boolean update(TReserva tReserva) throws Exception;
 
 	public boolean existeReserva(int ID_Reserva) throws Exception;
 	

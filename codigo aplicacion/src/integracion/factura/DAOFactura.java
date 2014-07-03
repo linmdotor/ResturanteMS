@@ -14,13 +14,13 @@ public interface DAOFactura {
 
 	public TFactura read(String ID_Factura) throws Exception; 
 
-	public boolean create(TFactura tFactura); 
+	public boolean create(TFactura tFactura) throws Exception; 
 
-	public boolean delete(int ID_Factura); 
+	public boolean delete(int ID_Factura) throws Exception; 
 
-	public boolean update(TFactura tFactura);
+	public boolean update(TFactura tFactura) throws Exception;
 
-	public boolean addPlatoAFactura(TFacturaPlato t);
+	public boolean addPlatoAFactura(TFacturaPlato t) throws Exception;
 
 	public TFactura getPlatosDeFactura(String ID_Factura) throws Exception;	
 }

@@ -3,8 +3,8 @@
  */
 package negocio.plato.transfer;
 
-/*
- * CREATE TABLE IF NOT EXISTS `Plato`(
+/* TABLA ----------------------------------------------
+   CREATE TABLE IF NOT EXISTS `Plato`(
 	`ID_Plato` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, 
 	`Nombre` VARCHAR(30) NOT NULL, 
 	`Precio` FLOAT, 

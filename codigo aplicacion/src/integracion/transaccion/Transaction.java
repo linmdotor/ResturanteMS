@@ -3,9 +3,6 @@
  */
 package integracion.transaccion;
 
-
-
-
 public interface Transaction {
 	
 	public void start() throws  Exception;

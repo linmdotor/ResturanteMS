@@ -29,6 +29,8 @@ public class DispatcherImp extends Dispatcher {
 				VentanaPrincipal.obtenerInstancia().setVisible(true);
 				break;
 			
+			//PLATO
+				
 			case INICIAR_VISTA_PLATO:
 				VentanaPlato.obtenerInstancia().actualizar(respuestaCMD.getObjeto());
 				break;
@@ -40,6 +42,8 @@ public class DispatcherImp extends Dispatcher {
 			case OBTENERPLATOS:
 				VentanaPlato.obtenerInstancia().actualizar(respuestaCMD.getObjeto());
 				break;
+				
+			//RESERVA
 				
 			case INICIAR_VISTA_RESERVA:
 				VentanaReserva.obtenerInstancia().actualizar(respuestaCMD.getObjeto());
@@ -53,6 +57,8 @@ public class DispatcherImp extends Dispatcher {
 				VentanaReserva.obtenerInstancia().actualizar(respuestaCMD.getObjeto());
 				break;
 				
+			//FACTURA
+				
 			case INICIAR_VISTA_FACTURA:
 				VentanaFactura.obtenerInstancia().actualizar(respuestaCMD.getObjeto());
 				break;
@@ -64,6 +70,8 @@ public class DispatcherImp extends Dispatcher {
 			case OBTENERFACTURAS:
 				VentanaFactura.obtenerInstancia().actualizar(respuestaCMD.getObjeto());
 				break;
+				
+
 				
 			case INICIAR_VISTA_FACTURAPLATO:
 				VentanaFacturaPlato.obtenerInstancia().actualizarID(VentanaFactura.obtenerInstancia().getID());
@@ -81,6 +89,8 @@ public class DispatcherImp extends Dispatcher {
 			case QUITAR_PLATO_DE_FACTURA:
 				VentanaFacturaPlato.obtenerInstancia().quitarPlato(respuestaCMD.getObjeto());
 				break;
+				
+			//CORECTOS
 	
 			case CORRECTO_PLATO:
 				new VentanaCorrecto((String) respuestaCMD.getObjeto());
@@ -101,6 +111,8 @@ public class DispatcherImp extends Dispatcher {
 				new VentanaCorrecto((String) respuestaCMD.getObjeto());
 				VentanaFacturaPlato.obtenerInstancia().limpiarFormulario(false);
 				break;
+				
+			//GENÉRICOS
 			
 			case CORRECTO:
 				new VentanaCorrecto((String) respuestaCMD.getObjeto());

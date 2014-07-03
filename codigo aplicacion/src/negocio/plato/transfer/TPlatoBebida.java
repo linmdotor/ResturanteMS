@@ -3,8 +3,8 @@
  */
 package negocio.plato.transfer;
 
-/*
- * CREATE TABLE IF NOT EXISTS `Plato_Bebida`(
+/* TABLA -----------------------------------------------------------------
+   CREATE TABLE IF NOT EXISTS `Plato_Bebida`(
 	`ID_Plato_Bebida` INTEGER UNSIGNED NOT NULL REFERENCES `Plato`(`ID_Plato`),
 	`Alcoholica` TINYINT NOT NULL DEFAULT '0' , -- True=0 ; False=1
 	

@@ -135,28 +135,25 @@ public class DAOReservaImp implements DAOReserva {
 	}
 
 	@Override
-	public boolean delete(int ID_Reserva) {
+	public boolean delete(int ID_Reserva) throws Exception {
 				
 		try {
 			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD	
 			
 			return c.createStatement().executeUpdate("DELETE FROM Reserva WHERE ID_Reserva = " + ID_Reserva) >= 1;
 				
-		} catch (SQLException e) {
-				
+		} catch (SQLException e) {			
 			e.printStackTrace();
-			return false;
-			
-		} catch (Exception e) {
-			
+			throw new Exception ("Problema con SQL de la BBDD");
+		} catch (Exception e) {		
 			e.printStackTrace();
-			return false;
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 		
 	}
 
 	@Override
-	public boolean update(TReserva tReserva) {
+	public boolean update(TReserva tReserva) throws Exception {
 		
 		try {
 			Connection c = (Connection)TransactionManager.getInstance().getTransaction().getResource(); // Obtenemos conexion con la BBDD
@@ -164,15 +161,12 @@ public class DAOReservaImp implements DAOReserva {
 			return c.createStatement().executeUpdate("UPDATE Reserva SET DNI = '" + tReserva.getDNI() + "' , Nombre = '" + tReserva.getNombre() + "' , Fecha = '" + tReserva.getFecha() + "' , Hora = '" + tReserva.getHora() + "' , Telefono = '" + tReserva.getTelefono() + "' , N_Comensales = " + tReserva.getN_Comensales() + " "
 													+ "WHERE ID_Reserva = " + tReserva.getID()) >= 1;
 				
-		} catch (SQLException e) {
-				
+		} catch (SQLException e) {			
 			e.printStackTrace();			
-			return false;
-			
+			throw new Exception ("Problema con SQL de la BBDD");
 		} catch (Exception e) {
-			
 			e.printStackTrace();
-			return false;
+			throw new Exception ("Error inesperado en la BBDD");
 		}
 		
 	}

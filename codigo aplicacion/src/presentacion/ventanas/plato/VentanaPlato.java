@@ -244,7 +244,7 @@ public class VentanaPlato extends JFrame {
 				
 			}
 		});
-		//acciones al pulsar sobre la cabecera, ordenar los platos
+		//acciones al pulsar sobre la cabecera, ordenar los platos con las querys
 		tbAlmacen.getTableHeader().addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {

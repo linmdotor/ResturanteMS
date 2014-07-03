@@ -13,7 +13,6 @@ import integracion.plato.DAOPlato;
 import integracion.query.FactoriaQuery;
 import integracion.query.imp.PlatoPorNombre;
 import integracion.query.imp.PlatoPorPrecio;
-import integracion.query.imp.PlatoPorStock;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
