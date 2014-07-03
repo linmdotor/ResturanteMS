@@ -10,6 +10,8 @@ package negocio.reserva;
 
 import java.util.ArrayList;
 
+import negocio.reserva.transfer.TReserva;
+
 public interface SAReserva {
 
 	public ArrayList<TReserva> obtenerReservas() throws Exception;

@@ -6,14 +6,15 @@
  *  
  */
 
-package integracion.factoria;
+package integracion.factoria.imp;
 
+import integracion.factoria.FactoriaIntegracion;
 import integracion.factura.DAOFactura;
-import integracion.factura.DAOFacturaImp;
+import integracion.factura.imp.DAOFacturaImp;
 import integracion.plato.DAOPlato;
-import integracion.plato.DAOPlatoImp;
+import integracion.plato.imp.DAOPlatoImp;
 import integracion.reserva.DAOReserva;
-import integracion.reserva.DAOReservaImp;
+import integracion.reserva.imp.DAOReservaImp;
 
 public class FactoriaIntegracionImp extends FactoriaIntegracion {
 

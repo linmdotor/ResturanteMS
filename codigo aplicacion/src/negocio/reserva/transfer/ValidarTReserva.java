@@ -6,7 +6,7 @@
  *  
  */
 
-package negocio.reserva;
+package negocio.reserva.transfer;
 
 public class ValidarTReserva {
 

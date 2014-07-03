@@ -1,8 +1,9 @@
 /**
  * 
  */
-package integracion.reserva;
+package integracion.reserva.imp;
 
+import integracion.reserva.DAOReserva;
 import integracion.transaccion.TransactionManager;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import negocio.reserva.TReserva;
+import negocio.reserva.transfer.TReserva;
 
 public class DAOReservaImp implements DAOReserva {
 

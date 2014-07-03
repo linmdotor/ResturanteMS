@@ -3,6 +3,8 @@
  */
 package integracion.query;
 
+import integracion.query.imp.FactoriaQueryImp;
+
 
 
 public abstract class FactoriaQuery {

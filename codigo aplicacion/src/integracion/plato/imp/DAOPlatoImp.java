@@ -6,9 +6,10 @@
  *  
  */
 
-package integracion.plato;
+package integracion.plato.imp;
 
-import integracion.query.FactoriaQueryImp;
+import integracion.plato.DAOPlato;
+import integracion.query.imp.FactoriaQueryImp;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
@@ -17,10 +18,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import negocio.factura.TFacturaPlato;
-import negocio.plato.TPlato;
-import negocio.plato.TPlatoBebida;
-import negocio.plato.TPlatoComida;
+import negocio.factura.transfer.TFacturaPlato;
+import negocio.plato.transfer.TPlato;
+import negocio.plato.transfer.TPlatoBebida;
+import negocio.plato.transfer.TPlatoComida;
 
 public class DAOPlatoImp implements DAOPlato {
 

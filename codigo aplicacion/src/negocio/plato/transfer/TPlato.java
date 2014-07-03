@@ -1,7 +1,7 @@
 /**
  * 
  */
-package negocio.plato;
+package negocio.plato.transfer;
 
 /*
  * CREATE TABLE IF NOT EXISTS `Plato`(

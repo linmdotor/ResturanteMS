@@ -1,8 +1,9 @@
 /**
  * 
  */
-package integracion.factura;
+package integracion.factura.imp;
 
+import integracion.factura.DAOFactura;
 import integracion.transaccion.TransactionManager;
 
 import java.sql.Connection;
@@ -10,8 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import negocio.factura.TFactura;
-import negocio.factura.TFacturaPlato;
+import negocio.factura.transfer.TFactura;
+import negocio.factura.transfer.TFacturaPlato;
 
 public class DAOFacturaImp implements DAOFactura {
 

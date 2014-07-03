@@ -10,8 +10,8 @@ package integracion.plato;
 
 import java.util.ArrayList;
 
-import negocio.factura.TFacturaPlato;
-import negocio.plato.TPlato;
+import negocio.factura.transfer.TFacturaPlato;
+import negocio.plato.transfer.TPlato;
 
 public interface DAOPlato {
 

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 import negocio.factoria.FactoriaNegocio;
 import negocio.factura.SAFactura;
-import negocio.factura.TFactura;
-import negocio.factura.TFacturaPlato;
+import negocio.factura.transfer.TFactura;
+import negocio.factura.transfer.TFacturaPlato;
 import negocio.plato.SAPlato;
-import negocio.plato.TPlato;
+import negocio.plato.transfer.TPlato;
 import presentacion.controlador.CMD;
 import presentacion.controlador.EnumComandos;
 import presentacion.controlador.RespuestaCMD;

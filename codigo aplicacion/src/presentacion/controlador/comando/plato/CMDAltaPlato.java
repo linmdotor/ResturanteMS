@@ -10,8 +10,8 @@ package presentacion.controlador.comando.plato;
 
 import negocio.factoria.FactoriaNegocio;
 import negocio.plato.SAPlato;
-import negocio.plato.TPlato;
-import negocio.plato.ValidarTPlato;
+import negocio.plato.transfer.TPlato;
+import negocio.plato.transfer.ValidarTPlato;
 import presentacion.controlador.CMD;
 import presentacion.controlador.EnumComandos;
 import presentacion.controlador.RespuestaCMD;

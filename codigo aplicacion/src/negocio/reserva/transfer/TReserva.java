@@ -1,7 +1,7 @@
 /**
  * 
  */
-package negocio.reserva;
+package negocio.reserva.transfer;
 
 /*
  * CREATE TABLE IF NOT EXISTS `Reserva`(

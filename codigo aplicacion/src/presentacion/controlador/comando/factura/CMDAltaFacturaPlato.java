@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import negocio.factoria.FactoriaNegocio;
 import negocio.factura.SAFactura;
-import negocio.factura.TFacturaPlato;
+import negocio.factura.transfer.TFacturaPlato;
 import presentacion.controlador.CMD;
 import presentacion.controlador.EnumComandos;
 import presentacion.controlador.RespuestaCMD;

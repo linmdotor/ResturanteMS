@@ -2,8 +2,8 @@ package presentacion.controlador.comando.factura;
 
 import negocio.factoria.FactoriaNegocio;
 import negocio.factura.SAFactura;
-import negocio.factura.TFactura;
-import negocio.factura.ValidarTFactura;
+import negocio.factura.transfer.TFactura;
+import negocio.factura.transfer.ValidarTFactura;
 import presentacion.controlador.CMD;
 import presentacion.controlador.EnumComandos;
 import presentacion.controlador.RespuestaCMD;

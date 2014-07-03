@@ -8,6 +8,7 @@
 
 package integracion.factoria;
 
+import integracion.factoria.imp.FactoriaIntegracionImp;
 import integracion.factura.DAOFactura;
 import integracion.plato.DAOPlato;
 import integracion.reserva.DAOReserva;

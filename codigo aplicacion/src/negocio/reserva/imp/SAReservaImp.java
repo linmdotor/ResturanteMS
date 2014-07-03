@@ -21,9 +21,9 @@ import java.util.Locale;
 
 import presentacion.controlador.EnumComandos;
 import presentacion.controlador.RespuestaCMD;
-import negocio.factura.TFactura;
+import negocio.factura.transfer.TFactura;
 import negocio.reserva.SAReserva;
-import negocio.reserva.TReserva;
+import negocio.reserva.transfer.TReserva;
 
 public class SAReservaImp implements SAReserva {
 

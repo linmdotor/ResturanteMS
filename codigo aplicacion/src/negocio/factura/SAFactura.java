@@ -5,6 +5,9 @@ package negocio.factura;
 
 import java.util.ArrayList;
 
+import negocio.factura.transfer.TFactura;
+import negocio.factura.transfer.TFacturaPlato;
+
 public interface SAFactura {
 	
 	public ArrayList<TFactura> obtenerFacturas() throws Exception;

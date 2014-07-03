@@ -2,7 +2,7 @@ package presentacion.controlador.comando.factura;
 
 import negocio.factoria.FactoriaNegocio;
 import negocio.factura.SAFactura;
-import negocio.factura.TFactura;
+import negocio.factura.transfer.TFactura;
 import negocio.plato.SAPlato;
 import presentacion.controlador.CMD;
 import presentacion.controlador.EnumComandos;

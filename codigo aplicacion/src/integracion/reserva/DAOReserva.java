@@ -10,7 +10,7 @@ package integracion.reserva;
 
 import java.util.ArrayList;
 
-import negocio.reserva.TReserva;
+import negocio.reserva.transfer.TReserva;
 
 public interface DAOReserva {
 

@@ -1,7 +1,10 @@
 /**
  * 
  */
-package integracion.transaccion.imp;
+package integracion.transaccion;
+
+import integracion.transaccion.imp.TransactionFactoryImp;
+import integracion.transaccion.imp.TransactionMySQL;
 
 public abstract class TransactionFactory {
 

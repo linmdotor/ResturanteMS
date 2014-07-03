@@ -10,10 +10,10 @@ package negocio.plato.imp;
 
 import integracion.factoria.FactoriaIntegracion;
 import integracion.plato.DAOPlato;
-import integracion.plato.PlatoPorNombre;
-import integracion.plato.PlatoPorPrecio;
-import integracion.plato.PlatoPorStock;
 import integracion.query.FactoriaQuery;
+import integracion.query.imp.PlatoPorNombre;
+import integracion.query.imp.PlatoPorPrecio;
+import integracion.query.imp.PlatoPorStock;
 import integracion.transaccion.Transaction;
 import integracion.transaccion.TransactionManager;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import negocio.plato.SAPlato;
-import negocio.plato.TPlato;
+import negocio.plato.transfer.TPlato;
 
 public class SAPlatoImp implements SAPlato {
 

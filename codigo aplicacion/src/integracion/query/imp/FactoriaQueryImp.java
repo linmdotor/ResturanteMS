@@ -1,11 +1,10 @@
 /**
  * 
  */
-package integracion.query;
+package integracion.query.imp;
 
-import integracion.plato.PlatoPorNombre;
-import integracion.plato.PlatoPorPrecio;
-import integracion.plato.PlatoPorStock;
+import integracion.query.FactoriaQuery;
+import integracion.query.Query;
 
 public class FactoriaQueryImp extends FactoriaQuery 
 {

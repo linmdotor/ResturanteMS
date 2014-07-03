@@ -10,6 +10,8 @@ package negocio.plato;
 
 import java.util.ArrayList;
 
+import negocio.plato.transfer.TPlato;
+
 public interface SAPlato {
 
 	public ArrayList<TPlato> obtenerPlatos() throws Exception;

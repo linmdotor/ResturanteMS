@@ -16,11 +16,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import negocio.factura.TFacturaPlato;
-import negocio.plato.TPlato;
-import negocio.plato.TPlatoBebida;
-import negocio.plato.TPlatoComida;
+import negocio.factura.transfer.TFacturaPlato;
 import negocio.plato.TipoPlato;
+import negocio.plato.transfer.TPlato;
+import negocio.plato.transfer.TPlatoBebida;
+import negocio.plato.transfer.TPlatoComida;
 import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
 import presentacion.ventanas.MiModeloTabla;

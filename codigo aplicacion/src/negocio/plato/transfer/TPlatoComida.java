@@ -1,4 +1,4 @@
-package negocio.plato;
+package negocio.plato.transfer;
 
 public class TPlatoComida extends TPlato{
 /*

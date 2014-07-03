@@ -1,7 +1,7 @@
 /**
  * 
  */
-package negocio.factura;
+package negocio.factura.transfer;
 
 public class ValidarTFactura {
 	

@@ -6,7 +6,7 @@
  *  
  */
 
-package negocio.plato;
+package negocio.plato.transfer;
 
 public class ValidarTPlato {
 

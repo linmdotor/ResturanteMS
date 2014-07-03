@@ -1,6 +1,7 @@
 package integracion.transaccion.imp;
 
 import integracion.transaccion.Transaction;
+import integracion.transaccion.TransactionFactory;
 import integracion.transaccion.TransactionManager;
 
 import java.util.concurrent.ConcurrentHashMap;

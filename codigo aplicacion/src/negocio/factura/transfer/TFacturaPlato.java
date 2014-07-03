@@ -1,7 +1,7 @@
 /**
  * 
  */
-package negocio.factura;
+package negocio.factura.transfer;
 
 /*
  * CREATE TABLE IF NOT EXISTS `Factura_Plato`(

@@ -5,8 +5,8 @@ package integracion.factura;
 
 import java.util.ArrayList;
 
-import negocio.factura.TFactura;
-import negocio.factura.TFacturaPlato;
+import negocio.factura.transfer.TFactura;
+import negocio.factura.transfer.TFacturaPlato;
 
 public interface DAOFactura {
 	

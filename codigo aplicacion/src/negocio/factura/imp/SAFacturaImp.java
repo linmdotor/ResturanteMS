@@ -14,8 +14,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import negocio.factura.SAFactura;
-import negocio.factura.TFactura;
-import negocio.factura.TFacturaPlato;
+import negocio.factura.transfer.TFactura;
+import negocio.factura.transfer.TFacturaPlato;
 
 public class SAFacturaImp implements SAFactura {
 

@@ -33,10 +33,10 @@ import javax.swing.event.ListSelectionListener;
 
 import negocio.ComprobadorEnteros;
 import negocio.ComprobadorFloat;
-import negocio.plato.TPlato;
-import negocio.plato.TPlatoBebida;
-import negocio.plato.TPlatoComida;
 import negocio.plato.TipoPlato;
+import negocio.plato.transfer.TPlato;
+import negocio.plato.transfer.TPlatoBebida;
+import negocio.plato.transfer.TPlatoComida;
 import presentacion.controlador.ApplicationController;
 import presentacion.controlador.EnumComandos;
 import presentacion.ventanas.MiModeloTabla;

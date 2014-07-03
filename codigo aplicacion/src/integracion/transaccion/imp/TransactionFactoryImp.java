@@ -3,6 +3,8 @@
  */
 package integracion.transaccion.imp;
 
+import integracion.transaccion.TransactionFactory;
+
 public class TransactionFactoryImp extends TransactionFactory 
 {
 	@Override

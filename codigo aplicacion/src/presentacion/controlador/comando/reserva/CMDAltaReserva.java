@@ -10,8 +10,8 @@ package presentacion.controlador.comando.reserva;
 
 import negocio.factoria.FactoriaNegocio;
 import negocio.reserva.SAReserva;
-import negocio.reserva.TReserva;
-import negocio.reserva.ValidarTReserva;
+import negocio.reserva.transfer.TReserva;
+import negocio.reserva.transfer.ValidarTReserva;
 import presentacion.controlador.CMD;
 import presentacion.controlador.EnumComandos;
 import presentacion.controlador.RespuestaCMD;

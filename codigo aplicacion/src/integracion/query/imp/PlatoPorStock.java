@@ -1,7 +1,7 @@
 /**
  * 
  */
-package integracion.plato;
+package integracion.query.imp;
 
 import integracion.query.Query;
 import integracion.transaccion.Transaction;
@@ -12,9 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import negocio.plato.TPlato;
-import negocio.plato.TPlatoBebida;
-import negocio.plato.TPlatoComida;
+import negocio.plato.transfer.TPlato;
+import negocio.plato.transfer.TPlatoBebida;
+import negocio.plato.transfer.TPlatoComida;
 
 
 public class PlatoPorStock implements Query {
